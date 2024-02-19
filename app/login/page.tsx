@@ -10,7 +10,7 @@ export default function Login() {
         로그인
       </div>
       <LoginForm />
-      <div className="flex flex-1 text-[24px] text-[#323232] items-center justify-center border-y-slate-200 border-2">
+      <div className="flex flex-1 text-[24px] text-[#175601] items-center justify-center border-y-slate-200 border-2">
         <div>회원가입</div>
       </div>
       <div className="flex-1 text-center mx-4 my-9">

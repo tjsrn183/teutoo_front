@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import visible from "../../../public/visible.png";
 import { zodLoginSchema } from "../zodLoginSchema";
-import InputField from "../../../components/InputField";
+import LightButton from "@/components/LightButton";
 
 export interface IFormData {
   errors: {
@@ -36,28 +36,33 @@ export default function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col mx-4 flex-1 justify-center my-8"
+      className="flex flex-col mx-4 flex-1 justify-center my-5"
     >
-      <InputField
-        label="이메일"
-        register={register}
-        name="email"
-        type="text"
-        placeholder="이메일을 입력하세요"
-      />
-      {formState?.errors.email && (
-        <p className="text-[#323232] font-bold">
-          {formState.errors.email.message}
-        </p>
-      )}
-      <div className="relative">
-        <InputField
-          label="비밀번호"
-          register={register}
-          name="password"
-          type={showPassword ? "text" : "password"}
-          placeholder="비밀번호를 입력하세요"
+      <label className="text-[#323232] flex flex-col font-bold my-1">
+        이메일
+        <input
+          {...register("email")}
+          type="text"
+          placeholder="이메일을 입력하세요"
+          className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
         />
+        {formState?.errors.email && (
+          <p className="text-[#323232] font-bold">
+            {formState.errors.email.message}
+          </p>
+        )}
+      </label>
+
+      <div className="relative my-3">
+        <label className="text-[#323232] flex flex-col font-bold">
+          비밀번호
+          <input
+            {...register("password")}
+            type={showPassword ? "text" : "password"}
+            placeholder="비밀번호를 입력하세요"
+            className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
+          />
+        </label>
         <button
           type="button"
           onClick={togglePasswordVisibility}
@@ -65,19 +70,14 @@ export default function LoginForm() {
         >
           <Image src={visible} alt="visible" width={20} height={20} />
         </button>
+        {formState.errors.password && (
+          <p className="text-[#323232] font-bold">
+            {formState.errors.password.message}
+          </p>
+        )}
       </div>
-      {formState.errors.password && (
-        <p className="text-[#323232] font-bold">
-          {formState.errors.password.message}
-        </p>
-      )}
 
-      <button
-        type="submit"
-        className="text-white bg-[#22C55E] rounded-[6px] w-full h-[48px]"
-      >
-        로그인
-      </button>
+      <LightButton type="submit">로그인</LightButton>
     </form>
   );
 }
