@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useForm, UseFormRegister } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import visible from "../../../public/visible.png";

@@ -6,7 +6,7 @@ interface ButtonProps {
   className?: string;
   type?: "button" | "submit" | "reset";
 }
-//
+
 export default function LightButton({
   children,
   onClick,
