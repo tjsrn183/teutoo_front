@@ -7,25 +7,17 @@ import visible from "../../../public/visible.png";
 import { zodLoginSchema } from "../zodLoginSchema";
 import LightButton from "@/components/LightButton";
 
-export interface IFormData {
-  errors: {
-    email: {
-      message: string;
-    };
-    password: {
-      message: string;
-    };
-  };
+export interface LoginFormData {
   password: string;
   email: string;
 }
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const { register, handleSubmit, formState } = useForm<IFormData>({
+  const { register, handleSubmit, formState } = useForm<LoginFormData>({
     resolver: zodResolver(zodLoginSchema),
   });
 
-  const onSubmit = (data: IFormData) => {
+  const onSubmit = (data: LoginFormData) => {
     console.log("ㅋㅋdata", data);
   };
 
