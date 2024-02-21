@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, ChangeEventHandler } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { zodJoinSchema } from "../zodJoinSchema";
@@ -7,6 +7,7 @@ import Image from "next/image";
 import visible from "../../../public/join/visible.png";
 import Button from "@/components/Button";
 import plus from "../../../public/join/plus.png";
+import Link from "next/link";
 
 interface JoinFormData {
   email: string;
@@ -19,6 +20,11 @@ interface JoinFormData {
 
 export default function JoinForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const imageRef = useRef<HTMLInputElement>(null);
+  const [selectedImage, setSelectedImage] = useState<string>();
+  const onClickPictureButton = () => {
+    imageRef.current?.click();
+  };
   const {
     register,
     handleSubmit,
@@ -32,14 +38,47 @@ export default function JoinForm() {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
+  const handleImageChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = () => {
+        setSelectedImage(reader.result as string);
+      };
+    }
+  };
   return (
-    <>
-      <div className="rounded-full w-24 h-24 font-black bg-slate-500 relative">
-        <div className="absolute right-0 bottom-0">
-          <Image src={plus} alt="profile_picture" width={20} height={20} />
+    <div className="w-full">
+      <div className="flex flex-row justify-center">
+        {selectedImage ? (
+          <img
+            src={selectedImage}
+            alt="profile_image"
+            className="rounded-full w-24 h-24"
+          />
+        ) : (
+          <div className="rounded-full w-24 h-24 font-black bg-slate-500 " />
+        )}
+        <div className="flex items-end">
+          <input
+            type="file"
+            accept="image/*"
+            hidden
+            ref={imageRef}
+            onChange={handleImageChange}
+          />
+          <button className="focus:bg-zinc-400 rounded-full">
+            <Image
+              src={plus}
+              alt="profile_picture"
+              width={20}
+              height={20}
+              onClick={onClickPictureButton}
+            />
+          </button>
         </div>
       </div>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col mx-4 flex-1  my-5"
@@ -48,7 +87,7 @@ export default function JoinForm() {
           이메일
           <input
             type="text"
-            placeholder="Email"
+            placeholder="이메일을 입력하세요."
             {...register("email")}
             className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
           />
@@ -61,7 +100,7 @@ export default function JoinForm() {
           이름
           <input
             type="text"
-            placeholder="Name"
+            placeholder="이름을 입력하세요."
             {...register("name")}
             className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
           />
@@ -76,7 +115,7 @@ export default function JoinForm() {
             비밀번호
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder="비밀번호를 입력하세요."
               {...register("password")}
               className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
             />
@@ -100,7 +139,7 @@ export default function JoinForm() {
             비밀번호 확인
             <input
               type={showPassword ? "text" : "password"}
-              placeholder="Confirm Password"
+              placeholder="비밀번호를 한번더 입력하세요."
               {...register("passwordConfirmation")}
               className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
             />
@@ -123,7 +162,7 @@ export default function JoinForm() {
           주소
           <input
             type="text"
-            placeholder="Address"
+            placeholder="주소를 입력하세요."
             {...register("address")}
             className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
           />
@@ -141,11 +180,13 @@ export default function JoinForm() {
         {errors.isTrainer && (
           <p className="text-[#323232] font-bold">{errors.isTrainer.message}</p>
         )}
-        <Button type="submit">주소찾기</Button>
+        <Link href="../../join/locationModal">
+          <Button>주소찾기</Button>
+        </Link>
         <Button type="submit" backgroundColor="bg-[#1C743C]" className="mt-2.5">
           회원가입
         </Button>
       </form>
-    </>
+    </div>
   );
 }
