@@ -65,7 +65,7 @@ export default function JoinForm() {
         <label className="text-[#323232] flex flex-col font-bold">
           비밀번호
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             {...register("password")}
             className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
@@ -87,7 +87,7 @@ export default function JoinForm() {
         <label className="text-[#323232] flex flex-col font-bold">
           비밀번호 확인
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Confirm Password"
             {...register("passwordConfirmation")}
             className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
