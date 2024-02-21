@@ -6,7 +6,7 @@ export default function Join() {
       <h1 className="text-[#323232] text-center text-[32px] font-bold mt-9">
         회원가입
       </h1>
-      <div className="rounded-full w-24 h-24 font-black bg-slate-500"></div>
+
       <JoinForm />
     </div>
   );

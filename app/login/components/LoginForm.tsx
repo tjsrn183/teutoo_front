@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useForm, UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import visible from "../../../public/visible.png";
+import visible from "../../../public/join/visible.png";
 import { zodLoginSchema } from "../zodLoginSchema";
-import LightButton from "@/components/LightButton";
+import Button from "@/components/Button";
 
 export interface LoginFormData {
   password: string;
@@ -69,7 +69,7 @@ export default function LoginForm() {
         )}
       </div>
 
-      <LightButton type="submit">로그인</LightButton>
+      <Button type="submit">로그인</Button>
     </form>
   );
 }
