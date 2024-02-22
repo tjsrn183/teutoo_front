@@ -8,7 +8,7 @@ import visible from "../../../public/join/visible.png";
 import Button from "@/components/Button";
 import plus from "../../../public/join/plus.png";
 import Link from "next/link";
-
+import { locationStore } from "@/store/locationStore";
 interface JoinFormData {
   email: string;
   name: string;
@@ -19,6 +19,7 @@ interface JoinFormData {
 }
 
 export default function JoinForm() {
+  const { location, setLocation } = locationStore();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const imageRef = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<string>();
@@ -166,6 +167,7 @@ export default function JoinForm() {
             {...register("address")}
             className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
             disabled
+            value={location}
           />
         </label>
 
