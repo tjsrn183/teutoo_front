@@ -165,6 +165,7 @@ export default function JoinForm() {
             placeholder="주소를 입력하세요."
             {...register("address")}
             className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
+            disabled
           />
         </label>
 
