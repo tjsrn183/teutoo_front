@@ -5,6 +5,8 @@ interface ButtonProps {
   onClick?: () => void;
   className?: string;
   type?: "button" | "submit" | "reset";
+  backgroundColor?: string;
+  height?: string;
 }
 //
 export default function LightButton({
@@ -12,11 +14,13 @@ export default function LightButton({
   onClick,
   className = "",
   type = "button",
+  backgroundColor = "bg-[#22C55E]",
+  height = "h-[48px]",
 }: ButtonProps) {
   return (
     <button
       type={type}
-      className={`text-white bg-[#22C55E] rounded-[6px] w-full h-[48px] ${className}`}
+      className={`text-white rounded-[6px] w-full ${height}  ${backgroundColor} ${className}`}
       onClick={onClick}
     >
       {children}
