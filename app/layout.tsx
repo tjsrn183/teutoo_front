@@ -4,6 +4,7 @@ import "./globals.css";
 import Provider from "@/components/provider";
 import { Suspense } from "react";
 import BottomNavigationBar from "@/components/BottomNavigationBar";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Script
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&autoload=false`}
+          strategy="beforeInteractive"
+        />
         <Provider>
           <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
           <BottomNavigationBar />
