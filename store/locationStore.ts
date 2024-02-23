@@ -6,4 +6,5 @@ interface LocationState {
 export const locationStore = create<LocationState>((set) => ({
   location: "",
   setLocation: (newLocation) => set({ location: newLocation }),
+  resetLocation: () => set({ location: "" }),
 }));
