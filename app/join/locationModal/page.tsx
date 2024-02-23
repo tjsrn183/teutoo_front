@@ -1,12 +1,12 @@
+import Map from "../components/KakaoMap";
 export default function Location() {
   return (
-    <>
-      <div className="fixed inset-0 z-40 bg-gray-700 opacity-50"></div>
-      <div className="fixed inset-0 z-50 flex items-center justify-center">
-        <div className="w-2/3 h-1/2 text-center bg-white rounded-[6px] shadow-2xl text-black">
-          원래경로
+    <div className="relative w-screen h-screen flex flex-col justify-center items-center bg-gray-200 ">
+      <div className="relative  w-4/5 h-2/3 bg-white rounded-3xl drop-shadow-2xl p-5">
+        <div className="w-full h-full ">
+          <Map />
         </div>
       </div>
-    </>
+    </div>
   );
 }

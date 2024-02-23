@@ -51,9 +51,9 @@ export default function Map() {
   };
   return (
     <div className="w-full h-full flex flex-col">
-      <div ref={mapRef} className="w-full flex-1"></div>
+      <div ref={mapRef} className="w-full flex-1 rounded-[6px]"></div>
       <div className="w-full flex-1 flex flex-col h-full justify-evenly">
-        <div>
+        <div className="z-10">
           <LocationInputField
             setAddress={setAddress}
             searchAddress={searchAddress}

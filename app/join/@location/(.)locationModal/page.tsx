@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import close from "../../../../public/join/close.png";
-import KakaoMap from "../../components/KaKaoMap";
+import Map from "../../components/KakaoMap";
 
 export default function Location() {
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function Location() {
             </button>
           </div>
 
-          <KakaoMap />
+          <Map />
         </div>
       </div>
     </>

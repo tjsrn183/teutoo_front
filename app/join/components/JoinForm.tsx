@@ -95,7 +95,7 @@ export default function JoinForm() {
         </label>
 
         {errors.email && (
-          <p className="text-[#323232] font-bold">{errors.email.message}</p>
+          <p className="text-red-600 font-bold">{errors.email.message}</p>
         )}
         <label className="text-[#323232] flex flex-col font-bold my-1">
           이름
@@ -108,7 +108,7 @@ export default function JoinForm() {
         </label>
 
         {errors.name && (
-          <p className="text-[#323232] font-bold">{errors.name.message}</p>
+          <p className="text-red-600 font-bold">{errors.name.message}</p>
         )}
 
         <div className="relative my-3">
@@ -129,9 +129,7 @@ export default function JoinForm() {
             <Image src={visible} alt="visible" width={20} height={20} />
           </button>
           {errors.password && (
-            <p className="text-[#323232] font-bold">
-              {errors.password.message}
-            </p>
+            <p className="text-red-600 font-bold">{errors.password.message}</p>
           )}
         </div>
 
@@ -153,7 +151,7 @@ export default function JoinForm() {
             <Image src={visible} alt="visible" width={20} height={20} />
           </button>
           {errors.passwordConfirmation && (
-            <p className="text-[#323232] font-bold">
+            <p className="text-red-600 font-bold">
               {errors.passwordConfirmation.message}
             </p>
           )}
@@ -172,7 +170,7 @@ export default function JoinForm() {
         </label>
 
         {errors.address && (
-          <p className="text-[#323232] font-bold">{errors.address.message}</p>
+          <p className="text-red-600 font-bold">{errors.address.message}</p>
         )}
         <div>
           <input type="checkbox" id="isTrainer" {...register("isTrainer")} />
@@ -181,7 +179,7 @@ export default function JoinForm() {
           </label>
         </div>
         {errors.isTrainer && (
-          <p className="text-[#323232] font-bold">{errors.isTrainer.message}</p>
+          <p className="text-red-600 font-bold">{errors.isTrainer.message}</p>
         )}
         <Link href="../../join/locationModal">
           <Button>주소찾기</Button>
@@ -189,6 +187,7 @@ export default function JoinForm() {
         <Button type="submit" backgroundColor="bg-[#1C743C]" className="mt-2.5">
           회원가입
         </Button>
+        <div className=" pb-10" />
       </form>
     </div>
   );
