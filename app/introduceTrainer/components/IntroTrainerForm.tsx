@@ -94,7 +94,9 @@ export default function IntroTrainerForm() {
       {errors.content && (
         <p className="text-red-600 font-bold">{errors.content.message}</p>
       )}
-      <div className="my-3">자격 증명</div>
+
+      <span className="my-3 text-sm">자격 증명</span>
+
       <div className="flex flex-wrap">
         {pictureArr.map(
           (v, index) =>
