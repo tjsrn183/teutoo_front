@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, ChangeEventHandler } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { zodJoinSchema } from "../zodJoinSchema";
 import Image from "next/image";
@@ -9,6 +9,7 @@ import Button from "@/components/Button";
 import plus from "../../../public/join/plus.png";
 import Link from "next/link";
 import { locationStore } from "@/store/locationStore";
+import JoinInputField from "./JoinInputFiled";
 interface JoinFormData {
   email: string;
   name: string;
@@ -84,43 +85,32 @@ export default function JoinForm() {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col mx-4 flex-1  my-5"
       >
-        <label className="text-[#323232] flex flex-col font-bold my-1">
-          이메일
-          <input
-            type="text"
-            placeholder="이메일을 입력하세요."
-            {...register("email")}
-            className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
-          />
-        </label>
+        <JoinInputField
+          title="이메일"
+          placeholder="이메일을 입력하세요"
+          register={{ ...register("email") }}
+        />
 
         {errors.email && (
           <p className="text-red-600 font-bold">{errors.email.message}</p>
         )}
-        <label className="text-[#323232] flex flex-col font-bold my-1">
-          이름
-          <input
-            type="text"
-            placeholder="이름을 입력하세요."
-            {...register("name")}
-            className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
-          />
-        </label>
+        <JoinInputField
+          title="이름"
+          placeholder="이름을 입력하세요"
+          register={{ ...register("name") }}
+        />
 
         {errors.name && (
           <p className="text-red-600 font-bold">{errors.name.message}</p>
         )}
 
         <div className="relative my-3">
-          <label className="text-[#323232] flex flex-col font-bold">
-            비밀번호
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="비밀번호를 입력하세요."
-              {...register("password")}
-              className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
-            />
-          </label>
+          <JoinInputField
+            title="비밀번호"
+            placeholder="비밀번호를 입력하세요"
+            register={{ ...register("password") }}
+            type={showPassword ? "text" : "password"}
+          />
           <button
             type="button"
             onClick={togglePasswordVisibility}
@@ -134,15 +124,13 @@ export default function JoinForm() {
         </div>
 
         <div className="relative my-3">
-          <label className="text-[#323232] flex flex-col font-bold">
-            비밀번호 확인
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="비밀번호를 한번더 입력하세요."
-              {...register("passwordConfirmation")}
-              className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
-            />
-          </label>
+          <JoinInputField
+            title="비밀번호 확인"
+            placeholder="비밀번호를 한번더 입력하세요."
+            register={{ ...register("passwordConfirmation") }}
+            type={showPassword ? "text" : "password"}
+          />
+
           <button
             type="button"
             onClick={togglePasswordVisibility}
@@ -157,18 +145,13 @@ export default function JoinForm() {
           )}
         </div>
 
-        <label className="text-[#323232] flex flex-col font-bold my-1">
-          주소
-          <input
-            type="text"
-            placeholder="주소를 입력하세요."
-            {...register("address")}
-            className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
-            disabled
-            value={location}
-          />
-        </label>
-
+        <JoinInputField
+          title="주소"
+          placeholder="주소를 입력하세요."
+          register={{ ...register("address") }}
+          value={location}
+          disabled={true}
+        />
         {errors.address && (
           <p className="text-red-600 font-bold">{errors.address.message}</p>
         )}
