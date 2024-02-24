@@ -13,7 +13,7 @@ export default function TextField({
   console.log("zodregister", register);
   return (
     <label className="text-black flex flex-col my-2">
-      <span className="text-sm">{title}</span>
+      <span className="text-sm font-semibold">{title}</span>
 
       <input
         type="text"

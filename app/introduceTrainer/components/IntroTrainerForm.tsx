@@ -67,7 +67,7 @@ export default function IntroTrainerForm() {
   };
   return (
     <form
-      className="flex flex-col mt-[70px] mx-3 border border-[#DDE1E6] rounded-[12px] py-3 px-2 "
+      className="flex flex-col mt-[70px] mx-3 border-2 border-[#DDE1E6] rounded-[12px] py-3 px-2 "
       onSubmit={handleSubmit(onSubmit)}
     >
       <TextField
@@ -95,7 +95,7 @@ export default function IntroTrainerForm() {
         <p className="text-red-600 font-bold">{errors.content.message}</p>
       )}
 
-      <span className="my-3 text-sm">자격 증명</span>
+      <span className="my-3 text-sm font-semibold">자격 증명</span>
 
       <div className="flex flex-wrap">
         {pictureArr.map(
