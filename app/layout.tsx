@@ -26,8 +26,10 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
         <Provider>
-          <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-          <BottomNavigationBar />
+          <div className=" md:max-w-md mx-auto">
+            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+            <BottomNavigationBar />
+          </div>
         </Provider>
       </body>
     </html>
