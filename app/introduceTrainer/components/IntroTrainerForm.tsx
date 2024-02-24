@@ -5,6 +5,14 @@ import TextArea from "@/components/formElement/TextArea";
 import { useRef, useState, ChangeEventHandler } from "react";
 import Image from "next/image";
 import close from "@/public/join/close.png";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { zodTrainerSchema } from "../zodTrainerSchema";
+import { useForm } from "react-hook-form";
+interface TrainerInfo {
+  simpleInfo: string;
+  title: string;
+  content: string;
+}
 export default function IntroTrainerForm() {
   const imgRef = useRef<HTMLInputElement>(null);
   const [pictureArr, setPictureArr] = useState<
@@ -12,6 +20,16 @@ export default function IntroTrainerForm() {
   >([]);
   const onClickPicture = () => {
     imgRef.current?.click();
+  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TrainerInfo>({
+    resolver: zodResolver(zodTrainerSchema),
+  });
+  const onSubmit = () => {
+    console.log("submit");
   };
   const onChangePicture: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files) {
@@ -48,10 +66,34 @@ export default function IntroTrainerForm() {
     });
   };
   return (
-    <form className="flex flex-col mt-[70px] mx-3 border border-[#DDE1E6] rounded-[12px] py-3 px-2 ">
-      <TextField title="간단 소개" placeholder="본인을 간단히 소개하세요" />
-      <TextField title="상세 소개 제목" placeholder="제목을 입력하세요" />
-      <TextArea title="상세 소개 내용" placeholder="내용을 입력하세요" />
+    <form
+      className="flex flex-col mt-[70px] mx-3 border border-[#DDE1E6] rounded-[12px] py-3 px-2 "
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <TextField
+        title="간단 소개"
+        placeholder="본인을 간단히 소개하세요"
+        register={{ ...register("simpleInfo") }}
+      />
+      {errors.simpleInfo && (
+        <p className="text-red-600 font-bold">{errors.simpleInfo.message}</p>
+      )}
+      <TextField
+        title="상세 소개 제목"
+        placeholder="제목을 입력하세요"
+        register={{ ...register("title") }}
+      />
+      {errors.title && (
+        <p className="text-red-600 font-bold">{errors.title.message}</p>
+      )}
+      <TextArea
+        title="상세 소개 내용"
+        placeholder="내용을 입력하세요"
+        register={{ ...register("content") }}
+      />
+      {errors.content && (
+        <p className="text-red-600 font-bold">{errors.content.message}</p>
+      )}
       <div className="my-3">자격 증명</div>
       <div className="flex flex-wrap">
         {pictureArr.map(
