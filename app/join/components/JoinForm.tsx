@@ -10,24 +10,28 @@ import plus from "../../../public/join/plus.png";
 import Link from "next/link";
 import { locationStore } from "@/store/locationStore";
 import JoinInputField from "./JoinInputFiled";
-interface JoinFormData {
+import { useSignup } from "../lib/useSignup";
+export interface JoinFormData {
   email: string;
   name: string;
   password: string;
-  passwordConfirmation: string;
+  passwordConfirmation?: string;
   address: string;
-  isTrainer: boolean;
+  sortRole: boolean;
 }
 
 export default function JoinForm() {
+  const mutation = useSignup();
   const { location, setLocation } = locationStore();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const imageRef = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<string>();
+  const [clickSubmit, setClickSubmit] = useState<boolean>(false);
   const onClickPictureButton = () => {
     imageRef.current?.click();
   };
   const {
+    getValues,
     register,
     handleSubmit,
     formState: { errors },
@@ -35,7 +39,12 @@ export default function JoinForm() {
     resolver: zodResolver(zodJoinSchema),
   });
   const onSubmit = (data: JoinFormData) => {
-    console.log(data);
+    setClickSubmit(true);
+    if (location) {
+      console.log("데이타야~", data);
+      const { email, name, password, sortRole } = data;
+      mutation.mutate({ address: location, email, name, password, sortRole });
+    }
   };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -145,24 +154,27 @@ export default function JoinForm() {
           )}
         </div>
 
-        <JoinInputField
-          title="주소"
-          placeholder="주소를 입력하세요."
-          register={{ ...register("address") }}
-          value={location}
-          disabled={true}
-        />
-        {errors.address && (
-          <p className="text-red-600 font-bold">{errors.address.message}</p>
+        <label className="text-[#323232] flex flex-col font-bold my-1">
+          주소
+          <input
+            type="text"
+            placeholder="주소를 입력하세요"
+            className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
+            value={location}
+            disabled
+          />
+        </label>
+        {clickSubmit && location.length === 0 && (
+          <p className="text-red-600 font-bold">주소를 입력하세요</p>
         )}
         <div>
-          <input type="checkbox" id="isTrainer" {...register("isTrainer")} />
+          <input type="checkbox" id="isTrainer" {...register("sortRole")} />
           <label htmlFor="isTrainer" className="text-[#323232]">
             트레이너 입니다.
           </label>
         </div>
-        {errors.isTrainer && (
-          <p className="text-red-600 font-bold">{errors.isTrainer.message}</p>
+        {errors.sortRole && (
+          <p className="text-red-600 font-bold">{errors.sortRole.message}</p>
         )}
         <Link href="../../join/locationModal">
           <Button>주소찾기</Button>
