@@ -31,7 +31,6 @@ export default function JoinForm() {
     imageRef.current?.click();
   };
   const {
-    getValues,
     register,
     handleSubmit,
     formState: { errors },
@@ -41,7 +40,6 @@ export default function JoinForm() {
   const onSubmit = (data: JoinFormData) => {
     setClickSubmit(true);
     if (location) {
-      console.log("데이타야~", data);
       const { email, name, password, sortRole } = data;
       mutation.mutate({ address: location, email, name, password, sortRole });
     }

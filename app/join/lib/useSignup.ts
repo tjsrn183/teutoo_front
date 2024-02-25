@@ -5,7 +5,6 @@ import { JoinFormData } from "../components/JoinForm";
 export const useSignup = () => {
   return useMutation({
     mutationFn: async (data: JoinFormData) => {
-      console.log("보내는함수에서 데이타아", data, { data });
       return await axios.post("http://43.201.184.37/join", data, {
         withCredentials: true,
       });
