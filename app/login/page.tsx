@@ -5,7 +5,7 @@ import LoginForm from "./components/LoginForm";
 
 export default function Login() {
   return (
-    <div className="flex flex-col h-screen bg-white max-w-md mx-auto">
+    <div className="flex flex-col h-screen bg-white mx-auto">
       <h1 className="flex-1 flex justify-center text-[#323232]  text-center items-center text-[32px] font-bold">
         로그인
       </h1>
