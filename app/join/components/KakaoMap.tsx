@@ -4,7 +4,6 @@ import LocationInputField from "./LocationInputField";
 import Button from "../../../components/Button";
 import { locationStore } from "@/store/locationStore";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
 
 interface IAddress {
   address_name: string;
@@ -12,7 +11,6 @@ interface IAddress {
   y: string;
 }
 export default function Map() {
-  const { setValue, watch, setFocus } = useForm();
   const router = useRouter();
   const [address, setAddress] = useState("");
   const [map, setMap] = useState<any>();
@@ -51,7 +49,6 @@ export default function Map() {
   };
 
   const onClickLocation = () => {
-    setValue("address", address);
     setLocation(address);
     router.back();
   };
