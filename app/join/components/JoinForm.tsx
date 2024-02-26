@@ -30,6 +30,9 @@ export default function JoinForm() {
   const onClickPictureButton = () => {
     imageRef.current?.click();
   };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const {
     register,
     handleSubmit,
@@ -44,9 +47,7 @@ export default function JoinForm() {
       mutation.mutate({ address: location, email, name, password, sortRole });
     }
   };
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+
   const handleImageChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
