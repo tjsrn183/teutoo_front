@@ -12,12 +12,13 @@ import { locationStore } from "@/store/locationStore";
 export default function Join() {
   const mutation = useSignup();
   const [clickSubmit, setClickSubmit] = useState<boolean>(false);
-  const { location, setLocation } = locationStore();
+  const { location, setLocation, resetLocation } = locationStore();
   const onSubmit = (data: JoinFormData) => {
     setClickSubmit(true);
     if (location) {
       const { email, name, password, sortRole } = data;
       mutation.mutate({ address: location, email, name, password, sortRole });
+      resetLocation();
     }
   };
 
@@ -45,6 +46,7 @@ export default function Join() {
         />
         <ButtonBundle />
       </form>
+      <div className=" pb-10" />
     </div>
   );
 }
