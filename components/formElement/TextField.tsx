@@ -2,7 +2,7 @@ import { UseFormRegisterReturn } from "react-hook-form";
 interface TextFieldProps {
   title: string;
   placeholder: string;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
 }
 
 export default function TextField({

@@ -38,7 +38,7 @@ export default function EditInfoPage() {
     <div className="bg-white">
       <div className="flex justify-start items-center ">
         <button type="button" onClick={onClickBack}>
-          <Image src={back} alt="back" />
+          <Image src={back} alt="back" width={30} height={30} />
         </button>
         <div className=" font-semibold text-l ">회원 정보 수정</div>
       </div>
