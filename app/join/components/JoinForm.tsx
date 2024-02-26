@@ -161,8 +161,6 @@ export default function JoinForm({
       {errors.sortRole && (
         <p className="text-red-600 font-bold">{errors.sortRole.message}</p>
       )}
-
-      <div className=" pb-10" />
     </div>
   );
 }
