@@ -19,14 +19,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className=" bg-white">
+    <html lang="en" className="md:max-w-md bg-white md:m-auto">
       <body className={inter.className}>
         <Script
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&autoload=false&libraries=services`}
           strategy="beforeInteractive"
         />
         <Provider>
-          <div className=" md:max-w-md mx-auto ">
+          <div className="  bg-white md:drop-shadow-2xl ">
             <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
             <BottomNavigationBar />
           </div>
