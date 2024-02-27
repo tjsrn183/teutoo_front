@@ -13,22 +13,28 @@ export interface JoinFormData {
   passwordConfirmation?: string;
   address: string;
   sortRole: boolean;
+  profileImage: File | null | undefined;
 }
 interface JoinFormProps {
   register: UseFormRegister<JoinFormData>;
   errors: FieldErrors<JoinFormData>;
   clickSubmit: boolean;
   location: string;
+  selectedImage: string | undefined;
+  setSelectedImage: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setImageTarget: React.Dispatch<React.SetStateAction<File | null | undefined>>;
 }
 export default function JoinForm({
   register,
   errors,
   location,
   clickSubmit,
+  selectedImage,
+  setSelectedImage,
+  setImageTarget,
 }: JoinFormProps) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const imageRef = useRef<HTMLInputElement>(null);
-  const [selectedImage, setSelectedImage] = useState<string>();
 
   const onClickPictureButton = () => {
     imageRef.current?.click();
@@ -44,6 +50,7 @@ export default function JoinForm({
       reader.onload = () => {
         setSelectedImage(reader.result as string);
       };
+      setImageTarget(e.target.files[0]);
     }
   };
 
@@ -67,7 +74,7 @@ export default function JoinForm({
             ref={imageRef}
             onChange={handleImageChange}
           />
-          <button className="focus:bg-zinc-400 rounded-full">
+          <button className="focus:bg-zinc-400 rounded-full" type="button">
             <Image
               src={plus}
               alt="profile_picture"

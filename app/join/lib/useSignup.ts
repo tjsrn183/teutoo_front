@@ -1,22 +1,24 @@
+import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { JoinFormData } from "../components/JoinForm";
-
+import { locationStore } from "@/store/locationStore";
 export const useSignup = () => {
+  const router = useRouter();
+  const { resetLocation } = locationStore();
   return useMutation({
-    mutationFn: async (data: JoinFormData) => {
+    mutationFn: async (data: FormData) => {
       return await axios.post("http://43.201.184.37/join", data, {
         withCredentials: true,
       });
     },
     async onSuccess(response) {
-      console.log("response", response);
+      router.replace("/");
+      setTimeout(() => {
+        alert("회원가입이 완료되었습니다.");
+      }, 1000);
     },
     onError(error) {
       console.log("error", error);
     },
   });
 };
-
-//http://43.201.184.37/join
-//http://43.201.184.37/join?name=hwnagseongu&email=teotuu@naver.com&password=123456&address=seoggusldjfkjsd&sortRole=false

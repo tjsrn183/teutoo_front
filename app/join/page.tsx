@@ -12,13 +12,25 @@ import { locationStore } from "@/store/locationStore";
 export default function Join() {
   const mutation = useSignup();
   const [clickSubmit, setClickSubmit] = useState<boolean>(false);
-  const { location, setLocation, resetLocation } = locationStore();
+  const { location } = locationStore();
+  const [selectedImage, setSelectedImage] = useState<string>();
+  const [imgTarget, setImageTarget] = useState<File | null>();
+
   const onSubmit = (data: JoinFormData) => {
     setClickSubmit(true);
     if (location) {
       const { email, name, password, sortRole } = data;
-      mutation.mutate({ address: location, email, name, password, sortRole });
-      resetLocation();
+      const formdata = new FormData();
+      formdata.append("address", location);
+      formdata.append("email", email);
+      formdata.append("name", name);
+      formdata.append("password", password);
+      formdata.append("sortRole", sortRole.toString());
+      if (imgTarget) {
+        formdata.append("profileImage", imgTarget);
+      }
+
+      mutation.mutate(formdata);
     }
   };
 
@@ -43,6 +55,9 @@ export default function Join() {
           errors={errors}
           location={location}
           clickSubmit={clickSubmit}
+          selectedImage={selectedImage}
+          setSelectedImage={setSelectedImage}
+          setImageTarget={setImageTarget}
         />
         <ButtonBundle />
       </form>
