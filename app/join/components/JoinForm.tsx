@@ -48,7 +48,7 @@ export default function JoinForm({
   };
 
   return (
-    <div className="w-full">
+    <div>
       <div className="flex flex-row justify-center">
         {selectedImage ? (
           <img

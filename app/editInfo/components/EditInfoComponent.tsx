@@ -35,7 +35,7 @@ export default function EditInfoPage() {
     resolver: zodResolver(zodEditInfoSchema),
   });
   return (
-    <div className="bg-white">
+    <div className="bg-white w-full">
       <div className="flex justify-start items-center ">
         <button type="button" onClick={onClickBack}>
           <Image src={back} alt="back" width={30} height={30} />
@@ -43,10 +43,7 @@ export default function EditInfoPage() {
         <div className=" font-semibold text-l ">회원 정보 수정</div>
       </div>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col flex-1  my-5 w-screen px-4"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col px-4 ">
         <JoinForm
           register={register}
           errors={errors}
@@ -55,7 +52,6 @@ export default function EditInfoPage() {
         />
         <ButtonBundle />
       </form>
-      <div className=" pb-10 " />
     </div>
   );
 }

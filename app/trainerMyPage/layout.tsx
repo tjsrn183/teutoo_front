@@ -7,9 +7,9 @@ export default function trainerMyPageLayout({
   children: ReactNode;
 }) {
   return (
-    <>
+    <div className=" md:max-w-md">
       <Header />
       <div>{children}</div>
-    </>
+    </div>
   );
 }

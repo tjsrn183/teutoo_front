@@ -8,7 +8,7 @@ import trainerInfo from "@/public/trainerMyPageIcons/trainerInfo.png";
 
 export default function TrainerMyPage() {
   return (
-    <div className=" bg-white w-screen h-screen">
+    <div className=" bg-white h-screen">
       <div className=" pt-14 text-black px-2">
         <div className="font-bold">마이페이지</div>
 
