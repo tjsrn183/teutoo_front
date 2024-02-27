@@ -36,7 +36,7 @@ export default function Join() {
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col flex-1  my-5 w-screen px-4"
+        className="flex flex-col flex-1  my-5 w-screen px-4 md:w-full"
       >
         <JoinForm
           register={register}

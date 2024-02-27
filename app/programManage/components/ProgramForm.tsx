@@ -9,6 +9,7 @@ import { useState } from "react";
 export const ProgramForm = () => {
   const [count, setCount] = useState(1);
   const [pictureArr, setPictureArr] = useState<Array<Picture>>([]);
+
   return (
     <form className="flex flex-col border border-[#DDE1E6] m-2  rounded-[12px] p-3">
       <TextField
@@ -16,7 +17,7 @@ export const ProgramForm = () => {
         placeholder="제목을 입력하세요"
       />
       <TextArea title="내용을 입력해주세요" placeholder="내용을 입력하세요" />
-      <TextField title="가격" placeholder="가격을 입력하세요" />
+      <TextField title="가격" placeholder="가격을 입력하세요" type="number" />
       <label className="text-sm font-semibold text-black flex flex-col">
         횟수
         <NumberButton setCount={setCount} count={count} />

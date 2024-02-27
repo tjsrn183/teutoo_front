@@ -9,12 +9,11 @@ export default function editInfoLayout({
   editLocation: ReactNode;
 }) {
   return (
-    <>
+    <div>
       <Header />
-      <div>
-        {editLocation}
-        {children}
-      </div>
-    </>
+
+      {editLocation}
+      {children}
+    </div>
   );
 }

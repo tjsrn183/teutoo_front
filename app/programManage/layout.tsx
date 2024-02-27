@@ -7,7 +7,7 @@ export default function ProgramManagementLayout({
   children: ReactNode;
 }) {
   return (
-    <div className="bg-white">
+    <div className="bg-white ">
       <Header />
       <div>{children}</div>
     </div>
