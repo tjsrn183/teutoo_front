@@ -1,5 +1,6 @@
 "use client";
 import { Dispatch, SetStateAction } from "react";
+import React from "react";
 interface CountProps {
   setCount: Dispatch<SetStateAction<number>>;
   count: number;
