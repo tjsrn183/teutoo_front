@@ -13,7 +13,7 @@ export const NumberButton = ({ setCount, count }: CountProps) => {
     setCount((prevCount) => prevCount + 1);
   };
   return (
-    <div className="relative flex items-center mb-2 m-2">
+    <div className="relative flex items-center mb-2 m-2 justify-between">
       <input
         type="text"
         value={count}
