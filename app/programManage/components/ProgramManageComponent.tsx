@@ -24,7 +24,7 @@ export const ProgramManageComponent = () => {
       </Button>
       {programForms.map((component) => component)}
 
-      <div className=" flex justify-center sticky bottom-1 right-3 left-3 ">
+      <div className=" flex justify-center sticky bottom-2 right-3 left-3 ">
         <button className=" h-[48px] bg-[#1C743C] rounded-[6px] w-full sticky">
           저장하기
         </button>
