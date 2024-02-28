@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { SmallHeader } from "@/components/SmallHeader";
 import { ReactNode } from "react";
 
 export default function editInfoLayout({
@@ -9,8 +10,8 @@ export default function editInfoLayout({
   editLocation: ReactNode;
 }) {
   return (
-    <div>
-      <Header />
+    <div className=" h-screen">
+      <SmallHeader title="회원 정보 수정" />
 
       {editLocation}
       {children}

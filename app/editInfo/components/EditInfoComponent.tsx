@@ -24,7 +24,7 @@ export default function EditInfoPage() {
     setClickSubmit(true);
     if (location) {
       const { email, name, password, sortRole } = data;
-      mutation.mutate({ address: location, email, name, password, sortRole });
+      console.log("zzz");
     }
   };
   const {
@@ -36,13 +36,6 @@ export default function EditInfoPage() {
   });
   return (
     <div className="bg-white w-full">
-      <div className="flex justify-start items-center ">
-        <button type="button" onClick={onClickBack}>
-          <Image src={back} alt="back" width={30} height={30} />
-        </button>
-        <div className=" font-semibold text-l ">회원 정보 수정</div>
-      </div>
-
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col px-4 ">
         <JoinForm
           register={register}

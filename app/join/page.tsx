@@ -8,7 +8,9 @@ import { useState } from "react";
 import { useSignup } from "./lib/useSignup";
 import ButtonBundle from "./components/ButtonBundle";
 import { locationStore } from "@/store/locationStore";
-
+import Image from "next/image";
+import back from "@/public/back.png";
+import { SmallHeader } from "@/components/SmallHeader";
 export default function Join() {
   const mutation = useSignup();
   const [clickSubmit, setClickSubmit] = useState<boolean>(false);
@@ -42,10 +44,7 @@ export default function Join() {
     resolver: zodResolver(zodJoinSchema),
   });
   return (
-    <div className="flex flex-col bg-white min-h-screen items-center">
-      <h1 className="text-[#323232] text-center text-[32px] font-bold mt-9">
-        회원가입
-      </h1>
+    <div className="flex flex-col bg-white items-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col flex-1  my-5 w-screen px-4 md:w-full"

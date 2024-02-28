@@ -28,7 +28,6 @@ export default function RootLayout({
         <Provider>
           <div className="  bg-white md:drop-shadow-2xl ">
             <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-            <BottomNavigationBar />
           </div>
         </Provider>
       </body>

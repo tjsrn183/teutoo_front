@@ -1,7 +1,4 @@
 "use client";
-import Link from "next/link";
-import back from "@/public/back.png";
-import Image from "next/image";
 import Button from "@/components/Button";
 import { ProgramForm } from "./ProgramForm";
 import { useState } from "react";
@@ -17,13 +14,7 @@ export const ProgramManageComponent = () => {
   };
 
   return (
-    <div className="py-[20px] px-3  bg-white">
-      <div className="flex">
-        <Link href="../../trainerMyPage">
-          <Image src={back} alt="back" width={30} height={30} />
-        </Link>
-        <span className="text-black text-lg">프로그램 관리</span>
-      </div>
+    <div className=" px-3  bg-white">
       <div className="flex flex-col items-center">
         <div className="bg-slate-500 h-[90px] w-[90px] rounded-full mb-2" />
         <div className="text-black text-xl">안녕하세요 트레이너님!</div>
@@ -32,7 +23,12 @@ export const ProgramManageComponent = () => {
         +프로그램 추가하기
       </Button>
       {programForms.map((component) => component)}
-      <div className="pb-[50px]" />
+
+      <div className=" flex justify-center sticky bottom-1 right-3 left-3 ">
+        <button className=" h-[48px] bg-[#1C743C] rounded-[6px] w-full sticky">
+          저장하기
+        </button>
+      </div>
     </div>
   );
 };

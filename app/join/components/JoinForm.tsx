@@ -20,9 +20,9 @@ interface JoinFormProps {
   errors: FieldErrors<JoinFormData>;
   clickSubmit: boolean;
   location: string;
-  selectedImage: string | undefined;
-  setSelectedImage: React.Dispatch<React.SetStateAction<string | undefined>>;
-  setImageTarget: React.Dispatch<React.SetStateAction<File | null | undefined>>;
+  selectedImage: string | undefined; //미리보기 이미지가 저장된 useState
+  setSelectedImage: React.Dispatch<React.SetStateAction<string | undefined>>; //이미지 미리보기를 위해 이미지를 저장하는 useState함수
+  setImageTarget: React.Dispatch<React.SetStateAction<File | null | undefined>>; //e.target.files 이미지
 }
 export default function JoinForm({
   register,
