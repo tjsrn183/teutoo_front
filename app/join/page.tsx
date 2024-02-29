@@ -8,9 +8,7 @@ import { useState } from "react";
 import { useSignup } from "./lib/useSignup";
 import ButtonBundle from "./components/ButtonBundle";
 import { locationStore } from "@/store/locationStore";
-import Image from "next/image";
-import back from "@/public/back.png";
-import { SmallHeader } from "@/components/SmallHeader";
+
 export default function Join() {
   const mutation = useSignup();
   const [clickSubmit, setClickSubmit] = useState<boolean>(false);
