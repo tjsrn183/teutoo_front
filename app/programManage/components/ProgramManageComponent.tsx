@@ -2,7 +2,7 @@
 import Button from "@/components/Button";
 import { ProgramForm } from "./ProgramForm";
 import { useState } from "react";
-
+import React from "react";
 export const ProgramManageComponent = () => {
   const [programForms, setProgramForms] = useState<Array<React.ReactElement>>([
     <ProgramForm key={0} />,

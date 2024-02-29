@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "@/components/provider";
 import { Suspense } from "react";
-import BottomNavigationBar from "@/components/BottomNavigationBar";
 import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,8 +21,8 @@ export default function RootLayout({
     <html lang="en" className="md:max-w-md bg-white md:m-auto">
       <body className={inter.className}>
         <Script
-          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&autoload=false&libraries=services`}
           strategy="beforeInteractive"
+          src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&autoload=false&libraries=services`}
         />
         <Provider>
           <div className="  bg-white md:drop-shadow-2xl ">
