@@ -1,3 +1,5 @@
+import ScheduleComponent from "./components/ScheduleComponent";
+
 export default function SchedulePage() {
-  return <div className="text-black">dfdsf</div>;
+  return <ScheduleComponent />;
 }
