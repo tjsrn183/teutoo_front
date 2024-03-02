@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import LocationInputField from "./LocationInputField";
-import Button from "../../../components/Button";
+import LightButton from "../../../components/LightButton";
 import { locationStore } from "@/store/locationStore";
 import { useRouter } from "next/navigation";
 
@@ -62,7 +62,7 @@ export default function Map() {
             searchAddress={searchAddress}
           />
         </div>
-        <Button onClick={onClickLocation}>위치 수정하기</Button>
+        <LightButton onClick={onClickLocation}>위치 수정하기</LightButton>
       </div>
     </div>
   );

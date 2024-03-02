@@ -7,9 +7,9 @@ export default function EstimateUserLayout({
   children: ReactNode;
 }) {
   return (
-    <>
-      <div className=" bg-gray-200 h-screen">{children}</div>
+    <div className=" h-screen">
+      <div className=" bg-gray-200">{children}</div>
       <BottomNavigationBar />
-    </>
+    </div>
   );
 }
