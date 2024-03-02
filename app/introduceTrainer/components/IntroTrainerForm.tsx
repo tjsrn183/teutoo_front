@@ -1,5 +1,5 @@
 "use client";
-import Button from "@/components/Button";
+import LightButton from "@/components/LightButton";
 import TextField from "../../../components/formElement/TextField";
 import TextArea from "@/components/formElement/TextArea";
 import { useRef, useState } from "react";
@@ -61,7 +61,7 @@ export default function IntroTrainerForm() {
 
       <PicturesElement pictureArr={pictureArr} setPictureArr={setPictureArr} />
 
-      <Button type="submit">트레이너 소개 등록</Button>
+      <LightButton type="submit">트레이너 소개 등록</LightButton>
     </form>
   );
 }

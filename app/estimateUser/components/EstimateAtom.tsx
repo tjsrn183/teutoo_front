@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
-import Button from "@/components/Button";
+import LightButton from "@/components/LightButton";
 import { EstimateModal, ModalDialogHandle } from "./EstimateModal";
 import { MutableRefObject, RefObject, useRef } from "react";
 export default function EstimateAtom() {
@@ -12,7 +12,7 @@ export default function EstimateAtom() {
   };
 
   return (
-    <div className=" bg-white h-[82px] rounded-[12px]  text-black text-sm my-3 font-bold mx-5 drop-shadow-lg">
+    <div className=" bg-white h-[82px] rounded-[12px]  text-black text-sm my-2 font-bold drop-shadow-lg mx-2">
       <div className=" w-full flex items-center justify-center h-full">
         <div className=" flex justify-center items-center mx-3">
           <Image src={userThumb} alt="userThumb" width={60} height={60} />
@@ -20,9 +20,9 @@ export default function EstimateAtom() {
         </div>
 
         <span className="flex justify-center mx-3">24000 ₩</span>
-        <Button width="w-[25%]" onClick={handleOpenModal}>
+        <LightButton width="w-[25%]" onClick={handleOpenModal}>
           낙찰
-        </Button>
+        </LightButton>
       </div>
       <EstimateModal ref={dialogRef} />
     </div>

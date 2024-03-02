@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import visible from "../../../public/join/visible.png";
 import { zodLoginSchema } from "../zodLoginSchema";
-import Button from "@/components/Button";
+import LightButton from "@/components/LightButton";
 
 export interface LoginFormData {
   password: string;
@@ -69,7 +69,7 @@ export default function LoginForm() {
         )}
       </div>
 
-      <Button type="submit">로그인</Button>
+      <LightButton type="submit">로그인</LightButton>
     </form>
   );
 }

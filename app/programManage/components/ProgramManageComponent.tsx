@@ -1,5 +1,5 @@
 "use client";
-import Button from "@/components/Button";
+import LightButton from "@/components/LightButton";
 import { ProgramForm } from "./ProgramForm";
 import { useState } from "react";
 import React from "react";
@@ -19,9 +19,9 @@ export const ProgramManageComponent = () => {
         <div className="bg-slate-500 h-[90px] w-[90px] rounded-full mb-2" />
         <div className="text-black text-xl">안녕하세요 트레이너님!</div>
       </div>
-      <Button className="text-base" height="h-[40px]" onClick={addForm}>
+      <LightButton className="text-base" height="h-[40px]" onClick={addForm}>
         +프로그램 추가하기
-      </Button>
+      </LightButton>
       {programForms.map((component) => component)}
 
       <div className=" flex justify-center sticky bottom-2 right-3 left-3 ">
