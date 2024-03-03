@@ -1,13 +1,13 @@
-import EstimateAtom from "./EstimateAtom";
+import EstimateUserAtom from "./EstimateUserAtom";
 
 export default function EstimateList() {
   return (
     <div className=" flex flex-col">
-      <EstimateAtom />
-      <EstimateAtom />
-      <EstimateAtom />
-      <EstimateAtom />
-      <EstimateAtom />
+      <EstimateUserAtom />
+      <EstimateUserAtom />
+      <EstimateUserAtom />
+      <EstimateUserAtom />
+      <EstimateUserAtom />
     </div>
   );
 }
