@@ -16,14 +16,15 @@ export default function EstimateAtom() {
       <div className=" w-full flex items-center justify-center h-full">
         <div className=" flex justify-center items-center mx-3">
           <Image src={userThumb} alt="userThumb" width={60} height={60} />
-          <span>김헬창</span>
+          <span className="mx-3">김헬창</span>
         </div>
 
-        <span className="flex justify-center mx-3">24000 ₩</span>
+        <span className="flex justify-center mx-2">24000 ₩</span>
         <LightButton width="w-[25%]" onClick={handleOpenModal}>
           낙찰
         </LightButton>
       </div>
+
       <EstimateModal ref={dialogRef} />
     </div>
   );
