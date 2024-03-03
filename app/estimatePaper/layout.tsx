@@ -5,6 +5,6 @@ interface RoleProps {
   user: ReactNode;
 }
 export default function estimatePaperLayout({ trainer, user }: RoleProps) {
-  let role = "trainer";
-  return role === "trainer" ? trainer : user;
+  let role = "user";
+  return <div className=" h-screen">{role === "trainer" ? trainer : user}</div>;
 }
