@@ -4,7 +4,7 @@ import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 import LightButton from "@/components/LightButton";
 import { EstimateModal, ModalDialogHandle } from "./EstimateModal";
 import { MutableRefObject, RefObject, useRef } from "react";
-export default function EstimateAtom() {
+export default function EstimateUserAtom() {
   const dialogRef: RefObject<ModalDialogHandle> = useRef(null);
 
   const handleOpenModal = () => {
