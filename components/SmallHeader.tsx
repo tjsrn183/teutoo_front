@@ -14,7 +14,7 @@ export const SmallHeader = ({ title, arrrowHidden }: SmallHeaderProps) => {
     router.back();
   };
   return (
-    <header className=" text-black flex justify-start items-center w-full font-bold text-lg h-[80px]">
+    <header className=" text-black flex justify-start items-center w-full font-bold text-lg h-[55px] bg-white">
       <button onClick={onClickBack} type="button" hidden={arrrowHidden}>
         <Image src={back} alt="back" />
       </button>

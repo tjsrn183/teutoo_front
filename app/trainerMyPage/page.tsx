@@ -5,7 +5,6 @@ import infoEditButton from "@/public/trainerMyPageIcons/infoEditButton.png";
 import schedule from "@/public/trainerMyPageIcons/schedule.png";
 import programManage from "@/public/trainerMyPageIcons/programManage.png";
 import trainerInfo from "@/public/trainerMyPageIcons/trainerInfo.png";
-import { SmallHeader } from "@/components/SmallHeader";
 
 export default function TrainerMyPage() {
   return (
