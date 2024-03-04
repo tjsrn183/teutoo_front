@@ -1,21 +1,19 @@
 import LightButton from "@/components/LightButton";
-import FormInputElement from "./FormInputElement";
+
+import TextField from "@/components/formElement/TextField";
 
 export default function EstimateFormTrainer() {
   return (
     <form className=" w-full flex flex-col justify-center items-center text-black h-full">
       <div className=" w-[80%] flex flex-col rounded-lg h-full justify-center">
         <div className="bg-white flex flex-col justify-center rounded-lg px-3">
-          <FormInputElement title="이름" id="name" />
-          <FormInputElement title="가격" id="price" />
-          <FormInputElement
-            title="프로그램 선택
-      "
-            id="programChoice"
-          />
-          <FormInputElement title="센터 위치" id="location" />
-          <FormInputElement title="일정" id="shedule" />
-          <LightButton type="button" className=" mt-2">
+          <TextField title="이름" />
+          <TextField title="가격" id="won" />
+          <TextField title="프로그램 선택" />
+          <TextField title="센터 위치" />
+          <TextField title="일정" />
+
+          <LightButton type="button" className=" my-3">
             일정추가
           </LightButton>
         </div>

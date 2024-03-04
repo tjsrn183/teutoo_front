@@ -1,21 +1,22 @@
 "use client";
 import { NumberButton } from "@/components/NumberButton";
-import FormInputElement from "./FormInputElement";
+
 import { useState } from "react";
 import LightButton from "@/components/LightButton";
+import TextField from "@/components/formElement/TextField";
 export default function EstimateFormUser() {
   const [count, setCount] = useState(0);
   return (
     <form className=" w-[80%] flex flex-col justify-center items-center text-black h-full">
       <div className="bg-white flex flex-col px-4 rounded-md py-4">
-        <FormInputElement title="이름" id="name" />
-        <div className=" relative flex flex-col">
-          <FormInputElement title="가격" id="price" type="number" />
-          <span className=" absolute right-0 translate-y-11 -translate-x-2">
-            ₩
-          </span>
-        </div>
-        <FormInputElement title="위치" id="location" />
+        <TextField title="이름" placeholder="이름을 입력하세요" />
+        <TextField
+          title="가격"
+          placeholder="가격을 입력하세요"
+          id="won"
+          type="number"
+        />
+        <TextField title="위치" placeholder="위치를 입력하세요" />
         <span className=" text-black font-semibold text-sm">횟수</span>
         <NumberButton count={count} setCount={setCount} />
       </div>
