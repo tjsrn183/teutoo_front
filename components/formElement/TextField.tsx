@@ -19,7 +19,7 @@ export default function TextField({
       <input
         type={type || "text"}
         placeholder={placeholder}
-        className=" text-[#697077] border border-[#DDE1E6] rounded-[12px] h-[38px]"
+        className="text-[#697077] h-[38px] border border-[#d9d9d9] rounded-[12px]  focus:outline-none focus:ring-0 focus:border-[#22C55E] hover:border-[#22C55E] transition-colors duration-500 "
         {...register}
       />
     </label>
