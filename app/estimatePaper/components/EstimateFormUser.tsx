@@ -9,8 +9,12 @@ export default function EstimateFormUser() {
     <form className=" w-[80%] flex flex-col justify-center items-center text-black h-full">
       <div className="bg-white flex flex-col px-4 rounded-md py-4">
         <FormInputElement title="이름" id="name" />
-        <FormInputElement title="가격" id="price" />
-
+        <div className=" relative flex flex-col">
+          <FormInputElement title="가격" id="price" type="number" />
+          <span className=" absolute right-0 translate-y-11 -translate-x-2">
+            ₩
+          </span>
+        </div>
         <FormInputElement title="위치" id="location" />
         <span className=" text-black font-semibold text-sm">횟수</span>
         <NumberButton count={count} setCount={setCount} />
@@ -19,7 +23,7 @@ export default function EstimateFormUser() {
       <LightButton
         backgroundColor="bg-[#175601]"
         type="submit"
-        className=" mt-2"
+        className=" mt-7"
       >
         신청서 작성완료
       </LightButton>
