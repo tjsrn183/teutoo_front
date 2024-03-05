@@ -18,7 +18,7 @@ export default function LocationInputField({
     <div className="relative">
       <input
         type="text"
-        className=" rounded-[6px] border-2 border-[#A3D193] w-full h-[48px] text-black"
+        className=" border-2 w-full h-[48px] text-black border-[#d9d9d9] rounded-[12px]  focus:outline-none focus:ring-0 focus:border-[#22C55E] hover:border-[#22C55E] transition-colors duration-500 "
         onChange={onChangeLocation}
       />
       <button

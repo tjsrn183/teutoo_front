@@ -1,6 +1,5 @@
 "use client";
-import Image from "next/image";
-import back from "@/public/back.png";
+
 import { useRouter } from "next/navigation";
 import JoinForm from "@/app/join/components/JoinForm";
 import { JoinFormData } from "@/app/join/components/JoinForm";

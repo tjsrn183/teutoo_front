@@ -23,7 +23,7 @@ export default function JoinInputField({
         type={type}
         placeholder={placeholder}
         {...register}
-        className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
+        className="bg-[#e4e6e7] rounded-[6px] py-2 border font-normal focus:outline-none focus:ring-0 focus:border-[#22C55E] hover:border-[#22C55E] transition-colors duration-500 "
         value={value}
         disabled={disabled}
       />

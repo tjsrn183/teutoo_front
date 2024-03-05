@@ -2,7 +2,7 @@
 import LightButton from "@/components/LightButton";
 import TextField from "../../../components/formElement/TextField";
 import TextArea from "@/components/formElement/TextArea";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { zodTrainerSchema } from "../zodTrainerSchema";
