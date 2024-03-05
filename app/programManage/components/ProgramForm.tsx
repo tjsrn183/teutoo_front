@@ -39,7 +39,6 @@ export const ProgramForm = () => {
               DatePicker: {
                 activeBorderColor: "#22C55E",
                 hoverBorderColor: "#22C55E",
-                cellActiveWithRangeBg: "#22C55E",
               },
             },
           }}
@@ -48,7 +47,7 @@ export const ProgramForm = () => {
             format="HH"
             onChange={handleRangeChange}
             size="large"
-            className=" w-full"
+            className=" w-full [&>*:nth-child(4)]:bg-[#22C55E]"
           />
         </ConfigProvider>
       </div>
