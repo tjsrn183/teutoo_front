@@ -24,3 +24,8 @@
 .react-calendar__navigation__arrow {
   @apply text-2xl;
 }
+.react-calendar__tile--active {
+  background-color: #22c55e;
+  border-radius: 12px;
+  background: #22c55e;
+}
