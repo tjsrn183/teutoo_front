@@ -4,4 +4,5 @@ declare global {
   }
   const kakao: any;
 }
+
 export {};

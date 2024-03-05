@@ -25,7 +25,7 @@ export default function RootLayout({
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&autoload=false&libraries=services`}
         />
         <Provider>
-          <div className="  bg-white md:drop-shadow-2xl min-h-screen ">
+          <div className="  bg-white md:drop-shadow-2xl min-h-screen">
             <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
           </div>
         </Provider>

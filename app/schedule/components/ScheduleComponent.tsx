@@ -1,19 +1,12 @@
-import DetailedSchedule from "./DetailedSchedule";
-
+import DayScheduleList from "./DayScheduleList";
+import CalendarComponent from "./CalendarCompoenent";
 export default function ScheduleComponent() {
-  const date = new Date();
-  const koreanMonth = date.toLocaleString("ko-KR", {
-    timeZone: "Asia/Seoul",
-    year: "numeric",
-    month: "numeric",
-  });
-
   return (
-    <div className="text-black w-screen">
-      <div className="w-screen border-b-4 border-gray-200 font-semibold flex justify-center text-xl">
-        <time dateTime={koreanMonth}>{koreanMonth}</time>
+    <div className=" w-full flex justify-center items-center mt-2 h-full">
+      <div className=" w-[80%] flex flex-col h-full">
+        <CalendarComponent />
+        <DayScheduleList />
       </div>
-      <DetailedSchedule />
     </div>
   );
 }
