@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { zodJoinSchema } from "./zodJoinSchema";
 import { JoinFormData } from "./components/JoinForm";
 import { useState } from "react";
-import { useSignup } from "./lib/useSignup";
+import { useSignup } from "./api/useSignup";
 import ButtonBundle from "./components/ButtonBundle";
 import { locationStore } from "@/store/locationStore";
 
