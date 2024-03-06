@@ -1,20 +1,18 @@
 import Image from "next/image";
 import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
-import DayContourLine from "./DayContourLine";
 
 interface ScheduleAtomProps {
   day?: number;
   time?: string;
   name?: string;
   picture?: string;
-  hidden?: boolean;
   date: string;
 }
 export default function ScheduleAtom({
   day,
   time,
   name,
-  hidden,
+
   date,
 }: ScheduleAtomProps) {
   const dateObj = new Date();
@@ -35,27 +33,18 @@ export default function ScheduleAtom({
 
   return (
     <div className="flex justify-around my-2 items-center">
-      {!hidden && (
-        <div
-          className={`${
-            compare ? `bg-[#22C55E]` : `bg-white`
-          } w-9 h-9 flex items-center justify-center rounded-full ${
-            compare ? `text-white` : `text-[#22C55E]`
-          } `}
-        >
-          {day}
-        </div>
-      )}
       <div className="grow"></div>
 
-      <div className="bg-[#22C55E] text-white flex items-center justify-center rounded-[12px] p-2 font-semibold w-[240px]">
-        {time} {name}
+      <div className="bg-white text-[#36393E] flex items-center rounded-[12px] p-2 font-semibold w-[240px] drop-shadow-2xl h-[60px]">
+        <div className=" w-[25%] break-words">{time}</div>
+        <div className=" w-[50%] flex justify-center">{name}</div>
+
         <Image
           src={userThumb}
           alt="userThumb"
           width={47}
           height={47}
-          className="pl-3"
+          className=" w-[25%]"
         />
       </div>
     </div>
