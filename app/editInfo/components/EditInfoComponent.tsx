@@ -41,6 +41,7 @@ export default function EditInfoPage() {
           errors={errors}
           clickSubmit={clickSubmit}
           location={location}
+          forEditInfo
         />
         <ButtonBundle />
       </form>
