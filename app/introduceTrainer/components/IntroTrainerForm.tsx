@@ -29,7 +29,7 @@ export default function IntroTrainerForm() {
 
   return (
     <form
-      className="flex flex-col mt-3 mx-3 border-2 border-[#DDE1E6] rounded-[12px] py-3 px-2 "
+      className="flex flex-col mt-3 mx-3 border-2 border-[#DDE1E6] rounded-[12px] py-3 px-2"
       onSubmit={handleSubmit(onSubmit)}
     >
       <TextField

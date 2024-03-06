@@ -16,6 +16,7 @@ export interface JoinFormData {
   profileImage: File | null | undefined;
 }
 interface JoinFormProps {
+  forEditInfo?: boolean;
   register: UseFormRegister<JoinFormData>;
   errors: FieldErrors<JoinFormData>;
   clickSubmit: boolean;
@@ -32,6 +33,7 @@ export default function JoinForm({
   selectedImage,
   setSelectedImage,
   setImageTarget,
+  forEditInfo,
 }: JoinFormProps) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const imageRef = useRef<HTMLInputElement>(null);
@@ -85,66 +87,72 @@ export default function JoinForm({
           </button>
         </div>
       </div>
+      {!forEditInfo ? (
+        <>
+          <JoinInputField
+            title="이메일"
+            placeholder="이메일을 입력하세요"
+            register={{ ...register("email") }}
+          />
+          {errors.email && (
+            <p className="text-red-600 font-bold">{errors.email.message}</p>
+          )}
+          <JoinInputField
+            title="이름"
+            placeholder="이름을 입력하세요"
+            register={{ ...register("name") }}
+          />
 
-      <JoinInputField
-        title="이메일"
-        placeholder="이메일을 입력하세요"
-        register={{ ...register("email") }}
-      />
+          {errors.name && (
+            <p className="text-red-600 font-bold">{errors.name.message}</p>
+          )}
 
-      {errors.email && (
-        <p className="text-red-600 font-bold">{errors.email.message}</p>
+          <div className="relative my-3">
+            <JoinInputField
+              title="비밀번호"
+              placeholder="비밀번호를 입력하세요"
+              register={{ ...register("password") }}
+              type={showPassword ? "text" : "password"}
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-2 top-1/2"
+            >
+              <Image src={visible} alt="visible" width={20} height={20} />
+            </button>
+            {errors.password && (
+              <p className="text-red-600 font-bold">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
+
+          <div className="relative my-3">
+            <JoinInputField
+              title="비밀번호 확인"
+              placeholder="비밀번호를 한번더 입력하세요."
+              register={{ ...register("passwordConfirmation") }}
+              type={showPassword ? "text" : "password"}
+            />
+
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-2 top-1/2"
+            >
+              <Image src={visible} alt="visible" width={20} height={20} />
+            </button>
+            {errors.passwordConfirmation && (
+              <p className="text-red-600 font-bold">
+                {errors.passwordConfirmation.message}
+              </p>
+            )}
+          </div>
+        </>
+      ) : (
+        <div></div>
       )}
-      <JoinInputField
-        title="이름"
-        placeholder="이름을 입력하세요"
-        register={{ ...register("name") }}
-      />
-
-      {errors.name && (
-        <p className="text-red-600 font-bold">{errors.name.message}</p>
-      )}
-
-      <div className="relative my-3">
-        <JoinInputField
-          title="비밀번호"
-          placeholder="비밀번호를 입력하세요"
-          register={{ ...register("password") }}
-          type={showPassword ? "text" : "password"}
-        />
-        <button
-          type="button"
-          onClick={togglePasswordVisibility}
-          className="absolute right-2 top-1/2"
-        >
-          <Image src={visible} alt="visible" width={20} height={20} />
-        </button>
-        {errors.password && (
-          <p className="text-red-600 font-bold">{errors.password.message}</p>
-        )}
-      </div>
-
-      <div className="relative my-3">
-        <JoinInputField
-          title="비밀번호 확인"
-          placeholder="비밀번호를 한번더 입력하세요."
-          register={{ ...register("passwordConfirmation") }}
-          type={showPassword ? "text" : "password"}
-        />
-
-        <button
-          type="button"
-          onClick={togglePasswordVisibility}
-          className="absolute right-2 top-1/2"
-        >
-          <Image src={visible} alt="visible" width={20} height={20} />
-        </button>
-        {errors.passwordConfirmation && (
-          <p className="text-red-600 font-bold">
-            {errors.passwordConfirmation.message}
-          </p>
-        )}
-      </div>
 
       <label className="text-[#323232] flex flex-col font-bold my-1">
         주소
@@ -159,14 +167,20 @@ export default function JoinForm({
       {clickSubmit && location.length === 0 && (
         <p className="text-red-600 font-bold">주소를 입력하세요</p>
       )}
-      <div>
-        <input type="checkbox" id="isTrainer" {...register("sortRole")} />
-        <label htmlFor="isTrainer" className="text-[#323232]">
-          트레이너 입니다.
-        </label>
-      </div>
-      {errors.sortRole && (
-        <p className="text-red-600 font-bold">{errors.sortRole.message}</p>
+      {!forEditInfo ? (
+        <>
+          <div>
+            <input type="checkbox" id="isTrainer" {...register("sortRole")} />
+            <label htmlFor="isTrainer" className="text-[#323232]">
+              트레이너 입니다.
+            </label>
+          </div>
+          {errors.sortRole && (
+            <p className="text-red-600 font-bold">{errors.sortRole.message}</p>
+          )}
+        </>
+      ) : (
+        <div></div>
       )}
     </div>
   );

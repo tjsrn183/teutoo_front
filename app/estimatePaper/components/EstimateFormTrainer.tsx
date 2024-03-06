@@ -8,14 +8,9 @@ export default function EstimateFormTrainer() {
       <div className=" w-[80%] flex flex-col rounded-lg h-full justify-center">
         <div className="bg-white flex flex-col justify-center rounded-lg px-3">
           <TextField title="이름" />
-          <TextField title="가격" id="won" />
+          <TextField title="가격" type="number" id="won" />
           <TextField title="프로그램 선택" />
           <TextField title="센터 위치" />
-          <TextField title="일정" />
-
-          <LightButton type="button" className=" my-3">
-            일정추가
-          </LightButton>
         </div>
       </div>
 

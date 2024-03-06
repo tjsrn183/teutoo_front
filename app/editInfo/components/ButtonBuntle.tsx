@@ -2,7 +2,7 @@ import LightButton from "@/components/LightButton";
 import Link from "next/link";
 export default function ButtonBundle() {
   return (
-    <div className=" fixed bottom-3 w-auto right-3 left-3">
+    <div className=" mt-2">
       <Link href="../../editInfo/locationModal">
         <LightButton>위치 수정하기</LightButton>
       </Link>

@@ -1,4 +1,3 @@
-import Header from "../../components/Header";
 import { ReactNode } from "react";
 import BottomNavigationBar from "../../components/BottomNavigationBar";
 import { SmallHeader } from "@/components/SmallHeader";
