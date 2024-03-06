@@ -1,9 +1,18 @@
+"use client";
 import Image from "next/image";
 import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 import logout from "@/public/trainerMyPageIcons/logoutButton.png";
 import infoEditButton from "@/public/trainerMyPageIcons/infoEditButton.png";
+import { useQuery } from "@tanstack/react-query";
+import { fetchUserData } from "../page";
 
 export default function MyInfoChunk() {
+  const { data } = useQuery({ queryKey: ["userData"], queryFn: fetchUserData });
+  if (data) {
+    console.log("진짜 ssr 데이타다아", data);
+    console.log("data.name", data.data.name);
+  }
+
   return (
     <div className=" flex">
       <div className="flex">
@@ -12,7 +21,7 @@ export default function MyInfoChunk() {
       <div className="flex flex-col w-full">
         <div className=" flex justify-between items-center">
           <div className=" text-black text-[20px] font-bold flex items-center">
-            김헬창님
+            {data?.data.name}
             <button type="button">
               <Image src={infoEditButton} alt="infoEditButton" />
             </button>
