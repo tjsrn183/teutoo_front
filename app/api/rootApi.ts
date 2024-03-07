@@ -1,14 +1,11 @@
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { getUserCookie } from "../utils/getUserCookie";
 interface configTypes {
   method: string;
   url: string;
   data?: any;
   headers?: Record<string, string>;
   params?: any;
-}
-function getToken() {
-  return getCookie("token");
 }
 
 const apiClient = axios.create({
@@ -18,9 +15,9 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const token = getToken();
+    let token = getUserCookie();
+
     if (token) {
-      console.log("토큰이 있나유", token);
       config.headers["Authorization"] = `Bearer ${token}`;
     }
     return config;
@@ -47,12 +44,11 @@ export async function sendRequest(
     delete config["data"];
   }
   try {
-    console.log("시작한다아");
     const response = await apiClient(config);
-    console.log("노오오오옹");
     return response.data;
   } catch (error) {
     console.error("error message:", error);
+
     throw error;
   }
 }
@@ -60,4 +56,4 @@ export async function sendRequest(
 // sendRequest('endpoint', 'post', { key: 'value' })
 //회원가입시
 //sendRequest('join','post',~~);
-// 참고) ssr을 위한 prefetchQuery사용시 trainerMyPage => page.tsx 참고
+// 참고) ssr을 위한 prefetchQuery사용시 trainerMyPage =>layout.tsx 참고

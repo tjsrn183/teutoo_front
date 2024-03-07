@@ -8,10 +8,6 @@ import { fetchUserData } from "../page";
 
 export default function MyInfoChunk() {
   const { data } = useQuery({ queryKey: ["userData"], queryFn: fetchUserData });
-  if (data) {
-    console.log("진짜 ssr 데이타다아", data);
-    console.log("data.name", data.data.name);
-  }
 
   return (
     <div className=" flex">
