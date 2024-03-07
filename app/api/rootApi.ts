@@ -1,7 +1,11 @@
 import axios from "axios";
-
-function getToken() {
-  return localStorage.getItem("token");
+import { getUserCookie } from "../utils/getUserCookie";
+interface configTypes {
+  method: string;
+  url: string;
+  data?: any;
+  headers?: Record<string, string>;
+  params?: any;
 }
 
 const apiClient = axios.create({
@@ -11,7 +15,8 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const token = getToken();
+    let token = getUserCookie();
+
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -22,21 +27,33 @@ apiClient.interceptors.request.use(
   },
 );
 
-export async function sendRequest(endpoint: string, method = "get", data: any) {
+export async function sendRequest(
+  endpoint: string,
+  method: string = "get",
+  data?: any,
+  headers?: Record<string, string>,
+) {
+  const config: configTypes = {
+    method: method,
+    url: endpoint,
+    headers: headers || {},
+    data: data,
+  };
+
+  if (method.toLowerCase() === "get") {
+    delete config["data"];
+  }
   try {
-    const response = await apiClient({
-      method: method,
-      url: endpoint,
-      data: data,
-    });
+    const response = await apiClient(config);
     return response.data;
   } catch (error) {
     console.error("error message:", error);
+
     throw error;
   }
 }
-
 // 예시 사용법
 // sendRequest('endpoint', 'post', { key: 'value' })
-//   .then(data => console.log(data))
-//   .catch(error => console.error(error));
+//회원가입시
+//sendRequest('join','post',~~);
+// 참고) ssr을 위한 prefetchQuery사용시 trainerMyPage =>layout.tsx 참고

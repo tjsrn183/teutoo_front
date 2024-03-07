@@ -4,6 +4,7 @@ import "./globals.css";
 import Provider from "@/components/provider";
 import { Suspense } from "react";
 import Script from "next/script";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
         <Provider>
           <div className="  bg-white md:drop-shadow-2xl min-h-screen">
             <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+            <ReactQueryDevtools />
           </div>
         </Provider>
       </body>

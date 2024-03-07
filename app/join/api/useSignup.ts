@@ -1,6 +1,5 @@
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import { sendRequest } from "@/app/api/rootApi";
 
 export const useSignup = () => {
@@ -8,11 +7,9 @@ export const useSignup = () => {
 
   return useMutation({
     mutationFn: async (data: FormData) => {
-      return await axios.post("http://43.201.184.37/join", data, {
-        withCredentials: true,
-      });
+      sendRequest("join", "post", data);
     },
-    async onSuccess(response) {
+    onSuccess(response) {
       router.replace("/");
       setTimeout(() => {
         alert("회원가입이 완료되었습니다.");
