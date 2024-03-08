@@ -8,6 +8,7 @@ import {
 } from "@tanstack/react-query";
 import { sendRequest } from "@/app/api/rootApi";
 import { redirect } from "next/navigation";
+
 const fetchUserData = async () => {
   return await sendRequest("members/me", "get");
 };
