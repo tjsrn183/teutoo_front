@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getUserCookie } from "../utils/getUserCookie";
+import { getCookie } from "cookies-next";
 interface configTypes {
   method: string;
   url: string;
@@ -16,6 +17,9 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     let token = getUserCookie();
+    if (typeof token !== "string") {
+      token = getCookie("token");
+    }
 
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
