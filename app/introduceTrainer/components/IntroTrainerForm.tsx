@@ -3,28 +3,52 @@ import LightButton from "@/components/LightButton";
 import TextField from "../../../components/formElement/TextField";
 import TextArea from "@/components/formElement/TextArea";
 import { useState } from "react";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { zodTrainerSchema } from "../zodTrainerSchema";
 import { useForm } from "react-hook-form";
 import { PicturesElement } from "@/components/PicturesElement";
 import { Picture } from "@/components/PicturesElement";
+import { useSetInfoTrainer } from "../api/useSetInfoTrainer";
+import { useQueryClient } from "@tanstack/react-query";
 interface TrainerInfo {
   simpleInfo: string;
-  title: string;
   content: string;
+  gymName: string;
+}
+interface getTrainerIntro {
+  gymName: string;
+  simpleIntro: string;
+  introContent: string;
 }
 export default function IntroTrainerForm() {
   const [pictureArr, setPictureArr] = useState<Array<Picture>>([]);
+  const queryClient = useQueryClient();
+  const data: getTrainerIntro | undefined = queryClient.getQueryData([
+    "trainerIntro",
+  ]);
+  console.log("data다아앙", data);
+  const mutation = useSetInfoTrainer();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TrainerInfo>({
     resolver: zodResolver(zodTrainerSchema),
+    defaultValues: {
+      gymName: `${data?.gymName}`,
+      simpleInfo: `${data?.simpleIntro}`,
+      content: `${data?.introContent}`,
+    },
   });
-  const onSubmit = () => {
-    console.log("submit");
+  const onSubmit = (data: TrainerInfo) => {
+    const formdata = new FormData();
+    formdata.append("gymName", data.gymName);
+    formdata.append("simpleIntro", data.simpleInfo);
+    formdata.append("introContent", data.content);
+    pictureArr.forEach((picture) => {
+      formdata.append("careerImgList", picture.file);
+    });
+    mutation.mutate(formdata);
   };
 
   return (
@@ -33,6 +57,14 @@ export default function IntroTrainerForm() {
       onSubmit={handleSubmit(onSubmit)}
     >
       <TextField
+        title="헬스장 이름"
+        placeholder="헬스장 이름을 입력하세요"
+        register={{ ...register("gymName") }}
+      />
+      {errors.gymName && (
+        <p className="text-red-600 font-bold">{errors.gymName.message}</p>
+      )}
+      <TextField
         title="간단 소개"
         placeholder="본인을 간단히 소개하세요"
         register={{ ...register("simpleInfo") }}
@@ -40,14 +72,7 @@ export default function IntroTrainerForm() {
       {errors.simpleInfo && (
         <p className="text-red-600 font-bold">{errors.simpleInfo.message}</p>
       )}
-      <TextField
-        title="상세 소개 제목"
-        placeholder="제목을 입력하세요"
-        register={{ ...register("title") }}
-      />
-      {errors.title && (
-        <p className="text-red-600 font-bold">{errors.title.message}</p>
-      )}
+
       <TextArea
         title="상세 소개 내용"
         placeholder="내용을 입력하세요"
