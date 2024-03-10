@@ -4,7 +4,7 @@ import Image from "next/image";
 import close from "@/public/join/close.png";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRef, Dispatch, SetStateAction } from "react";
-import { getTrainerIntro } from "./IntroTrainerForm";
+
 interface ImgProps {
   fetchImg: Array<ImgType>;
   setDeleteImg: Dispatch<SetStateAction<Array<string>>>;
@@ -12,9 +12,6 @@ interface ImgProps {
 
 export default function PictureExist({ fetchImg, setDeleteImg }: ImgProps) {
   const queryClient = useQueryClient();
-  const data: getTrainerIntro | undefined = queryClient.getQueryData([
-    "trainerIntro",
-  ]);
 
   const onRemoveImage = (index: number) => () => {
     const updatedImages = fetchImg.filter((_, idx) => idx !== index);

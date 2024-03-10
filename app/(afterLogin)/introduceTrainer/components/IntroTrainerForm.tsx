@@ -34,7 +34,6 @@ export default function IntroTrainerForm() {
   ]);
   const [pictureArr, setPictureArr] = useState<Array<Picture>>([]);
   const [deleteImg, setDeleteImg] = useState<Array<string>>([]);
-
   const mutation = useSetInfoTrainer();
   const {
     register,
