@@ -1,4 +1,4 @@
-import Map from "../../join/components/KakaoMap";
+import Map from "@/app/join/components/KakaoMap";
 export default function Location() {
   return (
     <div className="w-screen h-screen flex flex-col justify-center items-center bg-gray-200 md:max-w-md">

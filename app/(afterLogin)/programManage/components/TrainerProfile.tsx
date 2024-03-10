@@ -2,11 +2,11 @@
 import Image from "next/image";
 import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 import { useQueryClient } from "@tanstack/react-query";
-import { UserDataType } from "@/app/trainerMyPage/components/MyInfoChunk";
+import { UserDataType } from "@/app/(afterLogin)/trainerMyPage/components/MyInfoChunk";
 export default function TrainerProfile() {
   const queryClient = useQueryClient();
   const data: UserDataType | undefined = queryClient.getQueryData(["userData"]);
-  console.log("datadata", data);
+
   return (
     <div className="flex flex-col items-center">
       <div className="flex relative w-[80px] rounded-[100%] overflow-hidden mr-2 h-[80px]">

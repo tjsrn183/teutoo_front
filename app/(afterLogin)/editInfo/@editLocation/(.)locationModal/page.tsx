@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import close from "../../../../public/join/close.png";
-import Map from "../../../join/components/KakaoMap";
+import close from "@/public/join/close.png";
+import Map from "@/app/join/components/KakaoMap";
 
 export default function Location() {
   const router = useRouter();
