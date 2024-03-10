@@ -1,6 +1,6 @@
 import { SmallHeader } from "@/components/SmallHeader";
 import { ReactNode } from "react";
-import { sendRequest } from "../api/rootApi";
+import { sendRequest } from "@/app/api/rootApi";
 import {
   HydrationBoundary,
   QueryClient,

@@ -1,6 +1,6 @@
 "use client";
 import LightButton from "@/components/LightButton";
-import TextField from "../../../components/formElement/TextField";
+import TextField from "@/components/formElement/TextField";
 import TextArea from "@/components/formElement/TextArea";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";

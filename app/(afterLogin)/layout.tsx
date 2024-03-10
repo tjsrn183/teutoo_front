@@ -1,6 +1,3 @@
-import { ReactNode } from "react";
-import BottomNavigationBar from "../../components/BottomNavigationBar";
-import { SmallHeader } from "@/components/SmallHeader";
 import {
   HydrationBoundary,
   QueryClient,
@@ -8,14 +5,14 @@ import {
 } from "@tanstack/react-query";
 import { sendRequest } from "@/app/api/rootApi";
 import { redirect } from "next/navigation";
-
 const fetchUserData = async () => {
   return await sendRequest("members/me", "get");
 };
-export default async function trainerMyPageLayout({
+
+export default async function AfterLoginLayout({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
@@ -32,13 +29,7 @@ export default async function trainerMyPageLayout({
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div className=" md:max-w-md h-screen">
-        <SmallHeader title="마이페이지" arrrowHidden />
-
-        <div>{children}</div>
-
-        <BottomNavigationBar />
-      </div>
+      <div>{children}</div>{" "}
     </HydrationBoundary>
   );
 }

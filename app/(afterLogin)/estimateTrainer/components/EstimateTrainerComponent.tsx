@@ -1,6 +1,6 @@
-import BlankEstimate from "@/app/estimateUser/components/BlankEstimate";
+import BlankEstimate from "@/app/(afterLogin)/estimateUser/components/BlankEstimate";
 import DropdownLocation from "./DropdownLocation";
-import EstimateButton from "@/app/estimateUser/components/EstimateButton";
+import EstimateButton from "@/app/(afterLogin)/estimateUser/components/EstimateButton";
 import EstimateTrainerList from "./EstimateTrainerList";
 import Pagenation from "./Pagenation";
 export default function EstimateTrainerComponent() {
