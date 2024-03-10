@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction, ChangeEventHandler, useRef } from "react";
 import { BGWhiteButton } from "./BGWhiteButton";
-import close from "../public/join/close.png";
+import close from "@/public/join/close.png";
 export interface Picture {
   dataUrl: string;
   file: File;
@@ -32,6 +32,7 @@ export const PicturesElement = ({
           (resolve, reject) => {
             const reader = new FileReader();
             reader.onloadend = () => {
+              console.log("file이야우아", file);
               resolve({
                 dataUrl: reader.result as string,
                 file,
