@@ -34,7 +34,7 @@ export default function IntroTrainerForm() {
   ]);
   const [pictureArr, setPictureArr] = useState<Array<Picture>>([]);
   const [deleteImg, setDeleteImg] = useState<Array<string>>([]);
-  console.log("data다아앙", data);
+
   const mutation = useSetInfoTrainer();
   const {
     register,
