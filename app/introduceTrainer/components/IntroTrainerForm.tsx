@@ -10,22 +10,30 @@ import { PicturesElement } from "@/components/PicturesElement";
 import { Picture } from "@/components/PicturesElement";
 import { useSetInfoTrainer } from "../api/useSetInfoTrainer";
 import { useQueryClient } from "@tanstack/react-query";
+import PictureExist from "./PictureExist";
 interface TrainerInfo {
   simpleInfo: string;
   content: string;
   gymName: string;
 }
-interface getTrainerIntro {
+export interface ImgType {
+  imgName: string;
+  imgUrl: string;
+}
+
+export interface getTrainerIntro {
   gymName: string;
   simpleIntro: string;
   introContent: string;
+  careerImgList: Array<ImgType>;
 }
 export default function IntroTrainerForm() {
-  const [pictureArr, setPictureArr] = useState<Array<Picture>>([]);
   const queryClient = useQueryClient();
   const data: getTrainerIntro | undefined = queryClient.getQueryData([
     "trainerIntro",
   ]);
+  const [pictureArr, setPictureArr] = useState<Array<Picture>>([]);
+  const [deleteImg, setDeleteImg] = useState<Array<string>>([]);
   console.log("data다아앙", data);
   const mutation = useSetInfoTrainer();
   const {
@@ -35,9 +43,9 @@ export default function IntroTrainerForm() {
   } = useForm<TrainerInfo>({
     resolver: zodResolver(zodTrainerSchema),
     defaultValues: {
-      gymName: `${data?.gymName}`,
-      simpleInfo: `${data?.simpleIntro}`,
-      content: `${data?.introContent}`,
+      gymName: data?.gymName ?? undefined,
+      simpleInfo: data?.simpleIntro ?? undefined,
+      content: data?.introContent ?? undefined,
     },
   });
   const onSubmit = (data: TrainerInfo) => {
@@ -45,9 +53,16 @@ export default function IntroTrainerForm() {
     formdata.append("gymName", data.gymName);
     formdata.append("simpleIntro", data.simpleInfo);
     formdata.append("introContent", data.content);
+
     pictureArr.forEach((picture) => {
       formdata.append("careerImgList", picture.file);
     });
+    if (deleteImg.length > 0) {
+      deleteImg.forEach((img) => {
+        formdata.append("deletedImgList", img);
+      });
+    }
+
     mutation.mutate(formdata);
   };
 
@@ -83,9 +98,15 @@ export default function IntroTrainerForm() {
       )}
 
       <span className="my-3 text-sm font-semibold">자격 증명</span>
-
+      {data?.careerImgList ? (
+        <PictureExist
+          fetchImg={data.careerImgList}
+          setDeleteImg={setDeleteImg}
+        />
+      ) : (
+        <></>
+      )}
       <PicturesElement pictureArr={pictureArr} setPictureArr={setPictureArr} />
-
       <LightButton type="submit">트레이너 소개 등록</LightButton>
     </form>
   );
