@@ -1,6 +1,6 @@
 import SocialLoginButtons from "./SocialLoginButtons";
 import LoginForm from "./LoginForm";
-
+import Link from "next/link";
 export default function LoginComponent() {
   return (
     <div className="flex flex-col h-screen bg-white mx-auto">
@@ -9,7 +9,7 @@ export default function LoginComponent() {
       </h1>
       <LoginForm />
       <div className="flex flex-1 text-[24px] text-[#175601] items-center justify-center border-y-slate-200 border-2">
-        <div>회원가입</div>
+        <Link href="/join">회원가입</Link>
       </div>
       <SocialLoginButtons />
     </div>
