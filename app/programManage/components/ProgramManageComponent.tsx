@@ -15,17 +15,15 @@ export const ProgramManageComponent = () => {
 
   return (
     <div className=" px-3  bg-white">
-      <div className="flex flex-col items-center">
-        <div className="bg-slate-500 h-[90px] w-[90px] rounded-full mb-2" />
-        <div className="text-black text-xl">안녕하세요 트레이너님!</div>
+      <div className=" flex justify-center mx-2">
+        <LightButton className="text-base " height="h-[40px]" onClick={addForm}>
+          +프로그램 추가하기
+        </LightButton>
       </div>
-      <LightButton className="text-base" height="h-[40px]" onClick={addForm}>
-        +프로그램 추가하기
-      </LightButton>
-      {programForms.map((component) => component)}
 
+      {programForms.map((component) => component)}
       <div className=" flex justify-center sticky bottom-2 right-3 left-3 ">
-        <button className=" h-[48px] bg-[#1C743C] rounded-[6px] w-full sticky">
+        <button className="m-2 h-[48px] bg-[#1C743C] rounded-[6px] w-full sticky text-white">
           저장하기
         </button>
       </div>
