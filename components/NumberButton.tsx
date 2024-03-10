@@ -1,11 +1,13 @@
 "use client";
 import { Dispatch, SetStateAction } from "react";
 import React from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
 interface CountProps {
   setCount: Dispatch<SetStateAction<number>>;
   count: number;
+  register?: UseFormRegisterReturn;
 }
-export const NumberButton = ({ setCount, count }: CountProps) => {
+export const NumberButton = ({ setCount, count, register }: CountProps) => {
   const decrement = () => {
     setCount((prevCount) => Math.max(prevCount - 1, 1));
   };
@@ -21,6 +23,7 @@ export const NumberButton = ({ setCount, count }: CountProps) => {
         id="bedrooms-input"
         className=" bg-[#d0ecda] border-x-0 border-gray-300 h-11 font-medium text-center text-[#22C55E] text-sm  w-[50%] pb-6 py-5 rounded-lg"
         readOnly
+        {...register}
       />
       <button
         type="button"
