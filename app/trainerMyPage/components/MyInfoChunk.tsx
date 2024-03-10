@@ -3,10 +3,10 @@ import Image from "next/image";
 import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 import logout from "@/public/trainerMyPageIcons/logoutButton.png";
 import infoEditButton from "@/public/trainerMyPageIcons/infoEditButton.png";
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
-interface UserDataType {
+export interface UserDataType {
   data: {
     name: string;
     address: string;
@@ -24,16 +24,14 @@ export default function MyInfoChunk() {
   };
   return (
     <div className=" flex">
-      <div className="flex relative w-[100px] rounded-[100%] overflow-hidden">
+      <div className="flex relative w-[100px] rounded-[100%] overflow-hidden mr-2">
         {data?.data.profileImagePath ? (
-          <div className=" ">
-            <Image
-              src={data.data.profileImagePath}
-              alt="profileImage"
-              layout="fill"
-              objectFit="cover"
-            ></Image>
-          </div>
+          <Image
+            src={data.data.profileImagePath}
+            alt="profileImage"
+            layout="fill"
+            objectFit="contain"
+          ></Image>
         ) : (
           <Image src={userThumb} alt="userThumb"></Image>
         )}
