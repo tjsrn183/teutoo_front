@@ -49,7 +49,7 @@ export default function MyInfoChunk() {
             <Image src={logout} alt="logout" />
           </button>
         </div>
-        <div className="text-[17px] text-slate-400">gymgym12@naver.com</div>
+        <div className="text-[17px] text-slate-400">{data?.data.email}</div>
       </div>
     </div>
   );

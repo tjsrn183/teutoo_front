@@ -1,27 +1,64 @@
 "use client";
+import { ProgramFormType } from "@/app/(afterLogin)/programManage/components/ProgramForm";
 import { Dispatch, SetStateAction } from "react";
 import React from "react";
+import {
+  UseFormRegisterReturn,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
 interface CountProps {
   setCount: Dispatch<SetStateAction<number>>;
   count: number;
+  register?: UseFormRegisterReturn;
+  setValue?: UseFormSetValue<ProgramFormType>;
+  useReactHookForm?: boolean;
+  watch?: UseFormWatch<ProgramFormType>;
 }
-export const NumberButton = ({ setCount, count }: CountProps) => {
-  const decrement = () => {
-    setCount((prevCount) => Math.max(prevCount - 1, 1));
-  };
-
+export const NumberButton = ({
+  setCount,
+  count,
+  register,
+  setValue,
+  watch,
+  useReactHookForm,
+}: CountProps) => {
   const increment = () => {
-    setCount((prevCount) => prevCount + 1);
+    if (setValue && watch) {
+      let count = watch("count");
+      setValue("count", ++count);
+    } else {
+      setCount(++count);
+    }
+  };
+  const decrement = () => {
+    if (setValue && watch) {
+      let count = watch("count");
+      setValue("count", --count);
+    } else {
+      setCount(--count);
+    }
   };
   return (
     <div className="relative flex items-center mb-2 m-2 justify-between">
-      <input
-        type="text"
-        value={count}
-        id="bedrooms-input"
-        className=" bg-[#d0ecda] border-x-0 border-gray-300 h-11 font-medium text-center text-[#22C55E] text-sm  w-[50%] pb-6 py-5 rounded-lg"
-        readOnly
-      />
+      {!useReactHookForm ? (
+        <input
+          type="text"
+          id="numberInput"
+          className=" bg-[#d0ecda] border-x-0 border-gray-300 h-11 font-medium text-center text-[#22C55E] text-sm  w-[50%] pb-6 py-5 rounded-lg"
+          readOnly
+          value={count}
+        />
+      ) : (
+        <input
+          type="text"
+          id="formNumberInput"
+          className=" bg-[#d0ecda] border-x-0 border-gray-300 h-11 font-medium text-center text-[#22C55E] text-sm  w-[50%] pb-6 py-5 rounded-lg"
+          readOnly
+          {...register}
+        />
+      )}
+
       <button
         type="button"
         id="decrement-button"
