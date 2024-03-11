@@ -13,6 +13,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { zodProgramSchema } from "../zodProgramSchema";
 import { useManageProgram } from "../api/useManageProgram";
 import { useEditProgram } from "../api/useEditProgram";
+import PictureExist from "@/app/(afterLogin)/introduceTrainer/components/PictureExist";
+import { ImgType } from "@/app/(afterLogin)/introduceTrainer/components/IntroTrainerForm";
+import { useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
+import close from "@/public/join/close.png";
+import { useDeleteProgram } from "../api/useDeleteProgram";
+
 export interface ProgramFormType {
   title: string;
   content: string;
@@ -20,15 +27,16 @@ export interface ProgramFormType {
   count: number;
   time?: [number, number];
   picture?: Picture[];
+  ptProgramImgList?: ImgType[];
 }
 interface ProgramListProps {
   programList?: ProgramDataServer;
   fromServer?: boolean;
 }
-interface ProgramDataServer extends ProgramFormType {
-  ptcount?: number;
+export interface ProgramDataServer extends ProgramFormType {
+  ptCnt?: number;
   ptProgramId?: number;
-  ptProgramImgList?: Picture[];
+  ptProgramResList?: Array<ProgramFormType>;
 }
 export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
   const [pictureArr, setPictureArr] = useState<Array<Picture>>([]);
@@ -36,7 +44,20 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
   const setNewProgram = useManageProgram();
   const editProgram = useEditProgram();
   const [timeRange, setTimeRange] = useState<[number, number] | [null, null]>();
+  const [deleteImg, setDeleteImg] = useState<string[]>([]);
+  const deleteProgram = useDeleteProgram();
+  const queryClient = useQueryClient();
+
+  const data: ProgramDataServer | undefined = queryClient.getQueryData([
+    "trainerProgram",
+  ]);
+  const imgArr =
+    props.programList?.ptProgramId &&
+    data?.ptProgramResList &&
+    data?.ptProgramResList[props.programList.ptProgramId - 1]?.ptProgramImgList;
   const {
+    watch,
+    setValue,
     handleSubmit,
     register,
     formState: { errors },
@@ -46,31 +67,41 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
       title: props.programList?.title ?? undefined,
       content: props.programList?.content ?? undefined,
       price: props.programList?.price ?? undefined,
-      count: props.programList?.ptcount ?? undefined,
+      count: props.programList?.ptCnt ?? undefined,
       time: props.programList?.time ?? undefined,
     },
   });
-  console.log("dsdfsdf", props);
+
   const handleRangeChange = (time: RangeValueType<Dayjs>) => {
     if (time && time[0] && time[1]) {
-      console.log("time", time, [time[0].hour(), time[1].hour()]);
       setTimeRange([time[0].hour(), time[1].hour()]);
     } else {
       setTimeRange([null, null]);
     }
   };
+  const onClickDeleteProgram = () => {
+    if (props.programList?.ptProgramId) {
+      deleteProgram.mutate(props.programList?.ptProgramId);
+    }
+  };
+  // 폼을 제출하기 위한 함수
   const onSubmit = (data: ProgramFormType) => {
     const formdata = new FormData();
     formdata.append("title", data.title);
     formdata.append("content", data.content);
     formdata.append("price", data.price.toString());
-    formdata.append("ptCnt", data.count.toString());
+    formdata.append("ptCnt", count.toString());
     if (pictureArr) {
       pictureArr.forEach((picture) => {
         formdata.append("addPtImgList", picture.file);
       });
     }
     if (props.fromServer) {
+      if (deleteImg.length > 0) {
+        deleteImg.forEach((img) => {
+          formdata.append("delPtImgList", img);
+        });
+      }
       editProgram.mutate({
         data: formdata,
         programId: props.programList?.ptProgramId,
@@ -91,6 +122,18 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
       className="flex flex-col border border-[#DDE1E6] m-2  rounded-[12px] p-3"
       onSubmit={handleSubmit(onSubmit)}
     >
+      <div className=" relative">
+        {props.fromServer && (
+          <button
+            type="button"
+            onClick={onClickDeleteProgram}
+            className=" absolute right-1"
+          >
+            <Image src={close} alt="close" />
+          </button>
+        )}
+      </div>
+
       <TextField
         title="프로그램 제목을 입력해주세요"
         placeholder="제목을 입력하세요"
@@ -146,13 +189,28 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
           setCount={setCount}
           count={count}
           register={{ ...register("count") }}
+          setValue={setValue}
+          useReactHookForm
+          watch={watch}
         />
       </label>
       {errors.count && (
         <p className="text-red-600 font-bold">{errors.count.message}</p>
       )}
+
+      {imgArr ? (
+        <PictureExist
+          fetchImg={imgArr}
+          setDeleteImg={setDeleteImg}
+          fromWhere="ProgramManage"
+          programId={props.programList?.ptProgramId}
+        />
+      ) : (
+        <></>
+      )}
+
       <PicturesElement pictureArr={pictureArr} setPictureArr={setPictureArr} />
     </form>
   );
 });
-ProgramForm.displayName = "ProgramForm1";
+ProgramForm.displayName = "ProgramForm";
