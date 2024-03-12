@@ -5,7 +5,7 @@ import Provider from "@/components/provider";
 import { Suspense } from "react";
 import Script from "next/script";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Loading from "./Loading/page";
+import Loading from "@/components/Loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
