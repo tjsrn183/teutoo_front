@@ -28,6 +28,7 @@ export interface ProgramFormType {
   time?: [number, number];
   picture?: Picture[];
   ptProgramImgList?: ImgType[];
+  ptProgramId?: number;
 }
 interface ProgramListProps {
   programList?: ProgramDataServer;
