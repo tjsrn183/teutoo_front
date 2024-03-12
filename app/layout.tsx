@@ -5,6 +5,7 @@ import Provider from "@/components/provider";
 import { Suspense } from "react";
 import Script from "next/script";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Loading from "@/components/Loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="md:max-w-md bg-white md:m-auto">
+    <html lang="en" className="md:max-w-md bg-white md:m-auto  ">
       <body className={inter.className}>
         <Script
           strategy="beforeInteractive"
@@ -27,7 +28,7 @@ export default function RootLayout({
         />
         <Provider>
           <div className="  bg-white md:drop-shadow-2xl min-h-screen">
-            <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
             <ReactQueryDevtools />
           </div>
         </Provider>

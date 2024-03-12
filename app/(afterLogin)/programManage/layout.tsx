@@ -7,7 +7,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-const fetchTrainerProgram = async () => {
+export const fetchTrainerProgram = async () => {
   return await sendRequest("trainer/program/me", "get");
 };
 
