@@ -10,7 +10,7 @@ export const useEditInfo = () => {
 
   return useMutation({
     mutationFn: async (data: FormData) => {
-      const response = sendRequest("members/me", "patch", data);
+      const response = await sendRequest("members/me", "patch", data);
       return response;
     },
     onSuccess(response) {
