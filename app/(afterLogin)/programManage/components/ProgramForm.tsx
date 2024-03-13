@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { NumberButton } from "@/components/NumberButton";
 import { Picture, PicturesElement } from "@/components/PicturesElement";
 import TextArea from "@/components/formElement/TextArea";
 import TextField from "@/components/formElement/TextField";
@@ -41,7 +40,6 @@ export interface ProgramDataServer extends ProgramFormType {
 }
 export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
   const [pictureArr, setPictureArr] = useState<Array<Picture>>([]);
-  const [count, setCount] = useState(1);
   const setNewProgram = useManageProgram();
   const editProgram = useEditProgram();
   const [timeRange, setTimeRange] = useState<[number, number] | [null, null]>();
@@ -57,8 +55,6 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
     data?.ptProgramResList &&
     data?.ptProgramResList[props.programList.ptProgramId - 1]?.ptProgramImgList;
   const {
-    watch,
-    setValue,
     handleSubmit,
     register,
     formState: { errors },
@@ -68,7 +64,7 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
       title: props.programList?.title ?? undefined,
       content: props.programList?.content ?? undefined,
       price: props.programList?.price ?? undefined,
-      count: props.programList?.ptCnt ?? undefined,
+
       time: props.programList?.time ?? undefined,
     },
   });
@@ -91,7 +87,7 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
     formdata.append("title", data.title);
     formdata.append("content", data.content);
     formdata.append("price", data.price.toString());
-    formdata.append("ptCnt", count.toString());
+
     if (pictureArr) {
       pictureArr.forEach((picture) => {
         formdata.append("addPtImgList", picture.file);
@@ -183,21 +179,6 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
           />
         </ConfigProvider>
       </div>
-
-      <label className="text-sm font-semibold text-black flex flex-col">
-        횟수
-        <NumberButton
-          setCount={setCount}
-          count={count}
-          register={{ ...register("count") }}
-          setValue={setValue}
-          useReactHookForm
-          watch={watch}
-        />
-      </label>
-      {errors.count && (
-        <p className="text-red-600 font-bold">{errors.count.message}</p>
-      )}
 
       {imgArr ? (
         <PictureExist

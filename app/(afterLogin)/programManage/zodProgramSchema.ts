@@ -10,11 +10,4 @@ export const zodProgramSchema = z.object({
     }
     return val;
   }, z.number().min(1, { message: "가격은 1원 이상이어야 합니다." })),
-  count: z.preprocess((val) => {
-    if (typeof val === "string") {
-      const parsed = parseInt(val, 10);
-      return isNaN(parsed) ? undefined : parsed;
-    }
-    return val;
-  }, z.number().min(1, { message: "횟수는 한번 이상이어야 합니다." })),
 });

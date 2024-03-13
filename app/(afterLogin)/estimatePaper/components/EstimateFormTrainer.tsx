@@ -52,7 +52,6 @@ export default function EstimateFormTrainer() {
             <SelectProgram setState={setProgramId} />
           </div>
           <div className=" p-4" />
-
           <TextField
             title="센터 위치"
             data={data?.data.address}
