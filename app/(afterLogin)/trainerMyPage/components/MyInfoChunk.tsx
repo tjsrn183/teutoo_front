@@ -12,6 +12,7 @@ export interface UserDataType {
     address: string;
     email?: string;
     profileImagePath?: string;
+    setRole: string;
   };
 }
 export default function MyInfoChunk() {
