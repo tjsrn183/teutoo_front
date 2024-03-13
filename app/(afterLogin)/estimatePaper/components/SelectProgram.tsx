@@ -4,8 +4,6 @@ import * as Select from "@radix-ui/react-select";
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { ProgramDataServer } from "../../programManage/components/ProgramForm";
-
 interface SelectProgramProps {
   setState?: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
@@ -36,7 +34,7 @@ export const SelectProgram = ({ setState }: SelectProgramProps) => {
   };
   return (
     <Select.Root onValueChange={handleValueChange}>
-      <Select.Trigger className=" pl-2 flex justify-between w-full text-[#697077] border border-[#d9d9d9] rounded-[12px] h-[38px]  items-center pr-4">
+      <Select.Trigger className="focus:outline-none pl-2 flex justify-between w-full text-[#697077] border border-[#d9d9d9] rounded-[12px] h-[38px]  items-center pr-4">
         <Select.Value placeholder="프로그램을 선택하세요" />
         <Select.Icon className="">
           <ChevronDownIcon />
@@ -46,7 +44,7 @@ export const SelectProgram = ({ setState }: SelectProgramProps) => {
         <Select.Content className=" bg-white drop-shadow-2xl rounded-[12px]">
           <Select.Viewport className="SelectViewport">
             <Select.Group>
-              {data?.data[0].programs.map((item, index) => {
+              {data?.data[0]?.programs.map((item, index) => {
                 return (
                   <SelectItem value={item.id.toString()} key={index}>
                     {item.programName}
