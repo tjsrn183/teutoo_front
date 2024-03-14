@@ -6,6 +6,11 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
+
+export const metadata = {
+  title: "견적서 목록",
+  description: "견적서 목록",
+};
 export interface getTrainerEstimates {
   pageParams: Array<number>;
   pages: Array<EstimateItemT>;
