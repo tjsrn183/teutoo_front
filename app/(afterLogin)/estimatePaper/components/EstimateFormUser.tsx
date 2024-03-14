@@ -1,24 +1,44 @@
 "use client";
-import { NumberButton } from "@/components/NumberButton";
 
-import { useState } from "react";
 import LightButton from "@/components/LightButton";
-import TextField from "@/components/formElement/TextField";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { zodEstimatePaper } from "../zodEstimatePaper";
+import { useQueryClient } from "@tanstack/react-query";
+import { UserDataType } from "../../trainerMyPage/components/MyInfoChunk";
+import { useSubmitUser } from "../api/useSubmitUser";
+import { EstimateUserFormType } from "../zodEstimatePaper";
+import CommonForm from "./CommonForm";
+
 export default function EstimateFormUser() {
-  const [count, setCount] = useState(0);
+  const queryClient = useQueryClient();
+  const data: UserDataType | undefined = queryClient.getQueryData(["userData"]);
+  const mutation = useSubmitUser();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<EstimateUserFormType>({
+    resolver: zodResolver(zodEstimatePaper),
+    defaultValues: {
+      name: data?.data.name ?? undefined,
+      address: data?.data.address ?? undefined,
+    },
+  });
+  const onSubmit: (data: EstimateUserFormType) => void = (data) => {
+    const formdata = new FormData();
+    formdata.append("price", data.price.toString());
+    formdata.append("ptAddress", data.address);
+    formdata.append("ptCount", "11");
+    mutation.mutate(formdata);
+  };
   return (
-    <form className=" w-[80%] flex flex-col justify-center items-center text-black h-full">
+    <form
+      className=" w-[80%] flex flex-col justify-center items-center text-black h-full"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div className="bg-white flex flex-col px-4 rounded-md py-4">
-        <TextField title="이름" placeholder="이름을 입력하세요" />
-        <TextField
-          title="가격"
-          placeholder="가격을 입력하세요"
-          id="won"
-          type="number"
-        />
-        <TextField title="위치" placeholder="위치를 입력하세요" />
-        <span className=" text-black font-semibold text-sm">횟수</span>
-        <NumberButton count={count} setCount={setCount} />
+        <CommonForm register={register} errors={errors} />
       </div>
 
       <LightButton
