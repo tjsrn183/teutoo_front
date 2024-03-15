@@ -1,5 +1,5 @@
+import { getUserCookie } from "@/app/utils/getUserCookie";
 import axios from "axios";
-import { getUserCookie } from "../utils/getUserCookie";
 import { getCookie } from "cookies-next";
 interface configTypes {
   method: string;
@@ -14,12 +14,14 @@ const apiClient = axios.create({
   withCredentials: true,
 });
 
+const getToken = async () => {
+  const isServer = typeof window === "undefined";
+  return isServer ? getUserCookie() : getCookie("token");
+};
+
 apiClient.interceptors.request.use(
-  (config) => {
-    let token = getUserCookie();
-    if (typeof token !== "string") {
-      token = getCookie("token");
-    }
+  async (config) => {
+    const token = await getToken();
 
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -31,22 +33,20 @@ apiClient.interceptors.request.use(
   },
 );
 
-export async function sendRequest(
+export async function sendRequest<T = any>(
   endpoint: string,
   method: string = "get",
   data?: any,
   headers?: Record<string, string>,
-) {
+): Promise<T> {
   const config: configTypes = {
     method: method,
     url: endpoint,
     headers: headers || {},
-    data: data,
+    data: method.toLowerCase() !== "get" ? data : {},
+    params: method.toLowerCase() === "get" ? data : {},
   };
 
-  if (method.toLowerCase() === "get") {
-    delete config["data"];
-  }
   try {
     const response = await apiClient(config);
     return response.data;
