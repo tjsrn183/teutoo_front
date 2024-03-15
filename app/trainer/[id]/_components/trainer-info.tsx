@@ -6,6 +6,7 @@ import TabNavigation from "@/components/common/tab-navigation";
 import { MapPin } from "lucide-react";
 import ImagePreview from "./image-preview";
 import Link from "next/link";
+import { useTrainerInfoQuery } from "@/api/getTrainerInfo";
 
 const TAB_ITEMS = [
   {
@@ -57,7 +58,17 @@ const PROGRAMS = [
   },
 ];
 
-export default function TrainerInfo(): JSX.Element {
+interface TrainerInfoProps {
+  id: number;
+}
+
+export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
+  const { data } = useTrainerInfoQuery({ trainerId: id });
+
+  const minPrice = data.ptProgramResDtoList.reduce(
+    (min, program) => (program.price < min ? program.price : min),
+    data.ptProgramResDtoList[0].price,
+  );
   return (
     <div className="flex flex-col" id="root">
       <Avatar className="w-20 h-20" square>
@@ -66,20 +77,19 @@ export default function TrainerInfo(): JSX.Element {
           src="https://randomuser.me/api/portraits/women/31.jpg"
         />
       </Avatar>
-      <p className="font-medium">박영길</p>
+      <p className="font-medium">{data.trainerName}</p>
       <div className="inline-flex items-center text-neutral-500">
         <MapPin className="w-4 h-4" />
-        <p className="text-sm text-neutral-500">동대문 박영길짐앤피티</p>
+        <p className="text-sm text-neutral-500">{data.gymName}</p>
       </div>
       <div className="inline-flex items-start gap-1">
         <Star className="w-3.5 h-3.5" />
-        <span className="text-sm font-medium leading-4">5.0 (36)</span>
+        <span className="text-sm font-medium leading-4">
+          {data.reviewScore} ({data.reviewCnt})
+        </span>
       </div>
-      <p className="text-red-500 font-semibold ">1회 20,000원~</p>
-      <p className="bg-neutral-100 p-4 rounded-lg">
-        트레이너 박영길은 1:1 PT 전문으로 동대문 박영길짐앤피티에서 활동하고
-        있습니다.
-      </p>
+      <p className="text-red-500 font-semibold ">{minPrice}원~</p>
+      <p className="bg-neutral-100 p-4 rounded-lg">{data.simpleIntro}</p>
       <TabNavigation className="w-full">
         <TabNavigation.List className=" sticky top-14">
           {TAB_ITEMS.map((item) => (
@@ -95,19 +105,7 @@ export default function TrainerInfo(): JSX.Element {
           <h2 className="text-xl font-semibold my-3" id="info">
             트레이너 소개
           </h2>
-          <p className="text-neutral-600">
-            매번 마음에 들지않아도 상담후 등록되는pt시스템에 나한테 맞지 못하는
-            트레이너에게 피티를 받아 만족을 못하시는 분들 혹은 이벤트 가격으로
-            연습생들에게 피티를 받으셧던분들에게는 숨고는 참 좋은
-            서비스인거같습니다 트레이너의 성향 및 이력 경력을 확인해 보고상담후
-            결정하는 거라 실패확률은 거의 없다고 자부합니다! 식단관리 체형교정
-            근막이완 등 바디케어와내 목적과 내몸에 맞는 웨이트를 통해 건강과더
-            나아가 혼자서도 운동을 즐기고 잘할수 있게 만드는게 목표입니다 한번
-            배우면 평생가는 운동이라구 생각합니다 신중히 생각하고 저에게 오시면
-            최선을 다해 수업하겟습니다 ㅎㅎ ❤️400평대 프리미엄 센터현재 97호점
-            까지 있는 스포애니(국내최다헬스장) 전지점 이용가능(강남역2호점 기준
-            1km기준으로 5개지점 이용가능)
-          </p>
+          <p className="text-neutral-600">{data.introContent}</p>
         </TabNavigation.Content>
         <TabNavigation.Content
           value={TAB_ITEMS[1].value}
@@ -117,10 +115,10 @@ export default function TrainerInfo(): JSX.Element {
             {TAB_ITEMS[1].label}
           </h2>
           <ul className="grid grid-cols-3 gap-2">
-            {CERTIFICATION_IMAGES.map((src, index) => (
+            {data.careerImgList.map((imgInfo, index) => (
               <li key={index}>
                 {/* <img src={src} alt="certification" className="rounded-md" /> */}
-                <ImagePreview src={src} />
+                <ImagePreview src={imgInfo.imgUrl} />
               </li>
             ))}
           </ul>
@@ -133,7 +131,7 @@ export default function TrainerInfo(): JSX.Element {
             {TAB_ITEMS[2].label}
           </h2>
           <ul className="flex flex-col gap-4">
-            {PROGRAMS.map((program, index) => (
+            {data.ptProgramResDtoList.map((program, index) => (
               <Link
                 href={`/program/0`}
                 key={index}
@@ -142,16 +140,19 @@ export default function TrainerInfo(): JSX.Element {
                 <div className="flex-auto">
                   <h3 className="font-semibold">{program.title}</h3>
                   <p className="line-clamp-2 text-neutral-400 text-sm leading-tight">
-                    {program.description}
+                    {program.content}
                   </p>
                   <p className="text-red-500 font-semibold">
-                    {program.startPrice}원부터
+                    {program.price}원
                   </p>
                 </div>
                 <img
                   width={80}
                   height={80}
-                  src={program.image}
+                  src={
+                    program?.ptProgramImgList[0]?.imgUrl ||
+                    "https://placehold.co/80"
+                  }
                   alt={program.title}
                   className="rounded-md"
                 />
