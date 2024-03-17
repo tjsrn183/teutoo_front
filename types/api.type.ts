@@ -68,3 +68,13 @@ export interface TrainerInfoRes {
   reviewCnt: number;
   reviewScore: number;
 }
+
+export interface ProgramInfoRes {
+  trainerId: number;
+  title: string;
+  content: string;
+  price: number;
+  availableStartTime: LocalTime | null;
+  availableEndTime: LocalTime | null;
+  ptProgramImgList: ImgResDto[];
+}

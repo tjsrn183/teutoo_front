@@ -133,7 +133,7 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
           <ul className="flex flex-col gap-4">
             {data.ptProgramResDtoList.map((program, index) => (
               <Link
-                href={`/program/0`}
+                href={`/program/${program.ptProgramId}`}
                 key={index}
                 className="p-4 border border-neutral-200 rounded-lg shadow-sm flex gap-1"
               >
