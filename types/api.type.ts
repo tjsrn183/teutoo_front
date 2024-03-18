@@ -78,3 +78,14 @@ export interface ProgramInfoRes {
   availableEndTime: LocalTime | null;
   ptProgramImgList: ImgResDto[];
 }
+
+export interface LoginUserInfoRes {
+  data: {
+    name: string;
+    address: string;
+    profileImagePath: string | null;
+    profileImageName: string | null;
+    email: string;
+    setRole: "USER" | "TRAINER";
+  };
+}

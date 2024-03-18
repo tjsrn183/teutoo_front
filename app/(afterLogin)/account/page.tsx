@@ -2,6 +2,7 @@ import AppBar from "@/components/common/app-bar";
 import React from "react";
 import AccountInfo from "./_components/account-info";
 import AccountTopMenu from "./_components/account-top-menu";
+import BottomNavigationBar from "@/components/BottomNavigationBar";
 
 export default function AccountPage(): JSX.Element {
   return (
@@ -11,6 +12,7 @@ export default function AccountPage(): JSX.Element {
       </AppBar>
       <AccountInfo />
       <AccountTopMenu />
+      <BottomNavigationBar />
     </div>
   );
 }

@@ -17,11 +17,6 @@ const MENU_ITEMS: {
     href: "/account/membership",
     icon: <Ticket />,
   },
-  {
-    label: "결제내역",
-    href: "/account/payment",
-    icon: <CreditCard />,
-  },
 ];
 
 export default function AccountTopMenu(): JSX.Element {
