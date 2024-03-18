@@ -8,13 +8,21 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-export default function TrainerList(): JSX.Element {
+interface TrainerListProps {
+  sort?: "alpha" | "review";
+  direction?: "asc" | "desc";
+}
+
+export default function TrainerList({
+  sort = "alpha",
+  direction = "asc",
+}: TrainerListProps): JSX.Element {
   const { ref, inView } = useInView();
   const { data, fetchNextPage } = useTrainerListInfiniteQuery({
     page: 0,
     size: 5,
-    sort: "alpha",
-    direction: "asc",
+    sort,
+    direction,
   });
 
   useEffect(() => {
