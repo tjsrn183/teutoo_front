@@ -7,6 +7,10 @@ import {
 import { SmallHeader } from "@/components/SmallHeader";
 import EstimateFormTrainer from "../components/EstimateFormTrainer";
 import { sendRequest } from "@/app/api/rootApi";
+export const metadata = {
+  title: "견적서 작성",
+  description: "견적서 작성",
+};
 const fetchOnlyTrainerPrograms = async () => {
   return await sendRequest("trainer/estimates/programs");
 };

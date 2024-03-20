@@ -2,10 +2,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { ReactNode } from "react";
 import { UserDataType } from "../trainerMyPage/components/MyInfoChunk";
-export const metadata = {
-  title: "견적서 작성",
-  description: "견적서 작성",
-};
+
 interface RoleProps {
   trainer: ReactNode;
   user: ReactNode;
