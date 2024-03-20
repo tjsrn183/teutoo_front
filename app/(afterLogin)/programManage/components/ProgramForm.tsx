@@ -87,7 +87,21 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
     formdata.append("title", data.title);
     formdata.append("content", data.content);
     formdata.append("price", data.price.toString());
+    if (
+      timeRange &&
+      typeof timeRange[0] === "number" &&
+      typeof timeRange[1] === "number"
+    ) {
+      // 24시간 형식의 시간으로 변환, 예를 들어 3 -> "03:00", 15 -> "15:00"
+      const formatTime = (time: number) =>
+        `${time.toString().padStart(2, "0")}:00`;
 
+      const startTimeString = formatTime(timeRange[0]);
+      const endTimeString = formatTime(timeRange[1]);
+
+      formdata.append("availableStartTime", startTimeString);
+      formdata.append("availableEndTime", endTimeString);
+    }
     if (pictureArr) {
       pictureArr.forEach((picture) => {
         formdata.append("addPtImgList", picture.file);
