@@ -46,7 +46,10 @@ export const ProgramManageComponent = () => {
 
   // 마운트 시 미리 폼하나를 렌더링, 서버데이터가 존재할 시 ref를 마련해놓음
   useEffect(() => {
-    addForm();
+    data?.ptProgramResList.length && data?.ptProgramResList.length > 0
+      ? ""
+      : addForm();
+
     addRefsForExistingData();
   }, []);
   return (
