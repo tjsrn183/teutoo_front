@@ -1,26 +1,20 @@
 "use client";
+import { useChatListQuery } from "@/api/getChatList";
 import Avatar from "@/components/common/avatar";
 import Badge from "@/components/common/badge";
 import List from "@/components/common/list";
 import Search from "@/components/common/search";
 import React from "react";
 
-const CHAT_LIST = Array.from({ length: 20 }).map((_, i) => ({
-  id: i,
-  name: "이름입니다",
-  lastMessage: "마지막 메시지입니다",
-  time: "오후 3:45",
-  unread: 9,
-}));
-
 export default function ChatList(): JSX.Element {
   const [search, setSearch] = React.useState("");
+  const { data } = useChatListQuery();
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  const filteredChats = CHAT_LIST.filter((chat) =>
+  const filteredChats = data.filter((chat) =>
     chat.name.toLowerCase().includes(search.toLowerCase()),
   );
 
@@ -33,21 +27,27 @@ export default function ChatList(): JSX.Element {
         onChange={handleSearch}
       />
       <List className="mt-4 bg-white">
-        {filteredChats.map((_, i) => (
+        {filteredChats.map((chat, i) => (
           <List.Item className="flex gap-2" key={i}>
             <Avatar square>
               <Avatar.Image
                 alt="avatar"
-                src="https://randomuser.me/api/portraits/women/31.jpg"
+                src={chat.profileImgUrl || "https://placehold.co/80"}
               />
             </Avatar>
             <div>
-              <p className="font-medium">이름입니다</p>
-              <p className="text-sm text-neutral-500">마지막 메시지입니다</p>
+              <p className="font-medium">{chat.name}</p>
+              <p className="text-sm text-neutral-500">
+                {chat.latestChat?.content}
+              </p>
             </div>
             <div className="flex-1 text-right text-sm">
               <p className=" text-neutral-500">오후 3:45</p>
-              <Badge>9</Badge>
+              {chat.unReadChatCnt > 0 && (
+                <Badge className="mt-1" type="number">
+                  {chat.unReadChatCnt.toString()}
+                </Badge>
+              )}
             </div>
           </List.Item>
         ))}

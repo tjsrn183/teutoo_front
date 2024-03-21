@@ -1,14 +1,38 @@
 "use client";
 import { Plus, SendHorizonal } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import ChatImageButton from "./chat-menu/chat-image-button";
 import ChatReservationButton from "./chat-menu/chat-reservation-button";
 import { Toggle } from "@/components/common/toggle";
 import { cn } from "@/lib/utils/tailwind.utils";
 import Button from "@/components/common/button";
 
-export default function ChatForm(): JSX.Element {
+interface ChatFormProps {
+  onSendTextMessage: (message: string) => void;
+}
+
+export default function ChatForm({
+  onSendTextMessage,
+}: ChatFormProps): JSX.Element {
+  const [inputText, setInputText] = useState("");
   const [menuOpen, setMenuOpen] = React.useState(false);
+
+  const handleKeyDownEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSendTextMessage(inputText);
+    }
+  };
+
+  const handleClickSend = (e: React.MouseEvent<HTMLButtonElement>) => {
+    handleSendTextMessage(inputText);
+  };
+
+  const handleSendTextMessage = (message: string) => {
+    if (message.trim() !== "") {
+      onSendTextMessage(message);
+      setInputText("");
+    }
+  };
 
   return (
     <div className="bg-white p-2 pb-3 border-t border border-neutral-200">
@@ -25,8 +49,19 @@ export default function ChatForm(): JSX.Element {
             )}
           />
         </Toggle>
-        <input className="flex-auto bg-transparent" />
-        <Button circle className="text-neutral-500" size="icon" variant="ghost">
+        <input
+          className="flex-auto bg-transparent"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          onKeyDown={handleKeyDownEnter}
+        />
+        <Button
+          circle
+          className="text-neutral-500"
+          size="icon"
+          variant="ghost"
+          onClick={handleClickSend}
+        >
           <SendHorizonal />
         </Button>
       </div>

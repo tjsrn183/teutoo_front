@@ -81,6 +81,7 @@ export interface ProgramInfoRes {
 
 export interface LoginUserInfoRes {
   data: {
+    memberId: number;
     name: string;
     address: string;
     profileImagePath: string | null;
@@ -88,4 +89,40 @@ export interface LoginUserInfoRes {
     email: string;
     setRole: "USER" | "TRAINER";
   };
+}
+
+export type Message = SendMessage | ReadMessage;
+
+export interface SendMessage {
+  msgAction: "SEND";
+  msgIdx: number;
+  contentType: "TEXT" | "IMG" | "RESERVE";
+  content: string;
+  createdAt: string;
+  senderId: number;
+}
+
+export interface ReadMessage {
+  msgAction: "READ";
+  senderId: number;
+  senderIdx: number;
+  receiverId: number;
+  receiverIdx: number;
+}
+
+export interface ChatList {
+  memberId: number;
+  name: string;
+  profileImgUrl: string;
+  latestChat: SendMessage;
+  unReadChatCnt: number;
+}
+
+export type ChatListRes = ChatList[];
+
+export interface ChatRoomRes {
+  roomId: string;
+  senderIdx: number;
+  receiverIdx: number;
+  messages: SendMessage[];
 }
