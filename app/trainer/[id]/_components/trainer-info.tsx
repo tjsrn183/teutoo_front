@@ -65,10 +65,13 @@ interface TrainerInfoProps {
 export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
   const { data } = useTrainerInfoQuery({ trainerId: id });
 
-  const minPrice = data.ptProgramResDtoList.reduce(
-    (min, program) => (program.price < min ? program.price : min),
-    data.ptProgramResDtoList[0].price,
-  );
+  const minPrice =
+    data.ptProgramResDtoList.length > 0
+      ? data.ptProgramResDtoList.reduce(
+          (min, program) => (program.price < min ? program.price : min),
+          data.ptProgramResDtoList[0].price,
+        )
+      : null;
   return (
     <div className="flex flex-col" id="root">
       <Avatar className="w-20 h-20" square>
@@ -88,7 +91,9 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
           {data.reviewScore} ({data.reviewCnt})
         </span>
       </div>
-      <p className="text-red-500 font-semibold ">{minPrice}원~</p>
+      <p className="text-red-500 font-semibold ">
+        {minPrice ? minPrice + "원~" : "없음"}
+      </p>
       <p className="bg-neutral-100 p-4 rounded-lg">{data.simpleIntro}</p>
       <TabNavigation className="w-full">
         <TabNavigation.List className=" sticky top-14">

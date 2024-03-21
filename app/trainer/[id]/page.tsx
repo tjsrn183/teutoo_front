@@ -10,6 +10,7 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import getTrainerInfo from "@/api/getTrainerInfo";
+import RequestChatButton from "@/components/RequestChatButton";
 
 interface TrainerDetailPageProps {
   params: {
@@ -43,7 +44,7 @@ export default async function TrainerDetailPage({
           <TrainerInfo id={id} />
         </Suspense>
         <FixedBottom>
-          <Button className="w-full">문의하기</Button>
+          <RequestChatButton receiverId={id} />
         </FixedBottom>
       </div>
     </HydrationBoundary>
