@@ -11,7 +11,7 @@ import { EstimateUserFormType } from "../zodEstimatePaper";
 import CommonForm from "./CommonForm";
 import { useEditUser } from "../api/useEditUser";
 import { useEffect, useState } from "react";
-import { MyEstimatePropsU } from "../../estimateUser/components/MyEstimate";
+import { MyEstimatePropsU } from "../../estimateUser/components/MyEstimateT";
 
 export default function EstimateFormUser() {
   const [exist, setExist] = useState<number>();
@@ -32,17 +32,20 @@ export default function EstimateFormUser() {
     defaultValues: {
       name: data?.data.name ?? undefined,
       address: data?.data.address ?? undefined,
+      price: myData?.data.price ?? undefined,
     },
   });
   const onSubmit: (data: EstimateUserFormType) => void = (data) => {
-    const formdata = new FormData();
-    formdata.append("price", data.price.toString());
-    formdata.append("ptAddress", data.address);
-
     if (!exist) {
+      const formdata = new FormData();
+      formdata.append("price", data.price.toString());
+      formdata.append("ptAddress", data.address);
       postMutation.mutate(formdata);
     } else if (exist) {
-      editMutaition.mutate({ data: formdata, id: exist });
+      const dataObj = new URLSearchParams();
+      dataObj.append("price", data.price.toString());
+      dataObj.append("ptAddress", data.address);
+      editMutaition.mutate({ data: dataObj, id: exist });
     }
   };
   useEffect(() => {
