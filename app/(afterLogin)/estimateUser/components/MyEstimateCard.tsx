@@ -1,4 +1,4 @@
-import { MyEstimatePropsU } from "./MyEstimate";
+import { MyEstimatePropsU } from "./MyEstimateT";
 import { formatKRW } from "../lib/formatKRW";
 export default function MyEstimateCard({ data }: { data: MyEstimatePropsU }) {
   return (
