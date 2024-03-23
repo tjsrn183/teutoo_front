@@ -29,7 +29,7 @@ export default async function AfterLoginLayout({
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div>{children}</div>{" "}
+      <div>{children}</div>
     </HydrationBoundary>
   );
 }

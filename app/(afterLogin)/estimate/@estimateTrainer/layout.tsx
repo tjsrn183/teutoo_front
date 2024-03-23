@@ -1,8 +1,7 @@
 import BottomNavigationBar from "@/components/BottomNavigationBar";
-
 import { ReactNode } from "react";
 
-export default function EstimateTrainerLayout({
+export default async function EstimateTrainerLayout({
   children,
 }: {
   children: ReactNode;

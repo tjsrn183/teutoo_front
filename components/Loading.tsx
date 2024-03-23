@@ -6,19 +6,30 @@ const LoadingAtom = ({ width }: { width: string }) => {
   );
 };
 
-export default function Loading() {
+export default function Looading({ height = 800 }) {
+  const atomHeight = 64;
+  const atomCount = Math.floor(height / atomHeight);
+
+  const widths = [
+    "w-[90%]",
+    "w-[80%]",
+    "w-[60%]",
+    "w-[82%]",
+    "w-[40%]",
+    "w-[70%]",
+    "w-[75%]",
+    "w-[80%]",
+    "w-[32%]",
+    "w-[50%]",
+    "w-[60%]",
+    "w-[70%]",
+  ];
+
   return (
-    <div className="min-h-screen w-screen flex flex-col justify-start mt-2">
-      <LoadingAtom width={"w-[322px]"} />
-      <LoadingAtom width={"w-[254px]"} />
-      <LoadingAtom width={"w-[152px]"} />
-      <LoadingAtom width={"w-[322px]"} />
-      <LoadingAtom width={"w-[252px]"} />
-      <LoadingAtom width={"w-[122px]"} />
-      <LoadingAtom width={"w-[272px]"} />
-      <LoadingAtom width={"w-[142px]"} />
-      <LoadingAtom width={"w-[202px]"} />
-      <LoadingAtom width={"w-[302px]"} />
+    <div className="min-h-screen w-full flex flex-col justify-start mt-2">
+      {widths.slice(0, atomCount).map((width, index) => (
+        <LoadingAtom key={index} width={width} />
+      ))}
     </div>
   );
 }

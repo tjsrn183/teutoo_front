@@ -1,7 +1,9 @@
-import Header from "@/components/Header";
 import { SmallHeader } from "@/components/SmallHeader";
 import { ReactNode } from "react";
-
+export const metadata = {
+  title: "정보수정",
+  description: "정보수정",
+};
 export default function editInfoLayout({
   children,
   editLocation,

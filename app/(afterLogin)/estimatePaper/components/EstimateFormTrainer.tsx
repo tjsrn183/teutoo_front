@@ -10,11 +10,19 @@ import { zodEstimatePaper } from "../zodEstimatePaper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CommonForm from "./CommonForm";
+import { MyEstimatePropsT } from "../../estimateTrainer/components/MyEstimateU";
+import { useEffect } from "react";
+import { useEditTrainer } from "../api/useEditTrainer";
 
 export default function EstimateFormTrainer() {
   const queryClient = useQueryClient();
+  const [exist, setExist] = useState<number>();
   const data: UserDataType | undefined = queryClient.getQueryData(["userData"]);
-  const setEstimate = useSubmitTrainer();
+  const postMutaionT = useSubmitTrainer();
+  const editMutationT = useEditTrainer();
+  const myData: MyEstimatePropsT | undefined = queryClient.getQueryData([
+    "myEstimateT",
+  ]);
   const [programId, setProgramId] = useState<number | undefined>();
   const {
     handleSubmit,
@@ -25,19 +33,33 @@ export default function EstimateFormTrainer() {
     defaultValues: {
       name: data?.data.name ?? undefined,
       address: data?.data.address ?? undefined,
+      price: myData?.data.price ?? undefined,
     },
   });
   const onSubmit = (data: EstimateUserFormType) => {
-    const formdata = new FormData();
     if (programId) {
-      formdata.append("price", data.price.toString());
-      formdata.append("ptAddress", data.address);
-      formdata.append("programId", programId.toString());
-      setEstimate.mutate(formdata);
+      if (!exist) {
+        const formdata = new FormData();
+        formdata.append("price", data.price.toString());
+        formdata.append("ptAddress", data.address);
+        formdata.append("programId", programId.toString());
+        postMutaionT.mutate(formdata);
+      } else if (exist) {
+        const dataObj = new URLSearchParams();
+        dataObj.append("price", data.price.toString());
+        dataObj.append("ptAddress", data.address);
+        dataObj.append("programId", programId.toString());
+        editMutationT.mutate({ data: dataObj, id: exist });
+      }
     } else {
       alert("프로그램을 선택해주세요");
     }
   };
+  useEffect(() => {
+    if (myData?.data.estimateId) {
+      setExist(myData?.data.estimateId);
+    }
+  }, []);
   return (
     <form
       className=" w-full flex flex-col justify-center items-center text-black h-full"

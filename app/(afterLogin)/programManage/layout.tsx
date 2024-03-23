@@ -7,6 +7,11 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
+
+export const metadata = {
+  title: "프로그램 관리",
+  description: "프로그램 관리",
+};
 export const fetchTrainerProgram = async () => {
   return await sendRequest("trainer/program/me", "get");
 };

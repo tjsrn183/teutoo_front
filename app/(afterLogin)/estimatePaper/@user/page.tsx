@@ -1,5 +1,9 @@
 import { SmallHeader } from "@/components/SmallHeader";
 import EstimateFormUser from "../components/EstimateFormUser";
+export const metadata = {
+  title: "신청서 작성",
+  description: "신청서 작성",
+};
 export default function EstimateUserPage() {
   return (
     <div className=" flex flex-col justify-center h-full">

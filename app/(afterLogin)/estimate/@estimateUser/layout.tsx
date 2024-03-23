@@ -12,23 +12,26 @@ export interface getTrainerEstimates {
 }
 export interface EstimateItemT {
   data: Array<EstimateItemAtom>;
+  myEstimateId: number | null;
 }
 export interface EstimateItemAtom {
-  price: number;
+  estimateId: number;
   name: string;
-  profileImagePath?: string;
+  price: number;
+  profileImagePath: string;
 }
 
-export const fetchInfiniteEstimateU = async ({
+export const fetchInfiniteEstimateT = async ({
   pageParam,
 }: {
   pageParam: number;
 }) => {
   return await sendRequest(
-    `trainer/estimates?cursorId=${pageParam}&size=5`,
+    `user/estimates?cursorId=${pageParam}&size=5`,
     "get",
   );
 };
+
 export default async function EstimateUserLayout({
   children,
 }: {
@@ -37,7 +40,7 @@ export default async function EstimateUserLayout({
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
     queryKey: ["trainerEstimates"],
-    queryFn: fetchInfiniteEstimateU,
+    queryFn: fetchInfiniteEstimateT,
     initialPageParam: 0,
   });
   const dehydratedState = dehydrate(queryClient);
