@@ -2,6 +2,7 @@
 import Image from "next/image";
 import plus from "@/public/join/plus.png";
 import { ChangeEventHandler, useRef } from "react";
+import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 
 interface PictureProps {
   selectedImage: string | undefined;
@@ -42,7 +43,7 @@ export default function Picture({
           className="rounded-full w-24 h-24"
         />
       ) : (
-        <div className="rounded-full w-24 h-24 font-black bg-slate-500 " />
+        <Image src={userThumb} alt="userThumb" />
       )}
       <div className="flex items-end">
         <input

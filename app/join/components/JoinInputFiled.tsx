@@ -2,7 +2,7 @@ import { UseFormRegisterReturn } from "react-hook-form";
 
 interface JoinInputFiledProps {
   title: string;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   placeholder: string;
   type?: "text" | "password";
   value?: string;
