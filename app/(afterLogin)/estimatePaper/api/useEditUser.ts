@@ -3,7 +3,7 @@ import { sendRequest } from "@/app/api/rootApi";
 import { useRouter } from "next/navigation";
 
 interface EditEstimate {
-  data: FormData;
+  data: URLSearchParams;
   id: number;
 }
 export const useEditUser = () => {
@@ -11,11 +11,13 @@ export const useEditUser = () => {
   return useMutation({
     mutationFn: async ({ data, id }: EditEstimate) => {
       const response = await sendRequest(
-        `user/estimates/${id}?price=${data.get("price")}&ptAddress=${data.get(
-          "ptAddress",
-        )}
+        `user/estimates/${id}
       `,
         "patch",
+        data,
+        {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       );
       return response;
     },
