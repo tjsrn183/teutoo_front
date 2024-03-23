@@ -1,12 +1,7 @@
 import BottomNavigationBar from "@/components/BottomNavigationBar";
-
 import { ReactNode } from "react";
 
-export const metadata = {
-  title: "신청서 목록",
-  description: "신청서 목록",
-};
-export default function EstimateTrainerLayout({
+export default async function EstimateTrainerLayout({
   children,
 }: {
   children: ReactNode;
