@@ -1,5 +1,5 @@
 import { UseFormRegisterReturn } from "react-hook-form";
-interface TextFieldProps {
+export interface TextFieldProps {
   title: string;
   placeholder?: string;
   register?: UseFormRegisterReturn;

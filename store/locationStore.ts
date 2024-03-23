@@ -1,4 +1,5 @@
 import { create } from "zustand";
+
 interface LocationState {
   location: string;
   setLocation: (newLocation: string) => void;
