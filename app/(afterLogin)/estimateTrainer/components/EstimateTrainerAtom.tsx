@@ -1,18 +1,29 @@
 import Image from "next/image";
 import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 import LightButton from "@/components/LightButton";
-
-export default function EstimateTrainerAtom() {
+import { ContentArr } from "./EstimateTrainerList";
+import { formatKRW } from "../../estimateUser/lib/formatKRW";
+export default function EstimateTrainerAtom({ data }: { data: ContentArr }) {
   return (
-    <div className=" bg-white h-[82px] rounded-[12px]  text-black text-sm my-3 font-bold drop-shadow-lg mx-2">
+    <div className=" bg-white h-[82px] rounded-[12px]  text-black text-sm my-2 font-bold drop-shadow-lg mx-5">
       <div className=" w-full flex items-center justify-center h-full">
-        <div className=" flex justify-center items-center mx-3">
-          <Image src={userThumb} alt="userThumb" width={60} height={60} />
-          <span className="mx-3">김헬창</span>
+        <div className="flex items-center ml-3 w-[48%]">
+          {data.profileImagePath ? (
+            <Image
+              src={data.profileImagePath}
+              alt="userProfile"
+              width={60}
+              height={60}
+            />
+          ) : (
+            <Image src={userThumb} alt="userThumb" width={60} height={60} />
+          )}
+
+          <span className="mx-3 truncate">{data.name}</span>
         </div>
 
-        <span className="flex justify-center mx-2">24000 ₩</span>
-        <LightButton width="w-[25%]" className=" rounded-xl">
+        <span className=" mx-2 w-[20%] truncate">{formatKRW(data.price)}</span>
+        <LightButton width="w-[25%]" className=" rounded-xl mr-3">
           입찰
         </LightButton>
       </div>
