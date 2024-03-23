@@ -2,7 +2,7 @@ import Image from "next/image";
 import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 import LightButton from "@/components/LightButton";
 import { ContentArr } from "./EstimateTrainerList";
-import { formatKRW } from "../../estimateUser/lib/formatKRW";
+import { formatKRW } from "../../@estimateUser/lib/formatKRW";
 export default function EstimateTrainerAtom({ data }: { data: ContentArr }) {
   return (
     <div className=" bg-white h-[82px] rounded-[12px]  text-black text-sm my-2 font-bold drop-shadow-lg mx-5">

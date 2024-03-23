@@ -1,5 +1,4 @@
-import BlankEstimate from "@/app/(afterLogin)/estimateUser/components/BlankEstimate";
-import EstimateButton from "@/app/(afterLogin)/estimateUser/components/EstimateButton";
+import EstimateButton from "../../@estimateUser/components/EstimateButton";
 import EstimateTrainerList from "./EstimateTrainerList";
 import InputLocation from "./InputLocation";
 import MyEstimateU from "./MyEstimateU";
