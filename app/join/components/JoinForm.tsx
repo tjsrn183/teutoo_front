@@ -5,6 +5,7 @@ import Image from "next/image";
 import visible from "../../../public/join/visible.png";
 import plus from "../../../public/join/plus.png";
 import JoinInputField from "./JoinInputFiled";
+import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 
 export interface JoinFormData {
   email: string;
@@ -66,7 +67,7 @@ export default function JoinForm({
             className="rounded-full w-24 h-24"
           />
         ) : (
-          <div className="rounded-full w-24 h-24 font-black bg-slate-500 " />
+          <Image src={userThumb} alt="userThumb" />
         )}
         <div className="flex items-end">
           <input

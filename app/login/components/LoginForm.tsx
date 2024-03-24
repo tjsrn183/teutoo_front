@@ -47,7 +47,7 @@ export default function LoginForm() {
         </p>
       )}
 
-      <div className="relative my-3">
+      <div className="relative my-2">
         <LoginInputField
           title="비밀번호"
           placeholder="비밀번호를 입력하세요"
@@ -68,7 +68,9 @@ export default function LoginForm() {
           </p>
         )}
       </div>
-
+      <div className="text-[#323232] flex justify-end items-center mb-1 text-sm">
+        PW찾기
+      </div>
       <LightButton type="submit">로그인</LightButton>
     </form>
   );
