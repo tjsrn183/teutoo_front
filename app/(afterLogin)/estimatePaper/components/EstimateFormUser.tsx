@@ -11,7 +11,7 @@ import { EstimateUserFormType } from "../zodEstimatePaper";
 import CommonForm from "./CommonForm";
 import { useEditUser } from "../api/useEditUser";
 import { useEffect, useState } from "react";
-import { MyEstimatePropsU } from "../../estimateUser/components/MyEstimateT";
+import { MyEstimatePropsU } from "@/app/(afterLogin)/estimate/@estimateUser/components/MyEstimateT";
 
 export default function EstimateFormUser() {
   const [exist, setExist] = useState<number>();
