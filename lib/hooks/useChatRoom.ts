@@ -42,6 +42,7 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
     async (imgList: File[]) => {
       if (!roomInfo?.roomId) return console.error("roomId is null");
       try {
+        console.log("sendImageMessage", imgList, roomInfo.roomId);
         await postChatImage({
           roomId: roomInfo.roomId,
           chatImgMsgList: imgList,

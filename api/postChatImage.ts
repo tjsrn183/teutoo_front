@@ -6,11 +6,18 @@ export interface PostChatImageRequest {
   chatImgMsgList: File[];
 }
 
-const postChatImage = (request: PostChatImageRequest) =>
+const postChatImage = (request: PostChatImageRequest) => {
+  const form = new FormData();
+  request.chatImgMsgList.forEach((file) => {
+    form.append("chatImgMsgList", file);
+  });
+  form.append("roomId", request.roomId);
+
   sendRequest<RequestReservationRes>(
     `chat/${request.roomId}/img`,
     "post",
-    request,
+    form,
   );
+};
 
 export default postChatImage;

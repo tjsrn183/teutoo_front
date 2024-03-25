@@ -52,6 +52,8 @@ export function UserMessage({
           <TextMessage content={content} isMe={isMe} />
         ) : type === "RESERVATION" ? (
           <ReservationMessage content={content} isMe={isMe} />
+        ) : type === "IMG" ? (
+          <ImageMessage url={content} isMe={isMe} />
         ) : null}
         <div
           className={cn(
@@ -112,6 +114,19 @@ export function TextMessage({
       )}
     >
       {content}
+    </div>
+  );
+}
+
+export function ImageMessage({ url, isMe }: { url: string; isMe: boolean }) {
+  return (
+    <div
+      className={cn(
+        "py-2 px-3 rounded-2xl",
+        isMe ? "bg-green-500 text-white" : "bg-neutral-300",
+      )}
+    >
+      <img src={url} alt="chat image" className="w-40 h-full" />
     </div>
   );
 }
