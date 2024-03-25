@@ -7,11 +7,9 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
+import { getTrainerIntro } from "../introduceTrainer/layout";
+import { redirect } from "next/navigation";
 
-export const metadata = {
-  title: "프로그램 관리",
-  description: "프로그램 관리",
-};
 export const fetchTrainerProgram = async () => {
   return await sendRequest("trainer/program/me", "get");
 };
@@ -26,8 +24,15 @@ export default async function ProgramManagementLayout({
     queryKey: ["trainerProgram"],
     queryFn: fetchTrainerProgram,
   });
+  await queryClient.prefetchQuery({
+    queryKey: ["trainerIntro"],
+    queryFn: getTrainerIntro,
+  });
   const dehydratedState = dehydrate(queryClient);
-
+  console.log("queryclient", queryClient.getQueryData(["trainerIntro"]));
+  if (!queryClient.getQueryData(["trainerIntro"])) {
+    redirect("/introduceTrainer");
+  }
   return (
     <HydrationBoundary state={dehydratedState}>
       <div className="bg-white h-screen">
