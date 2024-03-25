@@ -6,13 +6,20 @@ import ChatReservationButton from "./chat-menu/chat-reservation-button";
 import { Toggle } from "@/components/common/toggle";
 import { cn } from "@/lib/utils/tailwind.utils";
 import Button from "@/components/common/button";
+import { PostReservationRequest } from "@/api/postReservation";
 
 interface ChatFormProps {
   onSendTextMessage: (message: string) => void;
+  onSendImageMessage: (imgList: File[]) => void;
+  requestReservation: (request: PostReservationRequest) => void;
+  receiverId: number;
 }
 
 export default function ChatForm({
   onSendTextMessage,
+  onSendImageMessage,
+  receiverId,
+  requestReservation,
 }: ChatFormProps): JSX.Element {
   const [inputText, setInputText] = useState("");
   const [menuOpen, setMenuOpen] = React.useState(false);
@@ -67,8 +74,11 @@ export default function ChatForm({
       </div>
       {menuOpen ? (
         <div className="h-40 grid-cols-4 grid-rows-2 grid gap-4 mt-4">
-          <ChatImageButton />
-          <ChatReservationButton />
+          <ChatImageButton onClick={onSendImageMessage} />
+          <ChatReservationButton
+            receiverId={receiverId}
+            requestReservation={requestReservation}
+          />
         </div>
       ) : null}
     </div>
