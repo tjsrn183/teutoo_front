@@ -18,7 +18,13 @@ interface ChatClientProps {
 export default function ChatClient({
   receiverId,
 }: ChatClientProps): JSX.Element {
-  const { sendTextMessage, roomInfo, messages } = useChatRoom({
+  const {
+    sendTextMessage,
+    roomInfo,
+    messages,
+    requestReservation,
+    sendImageMessage,
+  } = useChatRoom({
     receiverId,
   });
   const { data: userInfo } = useLoginUserInfoQuery();
@@ -30,26 +36,37 @@ export default function ChatClient({
       <ChatRoomHeader />
       <ChatContainer>
         <div className="flex justify-center">
-          <DateMessage date="2021-08-01" />
-        </div>
-        <div className="flex justify-center">
           <SystemMessage message="Welcome to the chat" />
         </div>
-        {messages.map((message) => (
-          <UserMessage
-            key={message.msgIdx}
-            isMe={message.senderId === userInfo.data.memberId}
-            message={message.content}
-            time={message.createdAt}
-            isRead={
-              message.senderId === userInfo.data.memberId
-                ? roomInfo.receiverIdx >= message.msgIdx
-                : roomInfo.senderIdx >= message.msgIdx
-            }
-          />
-        ))}
+        {messages.map((message, i) => {
+          const isNewDay =
+            new Date(message.createdAt).toLocaleDateString() !==
+            new Date(messages[i - 1]?.createdAt).toLocaleDateString();
+          return (
+            <>
+              {isNewDay && <DateMessage date={message.createdAt} />}
+              <UserMessage
+                key={message.msgIdx}
+                isMe={message.senderId === userInfo.data.memberId}
+                content={message.content}
+                time={message.createdAt}
+                type={message.contentType}
+                isRead={
+                  message.senderId === userInfo.data.memberId
+                    ? roomInfo.receiverIdx >= message.msgIdx
+                    : roomInfo.senderIdx >= message.msgIdx
+                }
+              />
+            </>
+          );
+        })}
       </ChatContainer>
-      <ChatForm onSendTextMessage={sendTextMessage} />
+      <ChatForm
+        onSendTextMessage={sendTextMessage}
+        onSendImageMessage={sendImageMessage}
+        receiverId={receiverId}
+        requestReservation={requestReservation}
+      />
     </div>
   );
 }

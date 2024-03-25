@@ -18,7 +18,7 @@ export interface ImgResDto {
   imgUrl: string;
 }
 
-interface LocalTime {
+export interface LocalTime {
   hour: number;
   minute: number;
   second: number;
@@ -61,8 +61,8 @@ export interface TrainerInfoRes {
     title: string;
     content: string;
     price: number;
-    availableStartTime: LocalTime | null;
-    availableEndTime: LocalTime | null;
+    availableStartTime: string | null;
+    availableEndTime: string | null;
     ptProgramImgList: ImgResDto[];
   }[];
   reviewCnt: number;
@@ -74,8 +74,8 @@ export interface ProgramInfoRes {
   title: string;
   content: string;
   price: number;
-  availableStartTime: LocalTime | null;
-  availableEndTime: LocalTime | null;
+  availableStartTime: string | null;
+  availableEndTime: string | null;
   ptProgramImgList: ImgResDto[];
 }
 
@@ -96,7 +96,7 @@ export type Message = SendMessage | ReadMessage;
 export interface SendMessage {
   msgAction: "SEND";
   msgIdx: number;
-  contentType: "TEXT" | "IMG" | "RESERVE";
+  contentType: "TEXT" | "IMG" | "RESERVATION";
   content: string;
   createdAt: string;
   senderId: number;
@@ -108,6 +108,19 @@ export interface ReadMessage {
   senderIdx: number;
   receiverId: number;
   receiverIdx: number;
+}
+
+export interface ReservationMessageContent {
+  reservationId: number;
+  programId: number;
+  memberId: number;
+  memberName: string;
+  trainerId: number;
+  trainerName: string;
+  programName: string;
+  startDateTime: string;
+  endDateTime: string;
+  status: "PENDING" | "RESERVED";
 }
 
 export interface ChatList {
@@ -125,4 +138,12 @@ export interface ChatRoomRes {
   senderIdx: number;
   receiverIdx: number;
   messages: SendMessage[];
+}
+
+export interface RequestReservationRes {
+  reservationId: number;
+}
+
+export interface ReservationConfirmRes {
+  reservationId: number;
 }

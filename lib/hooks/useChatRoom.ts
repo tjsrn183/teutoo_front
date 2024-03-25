@@ -1,10 +1,11 @@
 import getChatRoom from "@/api/getChatRoom";
-import useChatRoomStore from "@/store/useChatRoomStore";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Client, StompSubscription } from "@stomp/stompjs";
 import { getCookie } from "cookies-next";
 import { Message, SendMessage } from "@/types/api.type";
-import { useChatListQuery } from "@/api/getChatList";
+import { useLoginUserInfoQuery } from "@/api/getLoginUserInfo";
+import postReservation, { PostReservationRequest } from "@/api/postReservation";
+import postChatImage from "@/api/postChatImage";
 
 interface useChatRoomProps {
   receiverId: number;
@@ -20,20 +21,63 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
   const clientRef = useRef<Client | null>(null);
   const [roomInfo, setRoomInfo] = useState<RoomInfo | null>(null);
   const [messages, setMessages] = useState<SendMessage[]>([]);
+  const {
+    data: { data: userInfo },
+  } = useLoginUserInfoQuery();
 
-  const [subscription, setSubscription] = useState<StompSubscription | null>(
-    null,
+  const sendTextMessage = useCallback(
+    (content: string) => {
+      if (!clientRef.current) return console.error("client is null");
+      if (!roomInfo?.roomId) return console.error("roomId is null");
+      console.log("sendTextMessage", content, roomInfo.roomId);
+      clientRef.current.publish({
+        destination: `/app/chat/${roomInfo.roomId}/text`,
+        body: JSON.stringify({ content }),
+      });
+    },
+    [roomInfo],
   );
 
-  const sendTextMessage = (content: string) => {
+  const sendImageMessage = useCallback(
+    async (imgList: File[]) => {
+      if (!roomInfo?.roomId) return console.error("roomId is null");
+      try {
+        await postChatImage({
+          roomId: roomInfo.roomId,
+          chatImgMsgList: imgList,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [roomInfo],
+  );
+
+  const sendReadMessage = useCallback((roomId: string, readIdx: number) => {
     if (!clientRef.current) return console.error("client is null");
-    if (!roomInfo?.roomId) return console.error("roomId is null");
-    console.log("sendTextMessage", content, roomInfo.roomId);
+    console.log("sendReadMessage", readIdx, roomId);
     clientRef.current.publish({
-      destination: `/app/chat/${roomInfo.roomId}/text`,
-      body: JSON.stringify({ content }),
+      destination: `/app/chat/${roomId}/read`,
+      body: JSON.stringify({ readIdx }),
     });
-  };
+  }, []);
+
+  const requestReservation = useCallback(
+    async (request: PostReservationRequest) => {
+      if (!clientRef.current) return console.error("client is null");
+      if (!roomInfo?.roomId) return console.error("roomId is null");
+      try {
+        const res = await postReservation(request);
+        clientRef.current.publish({
+          destination: `/app/chat/${roomInfo.roomId}/reservation`,
+          body: JSON.stringify(res),
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [roomInfo],
+  );
 
   useEffect(() => {
     function connect() {
@@ -57,7 +101,11 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
               receiverIdx: roomInfo.receiverIdx,
               senderIdx: roomInfo.senderIdx,
             });
-            setMessages(roomInfo.messages);
+            const reverseMessages = [...roomInfo.messages].reverse();
+            console.log("reverseMessages", reverseMessages);
+            setMessages(reverseMessages);
+            if (roomInfo.messages.length > 0)
+              sendReadMessage(roomInfo.roomId, roomInfo.messages[0].msgIdx);
             return client.subscribe(
               `/topic/message/${roomInfo.roomId}`,
               (message) => {
@@ -66,14 +114,21 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
                 if (msg.msgAction === "SEND") {
                   console.log("pushMessage", msg);
                   setMessages((prev) => [...prev, msg]);
-                } else if (msg.msgAction === "READ") {
+                  sendReadMessage(roomInfo.roomId, msg.msgIdx);
+                } else {
                   console.log("setReadIdx", msg);
                   setRoomInfo((prev) => {
                     if (prev) {
                       return {
                         ...prev,
-                        senderIdx: msg.senderIdx,
-                        receiverIdx: msg.receiverIdx,
+                        senderIdx:
+                          userInfo.memberId === msg.senderId
+                            ? msg.senderIdx
+                            : msg.receiverIdx,
+                        receiverIdx:
+                          userInfo.memberId === msg.senderId
+                            ? msg.receiverIdx
+                            : msg.senderIdx,
                       };
                     }
                     return prev;
@@ -104,7 +159,13 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
     return () => {
       disconnect();
     };
-  }, []);
+  }, [receiverId, userInfo.memberId, sendReadMessage]);
 
-  return { sendTextMessage, roomInfo, messages };
+  return {
+    sendTextMessage,
+    roomInfo,
+    messages,
+    requestReservation,
+    sendImageMessage,
+  };
 }

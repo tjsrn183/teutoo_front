@@ -1,4 +1,7 @@
+import ChatReservationConfirmButton from "@/app/(afterLogin)/chat/[receiverId]/_components/chat-menu/chat-reservation-conform-button";
+import Button from "@/components/common/button";
 import { cn } from "@/lib/utils/tailwind.utils";
+import { ReservationMessageContent, SendMessage } from "@/types/api.type";
 
 /**
  *
@@ -12,9 +15,11 @@ function getChatTime(date: string): string {
 
 export function DateMessage({ date }: { date: string }): JSX.Element {
   return (
-    <span className="text-sm text-white bg-neutral-400/60 px-2 py-1 rounded-full w-fit">
-      {date}
-    </span>
+    <div className="flex justify-center">
+      <span className="text-sm text-white bg-neutral-400/60 px-2 py-1 rounded-full w-fit">
+        {new Date(date).toLocaleDateString()}
+      </span>
+    </div>
   );
 }
 
@@ -23,15 +28,17 @@ export function SystemMessage({ message }: { message: string }): JSX.Element {
 }
 
 export function UserMessage({
-  message,
+  content,
   time,
   isMe,
   isRead,
+  type,
 }: {
-  message: string;
+  content: string;
   time: string;
-  isMe?: boolean;
+  isMe: boolean;
   isRead: boolean;
+  type: SendMessage["contentType"];
 }): JSX.Element {
   return (
     <div className={cn(isMe ? "justify-end" : "justify-start")}>
@@ -41,14 +48,11 @@ export function UserMessage({
           isMe ? "flex-row-reverse" : "flex-row",
         )}
       >
-        <div
-          className={cn(
-            "py-2 px-3 rounded-2xl",
-            isMe ? "bg-green-500 text-white" : "bg-neutral-300",
-          )}
-        >
-          {message}
-        </div>
+        {type === "TEXT" ? (
+          <TextMessage content={content} isMe={isMe} />
+        ) : type === "RESERVATION" ? (
+          <ReservationMessage content={content} isMe={isMe} />
+        ) : null}
         <div
           className={cn(
             "flex flex-col gap-1",
@@ -70,6 +74,44 @@ export function UserMessage({
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+export function ReservationMessage({
+  content,
+  isMe,
+}: {
+  content: string;
+  isMe: boolean;
+}) {
+  const reservation = JSON.parse(content) as ReservationMessageContent;
+  return (
+    <div className={cn("py-3 px-3 rounded-2xl max-w-40 bg-sky-500 text-white")}>
+      <p>
+        {reservation.memberName}님이 &quot;{reservation.programName}&quot;
+        프로그램을 예약했습니다.
+      </p>
+      <ChatReservationConfirmButton reservationInfo={reservation} />
+    </div>
+  );
+}
+
+export function TextMessage({
+  content,
+  isMe,
+}: {
+  content: string;
+  isMe: boolean;
+}) {
+  return (
+    <div
+      className={cn(
+        "py-2 px-3 rounded-2xl",
+        isMe ? "bg-green-500 text-white" : "bg-neutral-300",
+      )}
+    >
+      {content}
     </div>
   );
 }
