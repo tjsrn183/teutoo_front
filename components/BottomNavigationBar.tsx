@@ -17,7 +17,7 @@ const NAVIGATION_ITEMS = [
   },
   {
     id: "calc",
-    path: "/calc",
+    path: "/estimate",
     name: "견적",
     icon: ClipboardList,
   },

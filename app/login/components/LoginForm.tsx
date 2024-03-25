@@ -8,6 +8,7 @@ import { zodLoginSchema } from "../zodLoginSchema";
 import LightButton from "@/components/LightButton";
 import LoginInputField from "./LoginInpuField";
 import { useLogin } from "../api/useLogin";
+import Link from "next/link";
 
 export interface LoginFormData {
   password: string;
@@ -68,9 +69,13 @@ export default function LoginForm() {
           </p>
         )}
       </div>
-      <div className="text-[#323232] flex justify-end items-center mb-1 text-sm">
+      <Link
+        href="/immepassword"
+        className="text-[#323232] flex justify-end items-center mb-1 text-sm"
+      >
         PW찾기
-      </div>
+      </Link>
+
       <LightButton type="submit">로그인</LightButton>
     </form>
   );
