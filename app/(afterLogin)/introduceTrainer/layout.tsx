@@ -10,7 +10,7 @@ export const metadata = {
   title: "트레이너 소개",
   description: "트레이너 소개",
 };
-const getTrainerIntro = async () => {
+export const getTrainerIntro = async () => {
   return await sendRequest("trainer/info/me", "get");
 };
 

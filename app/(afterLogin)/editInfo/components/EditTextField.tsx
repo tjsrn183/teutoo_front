@@ -1,31 +1,27 @@
-import { UseFormRegisterReturn } from "react-hook-form";
-
-interface JoinInputFiledProps {
+interface EditTextFieldProps {
   title: string;
-  register?: UseFormRegisterReturn;
   placeholder: string;
-  type?: "text" | "password";
-  value?: string;
   disabled?: boolean;
+  state: string;
+  setState: (value: string) => void;
 }
-export default function JoinInputField({
+export default function EditTextField({
+  setState,
+  state,
   title,
-  register,
   placeholder,
-  type,
-  value,
   disabled,
-}: JoinInputFiledProps) {
+}: EditTextFieldProps) {
   return (
     <label className="text-[#323232] flex flex-col font-bold my-1">
       {title}
       <input
-        type={type}
+        type="text"
         placeholder={placeholder}
-        {...register}
         className="bg-[#e4e6e7] rounded-[6px] py-2 border font-normal focus:outline-none focus:ring-0 focus:border-[#22C55E] hover:border-[#22C55E] transition-colors duration-500 "
-        value={value}
+        value={state}
         disabled={disabled}
+        onChange={(e) => setState(e.target.value)}
       />
     </label>
   );
