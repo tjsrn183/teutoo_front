@@ -10,8 +10,7 @@ import { zodEstimatePaper } from "../zodEstimatePaper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CommonForm from "./CommonForm";
-
-import { MyEstimatePropsT } from "../../estimate/@estimateTrainer/components/MyEstimateU";
+import { MyEstimatePropsT } from "@/app/(afterLogin)/estimate/@estimateTrainer/components/MyEstimateU";
 import { useEffect } from "react";
 import { useEditTrainer } from "../api/useEditTrainer";
 
