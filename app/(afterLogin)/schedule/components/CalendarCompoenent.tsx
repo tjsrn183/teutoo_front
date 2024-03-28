@@ -3,17 +3,15 @@ import "react-calendar/dist/Calendar.css";
 import "../style/customCalendar.css";
 import Calendar from "react-calendar";
 import dayjs from "dayjs";
+import { useDateStore } from "@/store/useDateStore";
 export default function CalendarComponent() {
-  const formatShortMonth = ({ date }: { date: Date }) => {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    return `${year}.${month}`;
-  };
+  const { date, setDate } = useDateStore();
+
   return (
     <Calendar
       locale="ko"
       formatDay={(locale, date) => dayjs(date).format("DD")}
-      navigationLabel={formatShortMonth}
+      onChange={(value) => setDate(value)}
     />
   );
 }
