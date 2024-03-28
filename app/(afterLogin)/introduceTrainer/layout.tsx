@@ -1,6 +1,6 @@
 import { SmallHeader } from "@/components/SmallHeader";
 import { ReactNode } from "react";
-import { sendRequest } from "@/app/api/rootApi";
+import { getTrainerIntro } from "./api/getTrainerIntro";
 import {
   HydrationBoundary,
   QueryClient,
@@ -9,9 +9,6 @@ import {
 export const metadata = {
   title: "트레이너 소개",
   description: "트레이너 소개",
-};
-export const getTrainerIntro = async () => {
-  return await sendRequest("trainer/info/me", "get");
 };
 
 export default async function introduceTrainerLayout({
