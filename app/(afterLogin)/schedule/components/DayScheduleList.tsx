@@ -1,28 +1,43 @@
+"use client";
+import { useDateStore } from "@/store/useDateStore";
 import ScheduleAtom from "./ScheduleAtom";
+import dayjs from "dayjs";
+import { useQueryClient } from "@tanstack/react-query";
+import { formatDate } from "../utils/formatDate";
 
+interface ScheduleItem {
+  memberId: number;
+  memberName: string;
+  imgResDto: {
+    imgName: string;
+    imgUrl: string;
+  };
+  startDateTime: string;
+  endDateTime: string;
+}
 export default function DayScheduleList() {
-  const schedule = [
-    { day: 12, time: "12:00~13:00", name: "김영자", date: "2022-12-12" },
-    { day: 12, time: "13:00~14:00", name: "김춘자", date: "2023-12-12" },
-    { day: 13, time: "14:00~15:00", name: "김하자", date: "2024-1-13" },
-    { day: 14, time: "12:00~13:00", name: "박두철", date: "2024-2-14" },
-    { day: 14, time: "12:00~13:00", name: "박두철", date: "2024-2-14" },
-    { day: 14, time: "12:00~13:00", name: "박두철", date: "2024-2-14" },
-    { day: 14, time: "12:00~13:00", name: "박두철", date: "2024-2-14" },
-  ];
+  const queryClient = useQueryClient();
+  const data: Array<ScheduleItem> | undefined = queryClient.getQueryData([
+    "scheduleT",
+  ]);
+  const { date } = useDateStore();
 
   return (
     <div className=" w-full bg-white mt-6 rounded-2xl p-4 flex flex-col items-center mb-4">
       <span className=" flex justify-start w-full text-[#36393E] font-bold ml-6">
-        2024.03.07 목
+        {date instanceof Date && dayjs(date).format("YYYY년 MM월 DD일")}
       </span>
-      {schedule.map((item, index) => (
+      {data?.map((item, index) => (
         <ScheduleAtom
           key={index}
-          day={item.day}
-          time={item.time}
-          name={item.name}
-          date={item.date}
+          startDateTime={item.startDateTime}
+          endDateTime={item.endDateTime}
+          image={item.imgResDto.imgUrl}
+          name={item.memberName}
+          hidden={
+            formatDate(item.startDateTime)[0] !==
+            (date instanceof Date && dayjs(date).format("YYYY-MM-DD"))
+          }
         />
       ))}
     </div>

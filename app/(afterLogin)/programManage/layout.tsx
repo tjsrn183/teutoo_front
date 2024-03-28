@@ -6,7 +6,8 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import { getTrainerIntro } from "../introduceTrainer/layout";
+
+import { getTrainerIntro } from "../introduceTrainer/api/getTrainerIntro";
 import { redirect } from "next/navigation";
 import { fetchTrainerProgram } from "./api/fetchTrainerProgram";
 
