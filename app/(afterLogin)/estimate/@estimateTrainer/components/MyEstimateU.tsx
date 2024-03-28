@@ -1,13 +1,12 @@
 "use client";
 
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-
+import { useQuery } from "@tanstack/react-query";
 import BlankEstimate from "../../@estimateUser/components/BlankEstimate";
 import MyEstimateCardU from "./MyEstimateCardU";
 import { sendRequest } from "@/app/api/rootApi";
 import { useUserLocation } from "@/store/useUserLocation";
-import { EstimateItemU, getUserEstimates } from "./EstimateTrainerList";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { EstimateItem } from "../../types";
 
 export interface MyEstimatePropsT {
   data: {
@@ -20,7 +19,7 @@ export interface MyEstimatePropsT {
 }
 const immeEstimateU = async () => {
   return await sendRequest(
-    `trainer/estimates?page=0&size=5&sort=string&ptAddress=서울특별시`,
+    `trainer/estimates?courseId=0&size=5&ptAddress=서울특별시`,
     "get",
   );
 };
@@ -32,7 +31,8 @@ const fetchMyEstimateT = (id: number | undefined | null) => async () => {
 
 export default function MyEstimateU() {
   const { location } = useUserLocation();
-  const userDataT = useQuery<EstimateItemU>({
+
+  const userDataT = useQuery<EstimateItem>({
     queryKey: ["immeEstimateU"],
     queryFn: immeEstimateU,
     enabled: !!location,
