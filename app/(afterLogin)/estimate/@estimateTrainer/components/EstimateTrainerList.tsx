@@ -5,26 +5,8 @@ import { sendRequest } from "@/app/api/rootApi";
 import { useUserLocation } from "@/store/useUserLocation";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
+import { EstimateItemAtom, EstimateItem } from "../../types";
 
-export interface getUserEstimates {
-  pageParams: Array<number>;
-  pages: Array<EstimateItemU>;
-}
-export interface EstimateItemU {
-  data: EstimateItemAtom;
-  myEstimateId: number | null;
-  number: number;
-}
-interface EstimateItemAtom {
-  content: Array<ContentArr>;
-  pageable: { pageNumber: number };
-}
-export interface ContentArr {
-  estimateId: number;
-  price: number;
-  name: string;
-  profileImagePath: string | null;
-}
 interface EstimatesU {
   pageParam: number | undefined;
   queryKey: Array<string>;
@@ -36,7 +18,7 @@ export const fetchInfiniteEstimateU = async ({
   const [, location] = queryKey;
   if (typeof pageParam === "number") {
     return await sendRequest(
-      `trainer/estimates?page=${pageParam}&size=5&sort=string&ptAddress=${location}`,
+      `trainer/estimates?courseId=${pageParam}&size=5&ptAddress=${location}`,
       "get",
     );
   }
@@ -46,9 +28,9 @@ export default function EstimateTrainerList() {
   const { location, setLocation } = useUserLocation();
   const { data, isFetching, isLoading, hasNextPage, fetchNextPage } =
     useInfiniteQuery<
-      EstimateItemU,
+      EstimateItem,
       Object,
-      InfiniteData<EstimateItemU>,
+      InfiniteData<EstimateItem>,
       Array<string>,
       number
     >({
@@ -59,9 +41,11 @@ export default function EstimateTrainerList() {
           queryKey: ["userEstimates", location],
         }),
       getNextPageParam: (lastPage, pages) => {
-        return lastPage.data.content.length > 0
-          ? lastPage.data.pageable.pageNumber + 1
-          : undefined;
+        if (lastPage?.data[lastPage.data.length - 1]?.estimateId) {
+          return lastPage?.data[lastPage.data.length - 1].estimateId;
+        } else {
+          return undefined;
+        }
       },
       initialPageParam: 0,
     });
@@ -78,8 +62,8 @@ export default function EstimateTrainerList() {
 
   return (
     <div className="flex flex-col">
-      {data?.pages.map((page: EstimateItemU, pageIndex) =>
-        page.data.content.map((innerpage: ContentArr, itemIndex) => (
+      {data?.pages.map((page: EstimateItem, pageIndex) =>
+        page.data.map((innerpage: EstimateItemAtom, itemIndex) => (
           <EstimateTrainerAtom
             data={innerpage}
             key={`estimate-${pageIndex}-${itemIndex}`}

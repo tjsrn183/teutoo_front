@@ -6,20 +6,6 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-export interface getTrainerEstimates {
-  pageParams: Array<number>;
-  pages: Array<EstimateItemT>;
-}
-export interface EstimateItemT {
-  data: Array<EstimateItemAtom>;
-  myEstimateId: number | null;
-}
-export interface EstimateItemAtom {
-  estimateId: number;
-  name: string;
-  price: number;
-  profileImagePath: string;
-}
 
 export const fetchInfiniteEstimateT = async ({
   pageParam,
