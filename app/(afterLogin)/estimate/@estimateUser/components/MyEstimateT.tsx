@@ -2,7 +2,7 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import BlankEstimate from "./BlankEstimate";
-import { getTrainerEstimates } from "../layout";
+import { getEstimates } from "../../types";
 import { sendRequest } from "@/app/api/rootApi";
 import MyEstimateCard from "./MyEstimateCard";
 
@@ -22,7 +22,7 @@ const fetchMyEstimateU = (id: number | undefined | null) => async () => {
 
 export default function MyEstimateT() {
   const queryClient = useQueryClient();
-  const trainerEstimates: getTrainerEstimates | undefined | null =
+  const trainerEstimates: getEstimates | undefined | null =
     queryClient.getQueryData(["trainerEstimates"]);
 
   const { data, isLoading } = useQuery<MyEstimatePropsU>({

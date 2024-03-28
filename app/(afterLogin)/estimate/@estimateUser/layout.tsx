@@ -6,20 +6,6 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-export interface getTrainerEstimates {
-  pageParams: Array<number>;
-  pages: Array<EstimateItemT>;
-}
-export interface EstimateItemT {
-  data: Array<EstimateItemAtom>;
-  myEstimateId: number | null;
-}
-export interface EstimateItemAtom {
-  estimateId: number;
-  name: string;
-  price: number;
-  profileImagePath: string;
-}
 
 export const fetchInfiniteEstimateT = async ({
   pageParam,
@@ -27,7 +13,7 @@ export const fetchInfiniteEstimateT = async ({
   pageParam: number;
 }) => {
   return await sendRequest(
-    `user/estimates?cursorId=${pageParam}&size=5`,
+    `user/estimates?courseId=${pageParam}&size=5`,
     "get",
   );
 };

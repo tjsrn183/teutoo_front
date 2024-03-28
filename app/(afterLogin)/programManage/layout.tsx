@@ -1,18 +1,15 @@
 import { SmallHeader } from "@/components/SmallHeader";
 import { ReactNode } from "react";
 import React from "react";
-import { sendRequest } from "@/app/api/rootApi";
 import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import { getTrainerIntro } from "../introduceTrainer/layout";
-import { redirect } from "next/navigation";
 
-export const fetchTrainerProgram = async () => {
-  return await sendRequest("trainer/program/me", "get");
-};
+import { getTrainerIntro } from "../introduceTrainer/api/getTrainerIntro";
+import { redirect } from "next/navigation";
+import { fetchTrainerProgram } from "./api/fetchTrainerProgram";
 
 export default async function ProgramManagementLayout({
   children,

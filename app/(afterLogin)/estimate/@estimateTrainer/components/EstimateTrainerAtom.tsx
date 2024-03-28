@@ -1,9 +1,15 @@
 import Image from "next/image";
 import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 import LightButton from "@/components/LightButton";
-import { ContentArr } from "./EstimateTrainerList";
+
 import { formatKRW } from "../../@estimateUser/lib/formatKRW";
-export default function EstimateTrainerAtom({ data }: { data: ContentArr }) {
+import { EstimateItemAtom } from "../../types";
+import Link from "next/link";
+export default function EstimateTrainerAtom({
+  data,
+}: {
+  data: EstimateItemAtom;
+}) {
   return (
     <div className=" bg-white h-[82px] rounded-[12px]  text-black text-sm my-2 font-bold drop-shadow-lg mx-5">
       <div className=" w-full flex items-center justify-center h-full">
@@ -24,7 +30,7 @@ export default function EstimateTrainerAtom({ data }: { data: ContentArr }) {
 
         <span className=" mx-2 w-[20%] truncate">{formatKRW(data.price)}</span>
         <LightButton width="w-[25%]" className=" rounded-xl mr-3">
-          입찰
+          <Link href={`/chat/${data.memberId}`}>입찰</Link>
         </LightButton>
       </div>
     </div>

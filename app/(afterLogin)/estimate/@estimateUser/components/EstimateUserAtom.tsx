@@ -4,7 +4,7 @@ import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 import LightButton from "@/components/LightButton";
 import { EstimateModal, ModalDialogHandle } from "./EstimateModal";
 import { RefObject, useRef } from "react";
-import { EstimateItemAtom } from "../layout";
+import { EstimateItemAtom } from "../../types";
 import { formatKRW } from "../lib/formatKRW";
 
 export default function EstimateUserAtom({ data }: { data: EstimateItemAtom }) {
@@ -35,7 +35,11 @@ export default function EstimateUserAtom({ data }: { data: EstimateItemAtom }) {
           낙찰
         </LightButton>
       </div>
-      <EstimateModal ref={dialogRef} dataId={data.estimateId} />
+      <EstimateModal
+        ref={dialogRef}
+        dataId={data.estimateId}
+        memberId={data.memberId}
+      />
     </div>
   );
 }
