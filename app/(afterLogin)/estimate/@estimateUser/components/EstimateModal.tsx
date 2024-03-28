@@ -1,4 +1,3 @@
-"use client";
 import { useImperativeHandle, forwardRef, useRef, useState } from "react";
 import Image from "next/image";
 import close from "@/public/join/close.png";
@@ -8,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { sendRequest } from "@/app/api/rootApi";
 import Looading from "@/components/Loading";
 import { formatKRW } from "../lib/formatKRW";
+import Link from "next/link";
 export interface ModalDialogHandle {
   openModal: () => void;
   closeModal: () => void;
@@ -15,6 +15,7 @@ export interface ModalDialogHandle {
 }
 interface EstimateModalProps {
   dataId: number;
+  memberId: number;
 }
 const fetchOneEstimateT = (dataId: number) => async () => {
   let estimateT = null;
@@ -80,7 +81,9 @@ export const EstimateModal = forwardRef<ModalDialogHandle, EstimateModalProps>(
                 />
                 <ModalElement title="위치" value={data?.data.ptAddress} />
                 <div className=" sticky bottom-4 flex justify-center">
-                  <LightButton width="w-[200px]">낙찰하기</LightButton>
+                  <LightButton width="w-[200px]">
+                    <Link href={`/chat/${props.memberId}`}>낙찰하기</Link>
+                  </LightButton>
                 </div>
               </>
             )}

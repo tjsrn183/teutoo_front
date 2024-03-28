@@ -35,7 +35,11 @@ export default function EstimateUserAtom({ data }: { data: EstimateItemAtom }) {
           낙찰
         </LightButton>
       </div>
-      <EstimateModal ref={dialogRef} dataId={data.estimateId} />
+      <EstimateModal
+        ref={dialogRef}
+        dataId={data.estimateId}
+        memberId={data.memberId}
+      />
     </div>
   );
 }

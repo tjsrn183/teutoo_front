@@ -4,6 +4,7 @@ import LightButton from "@/components/LightButton";
 
 import { formatKRW } from "../../@estimateUser/lib/formatKRW";
 import { EstimateItemAtom } from "../../types";
+import Link from "next/link";
 export default function EstimateTrainerAtom({
   data,
 }: {
@@ -29,7 +30,7 @@ export default function EstimateTrainerAtom({
 
         <span className=" mx-2 w-[20%] truncate">{formatKRW(data.price)}</span>
         <LightButton width="w-[25%]" className=" rounded-xl mr-3">
-          입찰
+          <Link href={`/chat/${data.memberId}`}>입찰</Link>
         </LightButton>
       </div>
     </div>
