@@ -13,7 +13,7 @@ export const fetchInfiniteEstimateT = async ({
   pageParam: number;
 }) => {
   return await sendRequest(
-    `user/estimates?cursorId=${pageParam}&size=5`,
+    `user/estimates?courseId=${pageParam}&size=5`,
     "get",
   );
 };
