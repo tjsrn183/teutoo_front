@@ -1,4 +1,3 @@
-import BottomNavigationBar from "@/components/BottomNavigationBar";
 import { ReactNode } from "react";
 
 export default async function EstimateTrainerLayout({
@@ -9,7 +8,6 @@ export default async function EstimateTrainerLayout({
   return (
     <div className=" h-screen bg-gray-200">
       <div>{children}</div>
-      <BottomNavigationBar />
     </div>
   );
 }
