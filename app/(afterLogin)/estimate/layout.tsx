@@ -2,7 +2,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { ReactNode } from "react";
 import { UserDataType } from "../trainerMyPage/components/MyInfoChunk";
-
+import BottomNavigationBar from "@/components/BottomNavigationBar";
 interface RoleProps {
   estimateTrainer: ReactNode;
   estimateUser: ReactNode;
@@ -17,6 +17,7 @@ export default function EstimateLayout({
   return (
     <div className=" h-screen">
       {data?.data.setRole === "TRAINER" ? estimateTrainer : estimateUser}
+      <BottomNavigationBar />
     </div>
   );
 }
