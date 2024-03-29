@@ -15,9 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "training together",
     description: "나의 개인 트레이닝 가격을 내가 정하자",
-    images: [
-      "https://github.com/TeuToo/teutoo_front/blob/main/public/metadata/pageThumb.png",
-    ],
+    images: ["https://teutoo-front-omega.vercel.app/metadata/pageThumb.png"],
   },
 };
 
