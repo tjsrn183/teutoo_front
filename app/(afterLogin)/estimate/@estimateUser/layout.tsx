@@ -1,5 +1,4 @@
 import { sendRequest } from "@/app/api/rootApi";
-import BottomNavigationBar from "@/components/BottomNavigationBar";
 import { ReactNode } from "react";
 import {
   HydrationBoundary,
@@ -34,7 +33,6 @@ export default async function EstimateUserLayout({
     <HydrationBoundary state={dehydratedState}>
       <div className=" min-h-screen bg-gray-200">
         <div>{children}</div>
-        <BottomNavigationBar />
       </div>
     </HydrationBoundary>
   );
