@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   title: "training together",
   description: "나의 개인 트레이닝 가격을 내가 정하자",
   openGraph: {
+    title: "training together",
+    description: "나의 개인 트레이닝 가격을 내가 정하자",
     images: "../public/metadata/pageThumb.png",
   },
 };
