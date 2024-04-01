@@ -12,11 +12,6 @@ const MENU_ITEMS: {
     href: "/account/schedule",
     icon: <CalendarCheck />,
   },
-  {
-    label: "회원권",
-    href: "/account/membership",
-    icon: <Ticket />,
-  },
 ];
 
 export default function AccountTopMenu(): JSX.Element {

@@ -3,6 +3,7 @@ import React from "react";
 import AccountInfo from "./_components/account-info";
 import AccountTopMenu from "./_components/account-top-menu";
 import BottomNavigationBar from "@/components/BottomNavigationBar";
+import FixedBottom from "@/components/layout/fixed-bottom";
 
 export default function AccountPage(): JSX.Element {
   return (
@@ -12,7 +13,9 @@ export default function AccountPage(): JSX.Element {
       </AppBar>
       <AccountInfo />
       <AccountTopMenu />
-      <BottomNavigationBar />
+      <FixedBottom>
+        <BottomNavigationBar />
+      </FixedBottom>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import BackButton from "@/components/BackButton";
 import AppBar from "@/components/common/app-bar";
 import Avatar from "@/components/common/avatar";
 import Button from "@/components/common/button";
@@ -9,9 +10,7 @@ import React from "react";
 export default function ChatRoomHeader(): JSX.Element {
   return (
     <AppBar sticky>
-      <Button size="icon" variant="ghost">
-        <ArrowLeft />
-      </Button>
+      <BackButton />
       <div>
         <Avatar className="w-10 h-10">
           <Avatar.Image

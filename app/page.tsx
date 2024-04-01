@@ -10,6 +10,8 @@ import {
 } from "@tanstack/react-query";
 import getTrainerList from "@/api/getTrainerList";
 import SearchContainer from "@/app/_components/search-container";
+import FixedBottom from "@/components/layout/fixed-bottom";
+import BottomNavigationBar from "@/components/BottomNavigationBar";
 
 interface HomeProps {
   searchParams: {
@@ -38,7 +40,8 @@ export default async function Home({ searchParams }: HomeProps) {
     <HydrationBoundary state={dehydratedState}>
       <div className="flex flex-col">
         <AppBar sticky>
-          <AddressMenu />
+          {/* <AddressMenu /> */}
+          <AppBar.Title>트레이너 찾기</AppBar.Title>
         </AppBar>
         <div className="p-2">
           <SearchContainer sort={sort} direction={direction} />
@@ -49,6 +52,9 @@ export default async function Home({ searchParams }: HomeProps) {
           </div>
         </div>
       </div>
+      <FixedBottom>
+        <BottomNavigationBar />
+      </FixedBottom>
     </HydrationBoundary>
   );
 }
