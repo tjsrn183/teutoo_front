@@ -8,6 +8,8 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import getChatList from "@/api/getChatList";
+import FixedBottom from "@/components/layout/fixed-bottom";
+import BottomNavigationBar from "@/components/BottomNavigationBar";
 
 export default async function ChatPage(): Promise<JSX.Element> {
   const queryClient = new QueryClient();
@@ -24,6 +26,9 @@ export default async function ChatPage(): Promise<JSX.Element> {
         </AppBar>
 
         <ChatList />
+        <FixedBottom>
+          <BottomNavigationBar />
+        </FixedBottom>
       </div>
     </HydrationBoundary>
   );

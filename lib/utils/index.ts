@@ -48,3 +48,18 @@ export function dateToLocalString(UTCdate: string) {
   const date = new Date(UTCdate);
   return date.toLocaleString();
 }
+
+export function formatSchedule(startDateTime: string, endDateTime: string) {
+  const startDate = new Date(startDateTime);
+  const endDate = new Date(endDateTime);
+
+  const year = startDate.getFullYear();
+  const month = (startDate.getMonth() + 1).toString().padStart(2, "0");
+  const day = startDate.getDate().toString().padStart(2, "0");
+  const startHours = startDate.getHours().toString().padStart(2, "0");
+  const startMinutes = startDate.getMinutes().toString().padStart(2, "0");
+  const endHours = endDate.getHours().toString().padStart(2, "0");
+  const endMinutes = endDate.getMinutes().toString().padStart(2, "0");
+
+  return `${year}.${month}.${day} ${startHours}:${startMinutes} ~${endHours}:${endMinutes}`;
+}

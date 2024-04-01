@@ -13,16 +13,16 @@ import {
 } from "@/components/common/select";
 import { PostReservationRequest } from "@/api/postReservation";
 import { getEndTime, returnISOString } from "@/lib/utils";
+import { useChatContext } from "@/app/(afterLogin)/chat/[receiverId]/_components/chat-client";
 
 interface ChatReservationViewProps {
-  receiverId: number;
-  requestReservation: (request: PostReservationRequest) => void;
+  onClose: () => void;
 }
 
 export default function ChatReservationView({
-  receiverId,
-  requestReservation,
+  onClose,
 }: ChatReservationViewProps): JSX.Element {
+  const { receiverId, sendRequestReservationMessage } = useChatContext();
   const [selectedProgram, setSelectedProgram] = React.useState<string>("");
   const [selectedDate, setSelectedDate] = React.useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = React.useState<string>("");
@@ -31,16 +31,17 @@ export default function ChatReservationView({
   } = useTrainerInfoQuery({
     trainerId: receiverId,
   });
+
   const onClick = () => {
-    console.log("예약하기", selectedProgram, selectedDate, selectedTime);
     if (!selectedDate || !selectedTime) return;
     const startTime = returnISOString(selectedDate, selectedTime);
     const endTime = returnISOString(selectedDate, getEndTime(selectedTime, 30));
-    requestReservation({
+    sendRequestReservationMessage({
       programId: parseInt(selectedProgram),
       startTime,
       endTime,
     });
+    onClose();
   };
 
   const isComplete = Boolean(selectedDate) && Boolean(selectedTime);

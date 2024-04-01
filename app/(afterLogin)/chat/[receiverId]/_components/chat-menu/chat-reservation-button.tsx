@@ -7,28 +7,12 @@ import Button from "@/components/common/button";
 import Calendar from "@/components/common/calendar";
 import ChatReservationView from "@/app/(afterLogin)/chat/[receiverId]/_components/chat-menu/chat-reservation-view";
 import { PostReservationRequest } from "@/api/postReservation";
+import { ErrorBoundary } from "react-error-boundary";
 
-interface ChatReservationButtonProps {
-  receiverId: number;
-  requestReservation: (request: PostReservationRequest) => void;
-}
+interface ChatReservationButtonProps {}
 
-export default function ChatReservationButton({
-  receiverId,
-  requestReservation,
-}: ChatReservationButtonProps): JSX.Element {
+export default function ChatReservationButton({}: ChatReservationButtonProps): JSX.Element {
   const [open, setOpen] = React.useState(false);
-  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>(
-    new Date(),
-  );
-  const [selectedTime, setSelectedTime] = React.useState<string>("");
-
-  const onClick = () => {
-    console.log(selectedDate, selectedTime);
-  };
-
-  const isComplete = Boolean(selectedDate) && Boolean(selectedTime);
-  console.log(isComplete);
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
@@ -55,10 +39,9 @@ export default function ChatReservationButton({
           <Dialog.Description className="sr-only" hidden>
             PT를 예약합니다.
           </Dialog.Description>
-          <ChatReservationView
-            receiverId={receiverId}
-            requestReservation={requestReservation}
-          />
+          <ErrorBoundary fallback={<div>예약할 수 없습니다</div>}>
+            <ChatReservationView onClose={() => setOpen(false)} />
+          </ErrorBoundary>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
