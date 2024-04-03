@@ -5,7 +5,15 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Looading from "@/components/Loading";
-
+interface User {
+  data: {
+    memberId: number;
+    name: string;
+    email: string;
+    profileImagePath: string;
+    address: string;
+  };
+}
 export default function Kakao() {
   const router = useRouter();
   useEffect(() => {
@@ -16,9 +24,13 @@ export default function Kakao() {
         let token = await axios.get(
           `http://43.201.184.37/login/kakao?code=${code}`,
         );
-
         setCookie("token", token.data.token);
-        router.replace("/");
+        const user: User = await sendRequest("members/me", "get");
+        if (!user.data.address) {
+          router.replace("/kakaoJoin");
+        } else {
+          router.replace("/");
+        }
       }
     };
     fetchToken();
