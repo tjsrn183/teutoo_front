@@ -5,7 +5,7 @@ import logout from "@/public/trainerMyPageIcons/logoutButton.png";
 import infoEditButton from "@/public/trainerMyPageIcons/infoEditButton.png";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { deleteCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
 
 export interface UserDataType {
   data: {
@@ -26,7 +26,7 @@ export default function MyInfoChunk() {
   };
   const onClickLogout = () => {
     deleteCookie("token");
-    router.push("/");
+    location.reload();
   };
   return (
     <div className=" flex">
