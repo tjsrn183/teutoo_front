@@ -2,7 +2,7 @@ import { ArrowLeft } from "lucide-react";
 import AppBar from "@/components/common/app-bar";
 import Button from "@/components/common/button";
 import Divider from "@/components/common/divider";
-import ScheduleTabs from "@/app/(afterLogin)/account/schedule/_components/schedule-tabs";
+import ScheduleTabs from "@/app/(afterLogin)/myPage/@account/schedule/_components/schedule-tabs";
 import BackButton from "@/components/BackButton";
 
 export default function MembershipPage(): JSX.Element {
