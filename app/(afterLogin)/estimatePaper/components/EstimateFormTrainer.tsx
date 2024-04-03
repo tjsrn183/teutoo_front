@@ -1,7 +1,7 @@
 "use client";
 import LightButton from "@/components/LightButton";
 import { useQueryClient } from "@tanstack/react-query";
-import { UserDataType } from "../../trainerMyPage/components/MyInfoChunk";
+import { UserDataType } from "@/app/(afterLogin)/myPage/@trainerMyPage/components/MyInfoChunk";
 import { SelectProgram } from "./SelectProgram";
 import { useState } from "react";
 import { useSubmitTrainer } from "../api/useSubmitTrainer";
