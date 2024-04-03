@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { zodEstimatePaper } from "../zodEstimatePaper";
 import { useQueryClient } from "@tanstack/react-query";
-import { UserDataType } from "../../trainerMyPage/components/MyInfoChunk";
+import { UserDataType } from "@/app/(afterLogin)/myPage/@trainerMyPage/components/MyInfoChunk";
 import { useSubmitUser } from "../api/useSubmitUser";
 import { EstimateUserFormType } from "../zodEstimatePaper";
 import CommonForm from "./CommonForm";

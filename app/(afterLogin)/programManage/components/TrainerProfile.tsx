@@ -2,7 +2,7 @@
 import Image from "next/image";
 import userThumb from "@/public/trainerMyPageIcons/userThumb.png";
 import { useQueryClient } from "@tanstack/react-query";
-import { UserDataType } from "@/app/(afterLogin)/trainerMyPage/components/MyInfoChunk";
+import { UserDataType } from "@/app/(afterLogin)/myPage/@trainerMyPage/components/MyInfoChunk";
 export default function TrainerProfile() {
   const queryClient = useQueryClient();
   const data: UserDataType | undefined = queryClient.getQueryData(["userData"]);

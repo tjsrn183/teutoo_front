@@ -29,7 +29,7 @@ const NAVIGATION_ITEMS = [
   },
   {
     id: "account",
-    path: "/account",
+    path: "/myPage",
     name: "나",
     icon: UserRound,
   },
