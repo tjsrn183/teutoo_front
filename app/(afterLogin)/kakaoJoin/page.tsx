@@ -1,5 +1,5 @@
 "use client";
-import { useState, FormEventHandler } from "react";
+import { useState, FormEventHandler, useEffect } from "react";
 import EditTextField from "../editInfo/components/EditTextField";
 import { locationStore } from "@/store/locationStore";
 import LightButton from "@/components/LightButton";
@@ -27,6 +27,9 @@ export default function KakaoJoinPage() {
       alert("주소를 입력하세요");
     }
   };
+  useEffect(() => {
+    alert("소셜 회원가입 유저는 추가적인 정보를 입력 바랍니다.");
+  }, []);
   return (
     <div className="bg-white w-full">
       <form
