@@ -9,13 +9,15 @@ import React, { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
 interface TrainerListProps {
-  sort?: "alpha" | "review";
-  direction?: "asc" | "desc";
+  sort: "alpha" | "review";
+  direction: "asc" | "desc";
+  search?: string;
 }
 
 export default function TrainerList({
-  sort = "alpha",
-  direction = "asc",
+  sort,
+  direction,
+  search,
 }: TrainerListProps): JSX.Element {
   const { ref, inView } = useInView();
   const { data, fetchNextPage } = useTrainerListInfiniteQuery({
@@ -23,6 +25,7 @@ export default function TrainerList({
     size: 5,
     sort,
     direction,
+    search,
   });
 
   useEffect(() => {
