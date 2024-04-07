@@ -191,7 +191,10 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
           },
           onConnect: async () => {
             console.log("connected");
-            const roomInfo = await getChatRoom({ receiverId });
+            const roomInfo = await getChatRoom({
+              receiverId,
+              activationType: "INFO",
+            });
             console.log(roomInfo);
             if (!roomInfo) return;
             setRoomId(roomInfo.roomId);
@@ -203,14 +206,15 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
               sender: roomInfo.senderIdx,
               receiver: roomInfo.receiverIdx,
             });
-            roomInfo.messages.forEach((msg) => {
+            const messages = roomInfo.messages.filter((msg) => msg !== null);
+            messages.forEach((msg) => {
               addMessage(msg);
             });
 
-            if (roomInfo.messages.length > 0)
+            if (messages.length > 0)
               sendReadMessage(
                 roomInfo.roomId,
-                roomInfo.messages[roomInfo.messages.length - 1].msgIdx,
+                messages[messages.length - 1].msgIdx,
               );
             return client.subscribe(
               `/topic/message/${roomInfo.roomId}`,
