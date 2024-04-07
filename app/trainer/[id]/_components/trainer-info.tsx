@@ -78,7 +78,8 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
       <Avatar className="w-20 h-20" square>
         <Avatar.Image
           alt="avatar"
-          src="https://randomuser.me/api/portraits/women/31.jpg"
+          src={data.imgResDto?.imgUrl}
+          //  src="https://randomuser.me/api/portraits/women/31.jpg"
         />
       </Avatar>
       <p className="font-medium">{data.trainerName}</p>
@@ -128,6 +129,7 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
                   src={imgInfo.imgUrl}
                   alt="certification"
                   width={200}
+                  height={200}
                 />
               </li>
             ))}
