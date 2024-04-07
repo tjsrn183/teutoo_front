@@ -1,6 +1,4 @@
 import AppBar from "@/components/common/app-bar";
-import AddressMenu from "./_components/address-menu";
-import Search from "@/components/common/search";
 import TrainerList from "./_components/trainer-list";
 import { Suspense } from "react";
 import {
@@ -17,6 +15,7 @@ interface HomeProps {
   searchParams: {
     sort: "alpha" | "review";
     direction: "asc" | "desc";
+    search?: string;
   };
 }
 
@@ -27,11 +26,19 @@ export default async function Home({ searchParams }: HomeProps) {
   const direction = ["asc", "desc"].includes(searchParams.direction)
     ? searchParams.direction
     : "asc";
+  const search = searchParams.search || "";
 
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["trainerList"],
-    queryFn: () => getTrainerList({ page: 0, size: 5, sort, direction }),
+    queryKey: ["trainerList", { page: 0, size: 5, sort, direction, search }],
+    queryFn: () =>
+      getTrainerList({
+        page: 0,
+        size: 5,
+        sort,
+        direction,
+        search,
+      }),
     initialPageParam: 0,
   });
   const dehydratedState = dehydrate(queryClient);
@@ -44,10 +51,10 @@ export default async function Home({ searchParams }: HomeProps) {
           <AppBar.Title>트레이너 찾기</AppBar.Title>
         </AppBar>
         <div className="p-2">
-          <SearchContainer sort={sort} direction={direction} />
+          <SearchContainer sort={sort} direction={direction} search={search} />
           <div className="flex-auto h-full">
             <Suspense fallback={<div>Loading...</div>}>
-              <TrainerList />
+              <TrainerList sort={sort} direction={direction} search={search} />
             </Suspense>
           </div>
         </div>
