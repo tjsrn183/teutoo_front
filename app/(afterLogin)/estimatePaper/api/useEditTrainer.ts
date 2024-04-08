@@ -1,13 +1,15 @@
+"use client";
 import { useMutation } from "@tanstack/react-query";
 import { sendRequest } from "@/app/api/rootApi";
 import { useRouter } from "next/navigation";
-
+import { useQueryClient } from "@tanstack/react-query";
 interface EditEstimate {
   data: URLSearchParams;
   id: number;
 }
 export const useEditTrainer = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ data, id }: EditEstimate) => {
       const response = await sendRequest(
@@ -22,6 +24,7 @@ export const useEditTrainer = () => {
       return response;
     },
     onSuccess(response) {
+      queryClient.invalidateQueries({ queryKey: ["myEstimateT"] });
       console.log("response다아아", response);
       router.replace("/");
       setTimeout(() => {
