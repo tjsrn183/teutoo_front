@@ -26,7 +26,7 @@ export default async function Home({ searchParams }: HomeProps) {
   const direction = ["asc", "desc"].includes(searchParams.direction)
     ? searchParams.direction
     : "asc";
-  const search = searchParams.search;
+  const search = searchParams.search || undefined;
 
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
