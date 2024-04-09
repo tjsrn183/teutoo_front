@@ -7,9 +7,7 @@ interface GetTrainerListRequest {
   size: number;
   sort: "alpha" | "review";
   direction: "asc" | "desc";
-  searchTrainer?: string;
-  searchGym?: string;
-  searchLocation?: string;
+  search?: string;
 }
 
 const getTrainerList = (
@@ -19,7 +17,7 @@ const getTrainerList = (
 
 export const useTrainerListInfiniteQuery = (params: GetTrainerListRequest) => {
   return useSuspenseInfiniteQuery({
-    queryKey: ["trainerList"],
+    queryKey: ["trainerList", params],
     queryFn: async ({ pageParam }) => {
       const result = await getTrainerList({ ...params, page: pageParam });
       return result;

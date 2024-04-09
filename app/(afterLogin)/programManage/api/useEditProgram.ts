@@ -19,13 +19,18 @@ export const useEditProgram = () => {
       );
       return response;
     },
-    onSuccess(response) {
-      queryClient.invalidateQueries({ queryKey: ["trainerProgram"] });
+    onSuccess: async (response) => {
+      await queryClient.invalidateQueries({
+        queryKey: ["trainerProgram"],
+        refetchType: "all",
+      });
       console.log("response다아아", response);
       router.replace("/");
       setTimeout(() => {
         alert("프로그램이 저장되었습니다..");
       }, 1000);
+
+      console.log("쿼리무효화");
     },
     onError(error) {
       console.log("error", error);

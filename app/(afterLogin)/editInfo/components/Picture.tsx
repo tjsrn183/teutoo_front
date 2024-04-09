@@ -37,10 +37,11 @@ export default function Picture({
   return (
     <div className="flex flex-row justify-center">
       {selectedImage ? (
-        <img
+        <Image
           src={selectedImage}
           alt="profile_image"
           className="rounded-full w-24 h-24"
+          width={96}
         />
       ) : (
         <Image src={userThumb} alt="userThumb" />

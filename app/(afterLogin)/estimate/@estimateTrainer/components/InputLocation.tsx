@@ -1,6 +1,6 @@
 "use client";
 import SearchInput from "@/components/formElement/SearchInput";
-import { UserDataType } from "@/app/(afterLogin)/trainerMyPage/components/MyInfoChunk";
+import { UserDataType } from "@/app/(afterLogin)/myPage/@trainerMyPage/components/MyInfoChunk";
 import { useEffect } from "react";
 import { locationChunk } from "../lib/locationChunk";
 import { useQueryClient } from "@tanstack/react-query";

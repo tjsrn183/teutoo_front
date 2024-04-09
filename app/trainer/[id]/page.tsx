@@ -11,6 +11,7 @@ import {
 } from "@tanstack/react-query";
 import getTrainerInfo from "@/api/getTrainerInfo";
 import RequestChatButton from "@/components/RequestChatButton";
+import BackButton from "@/components/BackButton";
 
 interface TrainerDetailPageProps {
   params: {
@@ -32,9 +33,7 @@ export default async function TrainerDetailPage({
     <HydrationBoundary state={dehydratedState}>
       <div className="flex flex-col">
         <AppBar sticky>
-          <Button size="icon" variant="ghost">
-            <ArrowLeft />
-          </Button>
+          <BackButton />
           <AppBar.Title>트레이너 상세</AppBar.Title>
           <Button size="icon" variant="ghost">
             <MoreVertical />

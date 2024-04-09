@@ -4,9 +4,10 @@ import Star from "@/components/common/star";
 import TabNavigation from "@/components/common/tab-navigation";
 
 import { MapPin } from "lucide-react";
-import ImagePreview from "./image-preview";
+import ImagePreview from "../../../../components/ImagePreview";
 import Link from "next/link";
 import { useTrainerInfoQuery } from "@/api/getTrainerInfo";
+import Image from "next/image";
 
 const TAB_ITEMS = [
   {
@@ -77,7 +78,8 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
       <Avatar className="w-20 h-20" square>
         <Avatar.Image
           alt="avatar"
-          src="https://randomuser.me/api/portraits/women/31.jpg"
+          src={data.imgResDto?.imgUrl}
+          //  src="https://randomuser.me/api/portraits/women/31.jpg"
         />
       </Avatar>
       <p className="font-medium">{data.trainerName}</p>
@@ -123,7 +125,12 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
             {data.careerImgList.map((imgInfo, index) => (
               <li key={index}>
                 {/* <img src={src} alt="certification" className="rounded-md" /> */}
-                <ImagePreview src={imgInfo.imgUrl} />
+                <ImagePreview
+                  src={imgInfo.imgUrl}
+                  alt="certification"
+                  width={200}
+                  height={200}
+                />
               </li>
             ))}
           </ul>
@@ -151,7 +158,7 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
                     {program.price}원
                   </p>
                 </div>
-                <img
+                <Image
                   width={80}
                   height={80}
                   src={

@@ -15,9 +15,7 @@ export default function TimePicker({
   startTime = "06:00",
   endTime = "23:30",
 }: TimePickerProps): JSX.Element {
-  console.log("TimePicker", startTime, endTime);
   const TIMES = generateTimeList(startTime, endTime);
-  console.log("TIMES", TIMES);
 
   return (
     <div>

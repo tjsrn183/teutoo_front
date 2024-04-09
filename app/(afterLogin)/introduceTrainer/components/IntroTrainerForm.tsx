@@ -9,7 +9,8 @@ import { useForm } from "react-hook-form";
 import { PicturesElement } from "@/components/PicturesElement";
 import { Picture } from "@/components/PicturesElement";
 import { useSetInfoTrainer } from "../api/useSetInfoTrainer";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getTrainerIntro } from "../api/getTrainerIntro";
 import PictureExist from "./PictureExist";
 interface TrainerInfo {
   simpleInfo: string;
@@ -28,10 +29,11 @@ export interface getTrainerIntro {
   careerImgList: Array<ImgType>;
 }
 export default function IntroTrainerForm() {
-  const queryClient = useQueryClient();
-  const data: getTrainerIntro | undefined = queryClient.getQueryData([
-    "trainerIntro",
-  ]);
+  const { data } = useQuery({
+    queryKey: ["trainerIntro"],
+    queryFn: getTrainerIntro,
+  });
+
   const [pictureArr, setPictureArr] = useState<Array<Picture>>([]);
   const [deleteImg, setDeleteImg] = useState<Array<string>>([]);
   const mutation = useSetInfoTrainer();

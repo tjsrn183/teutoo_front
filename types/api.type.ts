@@ -93,14 +93,13 @@ export interface LoginUserInfoRes {
 
 export type Message = SendMessage | ReadMessage;
 
-export interface SendMessage {
-  msgAction: "SEND";
-  msgIdx: number;
-  contentType: "TEXT" | "IMG" | "RESERVATION";
-  content: string;
-  createdAt: string;
-  senderId: number;
-}
+export type SendMessage =
+  | SendTextMessage
+  | SendImageMessage
+  | SendReservationMessage
+  | SendReservationAcceptMessage
+  | SendMemberReservationMessage
+  | SendTrainerReservationMessage;
 
 export interface ReadMessage {
   msgAction: "READ";
@@ -110,7 +109,28 @@ export interface ReadMessage {
   receiverIdx: number;
 }
 
-export interface ReservationMessageContent {
+interface SendMessageBase {
+  msgAction: "SEND";
+  msgIdx: number;
+  createdAt: string;
+  senderId: number;
+  content: string;
+}
+
+export interface SendTextMessage extends SendMessageBase {
+  contentType: "TEXT";
+}
+
+export interface SendImageMessage extends SendMessageBase {
+  contentType: "IMG";
+}
+
+export interface SendReservationMessage extends SendMessageBase {
+  contentType: "RESERVATION";
+}
+
+type ReservationStatus = "PENDING" | "RESERVED" | "CANCELED";
+export interface SendReservationMessageContent {
   reservationId: number;
   programId: number;
   memberId: number;
@@ -120,7 +140,32 @@ export interface ReservationMessageContent {
   programName: string;
   startDateTime: string;
   endDateTime: string;
-  status: "PENDING" | "RESERVED";
+  status: ReservationStatus;
+}
+
+export interface SendReservationAcceptMessage extends SendMessageBase {
+  contentType: "RESERVATION_ACCEPT";
+  content: string;
+}
+
+export interface SendMemberReservationMessage extends SendMessageBase {
+  contentType: "RESERVATION_REQ_MEMBER";
+  content: string;
+}
+export interface SendMemberReservationMessageContent {
+  programName: string;
+  price: number;
+  address: string;
+}
+
+export interface SendTrainerReservationMessage extends SendMessageBase {
+  contentType: "RESERVATION_REQ_TRAINER";
+  content: string;
+}
+
+export interface SendTrainerReservationMessageContent {
+  price: number;
+  address: string;
 }
 
 export interface ChatList {
@@ -147,3 +192,16 @@ export interface RequestReservationRes {
 export interface ReservationConfirmRes {
   reservationId: number;
 }
+
+export interface MemberSchedule {
+  trainerId: number;
+  trainerName: string;
+  imgResDto: ImgResDto | null;
+  programId: number;
+  programName: string;
+  startDateTime: string;
+  endDateTime: string;
+  status: ReservationStatus;
+}
+
+export type MemberScheduleRes = MemberSchedule[];

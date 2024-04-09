@@ -7,22 +7,14 @@ import { Toggle } from "@/components/common/toggle";
 import { cn } from "@/lib/utils/tailwind.utils";
 import Button from "@/components/common/button";
 import { PostReservationRequest } from "@/api/postReservation";
+import { useChatContext } from "@/app/(afterLogin)/chat/[receiverId]/_components/chat-client";
 
-interface ChatFormProps {
-  onSendTextMessage: (message: string) => void;
-  onSendImageMessage: (imgList: File[]) => void;
-  requestReservation: (request: PostReservationRequest) => void;
-  receiverId: number;
-}
+interface ChatFormProps {}
 
-export default function ChatForm({
-  onSendTextMessage,
-  onSendImageMessage,
-  receiverId,
-  requestReservation,
-}: ChatFormProps): JSX.Element {
+export default function ChatForm({}: ChatFormProps): JSX.Element {
+  const { sendTextMessage } = useChatContext();
   const [inputText, setInputText] = useState("");
-  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleKeyDownEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -36,7 +28,7 @@ export default function ChatForm({
 
   const handleSendTextMessage = (message: string) => {
     if (message.trim() !== "") {
-      onSendTextMessage(message);
+      sendTextMessage(message);
       setInputText("");
     }
   };
@@ -74,11 +66,8 @@ export default function ChatForm({
       </div>
       {menuOpen ? (
         <div className="h-40 grid-cols-4 grid-rows-2 grid gap-4 mt-4">
-          <ChatImageButton onClick={onSendImageMessage} />
-          <ChatReservationButton
-            receiverId={receiverId}
-            requestReservation={requestReservation}
-          />
+          <ChatImageButton />
+          <ChatReservationButton />
         </div>
       ) : null}
     </div>

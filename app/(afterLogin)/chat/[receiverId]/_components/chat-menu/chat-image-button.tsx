@@ -1,13 +1,11 @@
+import { useChatContext } from "@/app/(afterLogin)/chat/[receiverId]/_components/chat-client";
 import { Image as ImageIcon } from "lucide-react";
 import React from "react";
 
-interface ChatImageButtonProps {
-  onClick: (imgList: File[]) => void;
-}
+interface ChatImageButtonProps {}
 
-export default function ChatImageButton({
-  onClick,
-}: ChatImageButtonProps): JSX.Element {
+export default function ChatImageButton({}: ChatImageButtonProps): JSX.Element {
+  const { sendImageMessage } = useChatContext();
   const handleSelectImage = () => {
     const input = document.createElement("input");
     input.type = "file";
@@ -18,7 +16,7 @@ export default function ChatImageButton({
       const file = input.files?.[0];
       if (file) {
         console.log(file);
-        onClick([file]);
+        sendImageMessage([file]);
       }
     });
   };

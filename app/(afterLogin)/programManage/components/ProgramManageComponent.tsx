@@ -3,7 +3,8 @@ import LightButton from "@/components/LightButton";
 import { ProgramForm, ProgramFormType } from "./ProgramForm";
 import { MutableRefObject, useState } from "react";
 import React, { useEffect } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { fetchTrainerProgram } from "../api/fetchTrainerProgram";
 
 interface SubmitFunc {
   submitForm: () => void;
@@ -12,10 +13,10 @@ export interface getProgramList {
   ptProgramResList: Array<ProgramFormType>;
 }
 export const ProgramManageComponent = () => {
-  const queryClient = useQueryClient();
-  const data: getProgramList | undefined = queryClient.getQueryData([
-    "trainerProgram",
-  ]);
+  const { data }: { data: getProgramList | undefined } = useQuery({
+    queryKey: ["trainerProgram"],
+    queryFn: fetchTrainerProgram,
+  });
   const [formRefs, setFormRefs] = useState<
     MutableRefObject<SubmitFunc | undefined | null>[]
   >([]);
@@ -70,6 +71,7 @@ export const ProgramManageComponent = () => {
           key={index}
           ref={formRefs[index]}
           fromServer
+          index={index}
         />
       ))}
       {programForms.map((component, index) => (

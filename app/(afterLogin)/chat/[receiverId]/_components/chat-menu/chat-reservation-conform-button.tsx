@@ -1,34 +1,37 @@
-import { CalendarCheck, X } from "lucide-react";
-import React from "react";
+import { X } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
-import TimePicker from "./time-picker";
 import AppBar from "@/components/common/app-bar";
 import Button from "@/components/common/button";
-import Calendar from "@/components/common/calendar";
-import ChatReservationView from "@/app/(afterLogin)/chat/[receiverId]/_components/chat-menu/chat-reservation-view";
-import { PostReservationRequest } from "@/api/postReservation";
-import { ReservationMessageContent } from "@/types/api.type";
 import postReservationAccept from "@/api/postReservationAccept";
 import { useLoginUserInfoQuery } from "@/api/getLoginUserInfo";
 import { dateToLocalString } from "@/lib/utils";
+import { useState } from "react";
+import {
+  SendReservationMessage,
+  SendReservationMessageContent,
+} from "@/types/api.type";
+import { useChatContext } from "@/app/(afterLogin)/chat/[receiverId]/_components/chat-client";
 
 interface ChatReservationConfirmButtonProps {
-  reservationInfo: ReservationMessageContent;
+  message: SendReservationMessage;
 }
 
 export default function ChatReservationConfirmButton({
-  reservationInfo,
+  message,
 }: ChatReservationConfirmButtonProps): JSX.Element {
-  const [open, setOpen] = React.useState(false);
+  const reservationContent = JSON.parse(
+    message.content,
+  ) as SendReservationMessageContent;
+  const { sendAcceptReservationMessage } = useChatContext();
+  const [open, setOpen] = useState(false);
   const user = useLoginUserInfoQuery();
 
-  const isTrainer = user.data.data.memberId === reservationInfo.trainerId;
+  const isTrainer = user.data.data.memberId === reservationContent.trainerId;
+
   const handleReservationConfirm = async () => {
     try {
       if (!isTrainer) return;
-      const res = await postReservationAccept({
-        reservationId: reservationInfo.reservationId,
-      });
+      await sendAcceptReservationMessage(message);
     } catch (error) {
       console.error(error);
     }
@@ -64,22 +67,32 @@ export default function ChatReservationConfirmButton({
             <div className="flex flex-col gap-4">
               <div className="flex gap-2">
                 <h2 className="text-lg font-semibold">프로그램명</h2>
-                <p>{reservationInfo.programName}</p>
+                <p>{reservationContent.programName}</p>
               </div>
               <div className="flex gap-2">
                 <h2 className="text-lg font-semibold">예약자 성명</h2>
-                <p>{reservationInfo.memberName}</p>
+                <p>{reservationContent.memberName}</p>
               </div>
               <div className="flex gap-2">
                 <h2 className="text-lg font-semibold">예약 시간</h2>
                 <p>
-                  {dateToLocalString(reservationInfo.startDateTime)} ~{" "}
-                  {dateToLocalString(reservationInfo.endDateTime)}
+                  {dateToLocalString(reservationContent.startDateTime)} ~{" "}
+                  {dateToLocalString(reservationContent.endDateTime)}
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <h2 className="text-lg font-semibold">예약 상태</h2>
+                <p>
+                  {reservationContent.status === "PENDING"
+                    ? "대기 중"
+                    : reservationContent.status === "RESERVED"
+                    ? "예약 완료"
+                    : "예약 취소"}
                 </p>
               </div>
             </div>
           </div>
-          {reservationInfo.status === "PENDING" ? (
+          {isTrainer && reservationContent.status === "PENDING" ? (
             <div className="p-4">
               <Button
                 type="button"

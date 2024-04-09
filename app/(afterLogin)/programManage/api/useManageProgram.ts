@@ -13,7 +13,10 @@ export const useManageProgram = () => {
       return response;
     },
     onSuccess(response) {
-      queryClient.invalidateQueries({ queryKey: ["trainerProgram"] });
+      queryClient.invalidateQueries({
+        queryKey: ["trainerProgram"],
+        refetchType: "all",
+      });
       console.log("response다아아", response);
       router.replace("/");
       setTimeout(() => {
