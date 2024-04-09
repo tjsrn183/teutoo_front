@@ -2,8 +2,9 @@
 import { useDateStore } from "@/store/useDateStore";
 import ScheduleAtom from "./ScheduleAtom";
 import dayjs from "dayjs";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatDate } from "../utils/formatDate";
+import { getScheduleT } from "../api/getScheduleT";
 
 interface ScheduleItem {
   memberId: number;
@@ -16,10 +17,11 @@ interface ScheduleItem {
   endDateTime: string;
 }
 export default function DayScheduleList() {
-  const queryClient = useQueryClient();
-  const data: Array<ScheduleItem> | undefined = queryClient.getQueryData([
-    "scheduleT",
-  ]);
+  const { data }: { data: Array<ScheduleItem> | undefined } = useQuery({
+    queryKey: ["scheduleT"],
+    queryFn: getScheduleT,
+  });
+
   const { date } = useDateStore();
 
   return (

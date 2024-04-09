@@ -14,7 +14,10 @@ export const useEditInfo = () => {
       return response;
     },
     onSuccess(response) {
-      queryClient.invalidateQueries({ queryKey: ["userData"] });
+      queryClient.invalidateQueries({
+        queryKey: ["userData"],
+        refetchType: "all",
+      });
       console.log("response다아아", response);
       router.replace("/");
       setTimeout(() => {
