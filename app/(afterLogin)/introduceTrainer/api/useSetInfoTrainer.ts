@@ -14,7 +14,7 @@ export const useSetInfoTrainer = () => {
       return response;
     },
     onSuccess(response) {
-      queryClient.invalidateQueries({ queryKey: ["userData"] });
+      queryClient.invalidateQueries({ queryKey: ["trainerIntro"] });
       console.log("response다아아", response);
       router.replace("/");
       setTimeout(() => {

@@ -8,6 +8,7 @@ import React, { useCallback } from "react";
 interface SearchContainerProps {
   sort?: "alpha" | "review";
   direction?: "asc" | "desc";
+  search?: string;
 }
 
 interface FilterButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
@@ -30,6 +31,7 @@ function FilterButton({ className, checked, ...props }: FilterButtonProps) {
 export default function SearchContainer({
   sort = "alpha",
   direction = "asc",
+  search,
 }: SearchContainerProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -56,11 +58,20 @@ export default function SearchContainer({
     router.replace(`${pathname}?${createQueryString("sort", newSort)}`);
   }, [sort, pathname, createQueryString, router]);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      router.replace(
+        `${pathname}?${createQueryString("search", e.currentTarget.value)}`,
+      );
+    }
+  };
   return (
     <div>
       <Search
         className="w-full"
         placeholder="트레이너, 헬스장 이름을 검색하세요..."
+        defaultValue={search}
+        onKeyDown={handleKeyDown}
       />
       <div className="flex py-2">
         <FilterButton onClick={toggleSort} checked={sort === "review"}>

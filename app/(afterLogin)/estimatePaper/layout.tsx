@@ -1,7 +1,7 @@
 "use client";
 import { useQueryClient } from "@tanstack/react-query";
 import { ReactNode } from "react";
-import { UserDataType } from "../trainerMyPage/components/MyInfoChunk";
+import { UserDataType } from "@/app/(afterLogin)/myPage/@trainerMyPage/components/MyInfoChunk";
 
 interface RoleProps {
   trainer: ReactNode;

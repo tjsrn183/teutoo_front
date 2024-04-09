@@ -4,7 +4,7 @@ import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import { sendRequest } from "@/app/api/rootApi";
 import { useUserLocation } from "@/store/useUserLocation";
 import { useInView } from "react-intersection-observer";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { EstimateItemAtom, EstimateItem } from "../../types";
 
 interface EstimatesU {
@@ -24,7 +24,6 @@ export const fetchInfiniteEstimateU = async ({
   }
 };
 export default function EstimateTrainerList() {
-  const [count, setCount] = useState(0);
   const { location, setLocation } = useUserLocation();
   const { data, isFetching, isLoading, hasNextPage, fetchNextPage } =
     useInfiniteQuery<
@@ -56,7 +55,6 @@ export default function EstimateTrainerList() {
   useEffect(() => {
     if (inView && hasNextPage) {
       !isFetching && hasNextPage && fetchNextPage();
-      setCount(count + 1);
     }
   }, [inView, isFetching, hasNextPage, fetchNextPage]);
 

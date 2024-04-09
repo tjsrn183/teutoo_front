@@ -4,9 +4,10 @@ import { locationStore } from "@/store/locationStore";
 import { useEditInfo } from "../api/useEditInfo";
 import { FormEventHandler, useState } from "react";
 import ButtonBundle from "./ButtonBuntle";
-import Picture from "./Picture";
+
 import JoinInputField from "@/app/join/components/JoinInputFiled";
 import EditTextField from "./EditTextField";
+import ProfileImg from "../../kakaoJoin/components/ProfileImg";
 
 export interface EditFormData {
   address: string;
@@ -15,17 +16,18 @@ export interface EditFormData {
 
 export default function EditInfoPage() {
   const mutation = useEditInfo();
-  const [clickSubmit, setClickSubmit] = useState<boolean>(false);
+
   const [imgTarget, setImageTarget] = useState<File | null>();
   const [selectedImage, setSelectedImage] = useState<string>();
+  const [trainer, setTrainer] = useState<boolean>(false);
   const [pw, setPw] = useState<string>("");
   const { location, setLocation } = locationStore();
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    setClickSubmit(true);
     if (location) {
       const formdata = new FormData();
       formdata.append("address", location);
+      formdata.append("role", trainer.toString());
       if (pw) {
         formdata.append("password", pw);
       } else {
@@ -42,7 +44,7 @@ export default function EditInfoPage() {
   return (
     <div className="bg-white w-full">
       <form onSubmit={onSubmit} className="flex flex-col px-4 ">
-        <Picture
+        <ProfileImg
           selectedImage={selectedImage}
           setImageTarget={setImageTarget}
           setSelectedImage={setSelectedImage}
@@ -60,7 +62,17 @@ export default function EditInfoPage() {
           setState={setLocation}
           disabled
         />
-
+        <div>
+          <input
+            type="checkbox"
+            id="isTrainer"
+            checked={trainer}
+            onChange={(e) => setTrainer(e.target.checked)}
+          />
+          <label htmlFor="isTrainer" className="text-[#323232]">
+            트레이너 입니다.
+          </label>
+        </div>
         <ButtonBundle />
       </form>
     </div>

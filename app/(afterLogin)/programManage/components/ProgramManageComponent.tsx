@@ -70,6 +70,7 @@ export const ProgramManageComponent = () => {
           key={index}
           ref={formRefs[index]}
           fromServer
+          index={index}
         />
       ))}
       {programForms.map((component, index) => (
