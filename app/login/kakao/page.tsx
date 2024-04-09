@@ -22,7 +22,7 @@ export default function Kakao() {
     const fetchToken = async () => {
       if (code) {
         let token = await axios.get(
-          `http://43.201.184.37/login/kakao?code=${code}`,
+          `https://api.teutoo.site/login/kakao?code=${code}`,
         );
         setCookie("token", token.data.token);
         const user: User = await sendRequest("members/me", "get");
