@@ -6,7 +6,7 @@ import {
   HydrationBoundary,
 } from "@tanstack/react-query";
 import { ReactNode } from "react";
-const getScheduleT = async () => {
+export const getScheduleT = async () => {
   return await sendRequest("schedule/trainer/me");
 };
 export default async function ScheduleLayout({
