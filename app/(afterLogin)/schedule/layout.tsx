@@ -1,4 +1,3 @@
-import { sendRequest } from "@/app/api/rootApi";
 import { SmallHeader } from "@/components/SmallHeader";
 import {
   QueryClient,
@@ -6,9 +5,8 @@ import {
   HydrationBoundary,
 } from "@tanstack/react-query";
 import { ReactNode } from "react";
-export const getScheduleT = async () => {
-  return await sendRequest("schedule/trainer/me");
-};
+import { getScheduleT } from "./api/getScheduleT";
+
 export default async function ScheduleLayout({
   children,
 }: {
