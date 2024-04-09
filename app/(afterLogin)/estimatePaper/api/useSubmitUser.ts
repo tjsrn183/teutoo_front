@@ -13,7 +13,10 @@ export const useSubmitUser = () => {
       return response;
     },
     onSuccess(response) {
-      queryClient.invalidateQueries({ queryKey: ["myEstimateU"] });
+      queryClient.invalidateQueries({
+        queryKey: ["myEstimateU"],
+        refetchType: "all",
+      });
       console.log("response다아아", response);
       router.replace("/");
       setTimeout(() => {

@@ -24,7 +24,10 @@ export const useEditTrainer = () => {
       return response;
     },
     onSuccess(response) {
-      queryClient.invalidateQueries({ queryKey: ["myEstimateT"] });
+      queryClient.invalidateQueries({
+        queryKey: ["myEstimateT"],
+        refetchType: "all",
+      });
       console.log("response다아아", response);
       router.replace("/");
       setTimeout(() => {
