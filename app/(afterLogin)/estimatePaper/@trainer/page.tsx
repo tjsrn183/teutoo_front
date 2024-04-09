@@ -6,16 +6,12 @@ import {
 
 import { SmallHeader } from "@/components/SmallHeader";
 import EstimateFormTrainer from "../components/EstimateFormTrainer";
-import { sendRequest } from "@/app/api/rootApi";
-
-export const fetchOnlyTrainerPrograms = async () => {
-  return await sendRequest("trainer/estimates/programs");
-};
+import { getOnlyTrainerPrograms } from "../api/getOnlyTrainerPrograms";
 export default async function EstimateTrainerPage() {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["onlytrainerProgram"],
-    queryFn: fetchOnlyTrainerPrograms,
+    queryFn: getOnlyTrainerPrograms,
   });
   const dehydratedState = dehydrate(queryClient);
   return (

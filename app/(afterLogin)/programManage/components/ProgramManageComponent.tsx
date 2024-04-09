@@ -3,7 +3,7 @@ import LightButton from "@/components/LightButton";
 import { ProgramForm, ProgramFormType } from "./ProgramForm";
 import { MutableRefObject, useState } from "react";
 import React, { useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchTrainerProgram } from "../api/fetchTrainerProgram";
 
 interface SubmitFunc {
