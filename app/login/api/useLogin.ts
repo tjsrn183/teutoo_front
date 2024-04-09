@@ -17,6 +17,7 @@ export const useLogin = () => {
       router.replace("/");
       setTimeout(() => {
         alert("로그인이 완료되었습니다.");
+        window.location.reload();
       }, 1000);
     },
     onError(error) {
