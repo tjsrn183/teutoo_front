@@ -4,7 +4,7 @@ import ScheduleAtom from "./ScheduleAtom";
 import dayjs from "dayjs";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { formatDate } from "../utils/formatDate";
-import { getScheduleT } from "../layout";
+import { getScheduleT } from "../api/getScheduleT";
 
 interface ScheduleItem {
   memberId: number;
