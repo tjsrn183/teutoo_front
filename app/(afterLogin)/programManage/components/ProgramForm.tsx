@@ -32,10 +32,11 @@ export interface ProgramFormType {
 interface ProgramListProps {
   programList?: ProgramDataServer;
   fromServer?: boolean;
+  index?: number;
 }
 export interface ProgramDataServer extends ProgramFormType {
-  ptCnt?: number;
-  ptProgramId?: number;
+  trainerImg?: { imgName: string; imgUrl: string };
+  trainerName?: string;
   ptProgramResList?: Array<ProgramFormType>;
 }
 export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
@@ -50,10 +51,12 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
   const data: ProgramDataServer | undefined = queryClient.getQueryData([
     "trainerProgram",
   ]);
+
   const imgArr =
-    props.programList?.ptProgramId &&
+    props.index !== undefined &&
     data?.ptProgramResList &&
-    data?.ptProgramResList[props.programList.ptProgramId - 1]?.ptProgramImgList;
+    data?.ptProgramResList[props.index].ptProgramImgList;
+
   const {
     handleSubmit,
     register,
@@ -82,7 +85,7 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
     }
   };
   // 폼을 제출하기 위한 함수
-  const onSubmit = (data: ProgramFormType) => {
+  const onSubmit = async (data: ProgramFormType) => {
     const formdata = new FormData();
     formdata.append("title", data.title);
     formdata.append("content", data.content);
@@ -120,6 +123,7 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
     } else {
       setNewProgram.mutate(formdata);
     }
+    await queryClient.invalidateQueries({ queryKey: ["trainerProgram"] });
   };
 
   useImperativeHandle(ref, () => ({
@@ -200,6 +204,7 @@ export const ProgramForm = forwardRef((props: ProgramListProps, ref) => {
           setDeleteImg={setDeleteImg}
           fromWhere="ProgramManage"
           programId={props.programList?.ptProgramId}
+          programIndex={props.index}
         />
       ) : (
         <></>
