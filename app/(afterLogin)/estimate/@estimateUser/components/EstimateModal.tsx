@@ -4,7 +4,7 @@ import close from "@/public/join/close.png";
 import ModalElement from "./ModalElement";
 import LightButton from "@/components/LightButton";
 import { useQuery } from "@tanstack/react-query";
-import { sendRequest } from "@/app/api/rootApi";
+import { getOneEstimateT } from "../../api/getOneEstimateT";
 import Looading from "@/components/Loading";
 import { formatKRW } from "../lib/formatKRW";
 import Link from "next/link";
@@ -17,21 +17,14 @@ interface EstimateModalProps {
   dataId: number;
   memberId: number;
 }
-const fetchOneEstimateT = (dataId: number) => async () => {
-  let estimateT = null;
 
-  if (dataId) {
-    estimateT = await sendRequest(`trainer/estimates/${dataId}`);
-  }
-  return estimateT;
-};
 export const EstimateModal = forwardRef<ModalDialogHandle, EstimateModalProps>(
   (props, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const dialogRef = useRef<HTMLDialogElement>(null);
     const { data, isLoading } = useQuery({
       queryKey: ["oneEstimateT", props.dataId],
-      queryFn: fetchOneEstimateT(props.dataId),
+      queryFn: getOneEstimateT(props.dataId),
       enabled: isOpen,
     });
 

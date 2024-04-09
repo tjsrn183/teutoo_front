@@ -1,28 +1,12 @@
 "use client";
 import EstimateTrainerAtom from "./EstimateTrainerAtom";
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
-import { sendRequest } from "@/app/api/rootApi";
 import { useUserLocation } from "@/store/useUserLocation";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { EstimateItemAtom, EstimateItem } from "../../types";
+import { getInfiniteEstimateU } from "../../api/getInfiniteEstimateU";
 
-interface EstimatesU {
-  pageParam: number | undefined;
-  queryKey: Array<string>;
-}
-export const fetchInfiniteEstimateU = async ({
-  pageParam,
-  queryKey,
-}: EstimatesU) => {
-  const [, location] = queryKey;
-  if (typeof pageParam === "number") {
-    return await sendRequest(
-      `trainer/estimates?courseId=${pageParam}&size=5&ptAddress=${location}`,
-      "get",
-    );
-  }
-};
 export default function EstimateTrainerList() {
   const { location, setLocation } = useUserLocation();
   const { data, isFetching, isLoading, hasNextPage, fetchNextPage } =
@@ -35,7 +19,7 @@ export default function EstimateTrainerList() {
     >({
       queryKey: ["userEstimates", location],
       queryFn: ({ pageParam }) =>
-        fetchInfiniteEstimateU({
+        getInfiniteEstimateU({
           pageParam,
           queryKey: ["userEstimates", location],
         }),
