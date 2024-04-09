@@ -10,7 +10,7 @@ interface configTypes {
 }
 
 const apiClient = axios.create({
-  baseURL: "http://43.201.184.37/",
+  baseURL: "https://api.teutoo.site/",
   withCredentials: true,
 });
 
