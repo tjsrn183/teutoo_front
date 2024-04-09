@@ -8,7 +8,7 @@ export default function SocialLoginButtons() {
       <div className="text-[#22C55E] my-2">or log in with:</div>
       <button className=" relative w-full h-[48px] flex">
         <Link
-          href={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=http://localhost:3000/login/kakao`}
+          href={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID}&redirect_uri=https://teutoo.site/login/kakao`}
         >
           <Image
             src={kakao_large}
