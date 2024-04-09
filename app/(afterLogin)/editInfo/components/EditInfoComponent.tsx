@@ -4,8 +4,6 @@ import { locationStore } from "@/store/locationStore";
 import { useEditInfo } from "../api/useEditInfo";
 import { FormEventHandler, useState } from "react";
 import ButtonBundle from "./ButtonBuntle";
-
-import JoinInputField from "@/app/join/components/JoinInputFiled";
 import EditTextField from "./EditTextField";
 import ProfileImg from "../../kakaoJoin/components/ProfileImg";
 

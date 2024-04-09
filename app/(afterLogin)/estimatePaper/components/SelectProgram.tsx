@@ -2,7 +2,8 @@
 import React from "react";
 import * as Select from "@radix-ui/react-select";
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { fetchOnlyTrainerPrograms } from "../@trainer/page";
 
 interface SelectProgramProps {
   setState?: React.Dispatch<React.SetStateAction<number | undefined>>;
@@ -21,10 +22,10 @@ interface DataWrapper {
   data: Trainer[];
 }
 export const SelectProgram = ({ setState }: SelectProgramProps) => {
-  const queryClient = useQueryClient();
-  const data: DataWrapper | undefined = queryClient.getQueryData([
-    "onlytrainerProgram",
-  ]);
+  const { data }: { data: DataWrapper | undefined } = useQuery({
+    queryKey: ["onlytrainerProgram"],
+    queryFn: fetchOnlyTrainerPrograms,
+  });
 
   const handleValueChange = (value: string) => {
     const ptProgramId = parseInt(value, 10);
