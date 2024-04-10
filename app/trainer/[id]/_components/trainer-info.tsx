@@ -78,8 +78,7 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
       <Avatar className="w-20 h-20" square>
         <Avatar.Image
           alt="avatar"
-          src={data.imgResDto?.imgUrl}
-          //  src="https://randomuser.me/api/portraits/women/31.jpg"
+          src={data.imgResDto?.imgUrl || "/blank-profile.webp"}
         />
       </Avatar>
       <p className="font-medium">{data.trainerName}</p>

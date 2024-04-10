@@ -1,4 +1,4 @@
-import { SendMessage } from "@/types/api.type";
+import { ImgResDto, SendMessage } from "@/types/api.type";
 import { create } from "zustand";
 
 interface ChatStore {
@@ -12,6 +12,7 @@ interface ChatStore {
     sender: number;
     receiver: number;
   };
+  receiver: ImgResDto | null;
   addMessage: (message: SendMessage) => void;
   updateMessageIndex: ({
     sender,
@@ -24,6 +25,7 @@ interface ChatStore {
   setUsers: (users: { sender: number; receiver: number }) => void;
   clearChat: () => void;
   changeMessageByMsgIndex: (msgIndex: number, message: SendMessage) => void;
+  setReceiver: (receiver: ImgResDto) => void;
 }
 
 const INIT_VALUES = {
@@ -34,6 +36,7 @@ const INIT_VALUES = {
     sender: 0,
     receiver: 0,
   },
+  receiver: null,
 };
 
 const useChatStore = create<ChatStore>((set) => ({
@@ -66,6 +69,10 @@ const useChatStore = create<ChatStore>((set) => ({
       messages: state.messages.map((msg) =>
         msg.msgIdx === msgIndex ? message : msg,
       ),
+    })),
+  setReceiver: (receiver) =>
+    set(() => ({
+      receiver,
     })),
 }));
 

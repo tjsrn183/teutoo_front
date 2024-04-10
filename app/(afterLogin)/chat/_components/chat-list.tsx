@@ -34,7 +34,7 @@ export default function ChatList(): JSX.Element {
               <Avatar square>
                 <Avatar.Image
                   alt="avatar"
-                  src={chat.profileImgUrl || "https://placehold.co/80"}
+                  src={chat.profileImgUrl || "/blank-profile.webp"}
                 />
               </Avatar>
               <div>

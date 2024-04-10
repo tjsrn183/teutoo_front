@@ -28,6 +28,8 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
     clearChat,
     changeMessageByMsgIndex,
     messageIndex,
+    receiver,
+    setReceiver,
   } = useChatStore();
   const clientRef = useRef<Client | null>(null);
   const {
@@ -182,7 +184,7 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
         clearChat();
         console.log("connecting");
         const client = new Client({
-          brokerURL: "ws://43.201.184.37/chat-connection",
+          brokerURL: "wss://43.201.184.37/chat-connection",
           connectHeaders: {
             Authorization: `Bearer ${getCookie("token")}`,
           },
@@ -197,6 +199,9 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
             });
             console.log(roomInfo);
             if (!roomInfo) return;
+            if (roomInfo.receiverImg) {
+              setReceiver(roomInfo.receiverImg);
+            }
             setRoomId(roomInfo.roomId);
             setUsers({
               sender: userInfo.memberId,
@@ -263,6 +268,7 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
     updateMessageIndex,
     userInfo.memberId,
     clearChat,
+    setReceiver,
   ]);
 
   return {
@@ -276,5 +282,6 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
     messageIndex,
     sendMemberRequestReservationMessage,
     sendTrainerRequestReservationMessage,
+    receiver,
   };
 }
