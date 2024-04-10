@@ -48,10 +48,7 @@ export default function TrainerList({
               <Avatar className="w-20 h-20" square>
                 <Avatar.Image
                   alt="avatar"
-                  src={
-                    trainer.imgResDto?.imgUrl ||
-                    "https://randomuser.me/api/portraits/women/31.jpg"
-                  }
+                  src={trainer.imgResDto?.imgUrl || "/blank-profile.webp"}
                 />
               </Avatar>
               <div className="flex flex-col flex-auto">

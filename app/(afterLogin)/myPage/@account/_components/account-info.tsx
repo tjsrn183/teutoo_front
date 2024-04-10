@@ -13,7 +13,7 @@ export default function AccountInfo(): JSX.Element {
       <Avatar>
         <Avatar.Image
           alt="avatar"
-          src={data.profileImagePath || "https://placehold.co/40"}
+          src={data.profileImagePath || "/blank-profile.webp"}
         />
         <Avatar.Fallback>avatar</Avatar.Fallback>
       </Avatar>
