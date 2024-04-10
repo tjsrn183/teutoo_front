@@ -19,10 +19,8 @@ export const useSubmitTrainer = () => {
       console.log("response다아아", response);
 
       router.replace("/");
-      setTimeout(() => {
-        alert("견적서 작성이 완료되었습니다.");
-        location.reload();
-      }, 1000);
+
+      location.reload();
     },
     onError(error) {
       console.log("error", error);

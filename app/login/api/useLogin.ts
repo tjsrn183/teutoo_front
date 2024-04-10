@@ -15,10 +15,6 @@ export const useLogin = () => {
     onSuccess(response: { token: string }) {
       setCookie("token", response.token);
       router.replace("/");
-      setTimeout(() => {
-        alert("로그인이 완료되었습니다.");
-        window.location.reload();
-      }, 1000);
     },
     onError(error) {
       console.log("error", error);
