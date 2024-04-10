@@ -9,7 +9,7 @@ const MENU_ITEMS: {
 }[] = [
   {
     label: "PT 일정",
-    href: "/account/schedule",
+    href: "myPage/schedule",
     icon: <CalendarCheck />,
   },
 ];
