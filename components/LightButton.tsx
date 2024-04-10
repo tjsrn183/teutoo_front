@@ -8,6 +8,7 @@ interface ButtonProps {
   backgroundColor?: string;
   height?: string;
   width?: string;
+  activeBackColor?: string;
 }
 
 export default function LightButton({
@@ -18,13 +19,14 @@ export default function LightButton({
   backgroundColor = "bg-[#22C55E]",
   height,
   width,
+  activeBackColor = "active:bg-[#90dfad]",
 }: ButtonProps) {
   return (
     <button
       type={type}
-      className={`text-white rounded-[6px] ${width ? width : "w-full"} ${
-        height ? height : "h-[48px]"
-      }  ${backgroundColor} ${className}`}
+      className={` ${activeBackColor} text-white rounded-[6px] ${
+        width ? width : "w-full"
+      } ${height ? height : "h-[48px]"}  ${backgroundColor} ${className}`}
       onClick={onClick}
     >
       {children}

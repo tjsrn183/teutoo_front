@@ -79,6 +79,7 @@ export default function EstimateFormTrainer() {
       <div className="  sticky bottom-4 flex justify-center w-full">
         <LightButton
           backgroundColor="bg-[#175601]"
+          activeBackColor="active:bg-[#227504]"
           type="submit"
           width="w-[85%]"
         >
