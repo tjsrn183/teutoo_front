@@ -21,6 +21,7 @@ export const useSubmitUser = () => {
       router.replace("/");
       setTimeout(() => {
         alert("견적서 작성이 완료되었습니다.");
+        location.reload();
       }, 1000);
     },
     onError(error) {
