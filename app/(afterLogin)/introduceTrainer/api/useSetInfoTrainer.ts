@@ -14,9 +14,15 @@ export const useSetInfoTrainer = () => {
       return response;
     },
     onSuccess(response) {
-      queryClient.invalidateQueries({ queryKey: ["trainerIntro"] });
+      queryClient.invalidateQueries({
+        queryKey: ["trainerIntro"],
+        refetchType: "all",
+      });
       console.log("response다아아", response);
       router.replace("/");
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
     },
     onError(error) {
       console.log("error", error);
