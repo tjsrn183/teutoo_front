@@ -26,6 +26,7 @@ export default function Map() {
 
       const map = new window.kakao.maps.Map(mapRef.current, options);
       setMap(map);
+      map.relayout();
     });
   }, []);
 
