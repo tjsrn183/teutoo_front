@@ -20,7 +20,7 @@ export const useLogin = () => {
       router.replace("/");
       setTimeout(() => {
         location.reload();
-      }, 500);
+      }, 1000);
     },
     onError(error) {
       console.log("error", error);
