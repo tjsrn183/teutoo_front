@@ -17,15 +17,15 @@ export default function EditInfoPage() {
 
   const [imgTarget, setImageTarget] = useState<File | null>();
   const [selectedImage, setSelectedImage] = useState<string>();
-  const [trainer, setTrainer] = useState<boolean>(false);
+
   const [pw, setPw] = useState<string>("");
   const { location, setLocation } = locationStore();
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    if (location) {
+    if (location && pw) {
       const formdata = new FormData();
       formdata.append("address", location);
-      formdata.append("role", trainer.toString());
+
       if (pw) {
         formdata.append("password", pw);
       } else {
@@ -36,6 +36,8 @@ export default function EditInfoPage() {
         formdata.append("profileImage", imgTarget);
       }
       mutation.mutate(formdata);
+    } else {
+      alert("주소와 비밀번호를 입력하세요");
     }
   };
 
@@ -60,37 +62,9 @@ export default function EditInfoPage() {
           setState={setLocation}
           disabled
         />
-        <div>
-          <input
-            type="checkbox"
-            id="isTrainer"
-            checked={trainer}
-            onChange={(e) => setTrainer(e.target.checked)}
-          />
-          <label htmlFor="isTrainer" className="text-[#323232]">
-            트레이너 입니다.
-          </label>
-        </div>
+        <div></div>
         <ButtonBundle />
       </form>
     </div>
   );
 }
-/*
-<JoinInputField
-          title="새로운 비밀번호"
-          placeholder="새로운 비밀번호를 입력하세요."
-        />
-        <label className="text-[#323232] flex flex-col font-bold my-1">
-          주소
-          <input
-            type="text"
-            placeholder="주소를 입력하세요"
-            className="bg-[#e4e6e7] rounded-[6px] py-2 font-normal"
-            value={location}
-            disabled
-          />
-        </label>
-
-
-*/

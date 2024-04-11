@@ -16,8 +16,11 @@ export default function Location() {
       <div className="fixed inset-0 z-50 flex items-center justify-center">
         <div className="w-4/5 h-2/5 text-center bg-white rounded-[6px] shadow-2xl flex flex-col p-2">
           <div className="flex justify-end">
-            <button className="mt-2 mr-2" onClick={onClickClose}>
-              <Image src={close} alt="close" />
+            <button
+              className=" m-1 active:bg-gray-200 rounded-lg bg-[#22C55E] px-2"
+              onClick={onClickClose}
+            >
+              <span className=" font-extrabold text-white text-lg">x</span>
             </button>
           </div>
 
