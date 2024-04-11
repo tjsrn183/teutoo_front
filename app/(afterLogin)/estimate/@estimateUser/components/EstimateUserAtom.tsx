@@ -32,7 +32,7 @@ export default function EstimateUserAtom({ data }: { data: EstimateItemAtom }) {
       <span className=" truncate mr-1 w-[20%]">{formatKRW(data.price)}</span>
       <div className="mr-3 w-[20%]">
         <LightButton width="w-[70px]" onClick={handleOpenModal}>
-          낙찰
+          채팅
         </LightButton>
       </div>
       <EstimateModal
