@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { sendRequest } from "@/app/api/rootApi";
 import { setCookie } from "cookies-next";
+
 export const useLogin = () => {
   const router = useRouter();
 
@@ -13,8 +14,13 @@ export const useLogin = () => {
       return response;
     },
     onSuccess(response: { token: string }) {
+      console.log("웅답", response);
       setCookie("token", response.token);
+
       router.replace("/");
+      setTimeout(() => {
+        location.reload();
+      }, 500);
     },
     onError(error) {
       console.log("error", error);
