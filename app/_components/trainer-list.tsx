@@ -22,7 +22,7 @@ export default function TrainerList({
   const { ref, inView } = useInView();
   const { data, fetchNextPage } = useTrainerListInfiniteQuery({
     page: 0,
-    size: 5,
+    size: 10,
     sort,
     direction,
     search,
@@ -31,6 +31,7 @@ export default function TrainerList({
   useEffect(() => {
     if (inView) {
       fetchNextPage();
+      console.log("fetchNextPage");
     }
   }, [inView, fetchNextPage]);
 
@@ -42,7 +43,11 @@ export default function TrainerList({
             asChild
             className="flex gap-2"
             key={trainer.trainerInfoId}
-            ref={i === data.pages.length - 1 && j < 5 ? ref : undefined}
+            ref={
+              i === data.pages.length - 1 && j === page.content.length - 1
+                ? ref
+                : undefined
+            }
           >
             <Link href={`/trainer/${trainer.trainerInfoId}`}>
               <Avatar className="w-20 h-20" square>
