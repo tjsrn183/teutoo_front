@@ -3,13 +3,8 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import { sendRequest } from "@/app/api/rootApi";
+import { getUserData } from "./myPage/api/getUserData";
 import { redirect } from "next/navigation";
-
-export const fetchUserData = async () => {
-  "use server";
-  return await sendRequest("members/me", "get");
-};
 
 export default async function AfterLoginLayout({
   children,
@@ -19,7 +14,7 @@ export default async function AfterLoginLayout({
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["userData"],
-    queryFn: fetchUserData,
+    queryFn: getUserData,
   });
   const dehydratedState = dehydrate(queryClient);
 
