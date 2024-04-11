@@ -9,5 +9,6 @@ interface MypageProps {
 export default function AccountLayout({ account, trainerMyPage }: MypageProps) {
   const queryClient = useQueryClient();
   const data: UserDataType | undefined = queryClient.getQueryData(["userData"]);
+
   return <>{data?.data.setRole === "TRAINER" ? trainerMyPage : account}</>;
 }
