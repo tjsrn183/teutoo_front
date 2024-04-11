@@ -30,11 +30,11 @@ export default async function Home({ searchParams }: HomeProps) {
 
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["trainerList", { page: 0, size: 5, sort, direction, search }],
+    queryKey: ["trainerList", { page: 0, size: 10, sort, direction, search }],
     queryFn: () =>
       getTrainerList({
         page: 0,
-        size: 5,
+        size: 10,
         sort,
         direction,
         search,
@@ -50,7 +50,7 @@ export default async function Home({ searchParams }: HomeProps) {
           {/* <AddressMenu /> */}
           <AppBar.Title>트레이너 찾기</AppBar.Title>
         </AppBar>
-        <div className="p-2">
+        <div className="p-2 pb-14">
           <SearchContainer sort={sort} direction={direction} search={search} />
           <div className="flex-auto h-full">
             <Suspense fallback={<div>Loading...</div>}>

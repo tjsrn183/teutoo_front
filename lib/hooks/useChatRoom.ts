@@ -184,7 +184,7 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
         clearChat();
         console.log("connecting");
         const client = new Client({
-          brokerURL: "wss://43.201.184.37/chat-connection",
+          brokerURL: "wss://api.teutoo.site/chat-connection",
           connectHeaders: {
             Authorization: `Bearer ${getCookie("token")}`,
           },
