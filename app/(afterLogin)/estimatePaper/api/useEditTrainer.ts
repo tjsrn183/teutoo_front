@@ -30,9 +30,6 @@ export const useEditTrainer = () => {
       });
       console.log("response다아아", response);
       router.replace("/");
-      setTimeout(() => {
-        alert("견적서 수정이 완료되었습니다.");
-      }, 1000);
     },
     onError(error) {
       console.log("error", error);

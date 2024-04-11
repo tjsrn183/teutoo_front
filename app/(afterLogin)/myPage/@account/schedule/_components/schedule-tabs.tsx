@@ -54,7 +54,7 @@ const ScheduleList = ({ schedules }: { schedules: MemberSchedule[] }) => {
               <Avatar>
                 <Avatar.Image
                   alt="placeholder"
-                  src={schedule.imgResDto?.imgUrl || "https://placehold.co/40"}
+                  src={schedule.imgResDto?.imgUrl || "/blank-profile.webp"}
                 />
               </Avatar>
               <div>

@@ -15,7 +15,12 @@ export const SmallHeader = ({ title, arrrowHidden }: SmallHeaderProps) => {
   };
   return (
     <header className=" text-black flex justify-start items-center w-full font-bold text-lg h-[55px] bg-white">
-      <button onClick={onClickBack} type="button" hidden={arrrowHidden}>
+      <button
+        onClick={onClickBack}
+        type="button"
+        hidden={arrrowHidden}
+        className=" active:bg-gray-100 ml-1 rounded-xl"
+      >
         <Image src={back} alt="back" />
       </button>
       {arrrowHidden && <div className=" w-[42px]" />}

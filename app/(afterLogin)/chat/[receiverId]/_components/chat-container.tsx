@@ -4,7 +4,7 @@ import {
   DateMessage,
   UserMessage,
 } from "@/app/(afterLogin)/chat/[receiverId]/_components/chat-message";
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 interface ChatContainerProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export default function ChatContainer({
@@ -36,10 +36,10 @@ export default function ChatContainer({
           new Date(message.createdAt).toLocaleDateString() !==
           new Date(messages[i - 1]?.createdAt).toLocaleDateString();
         return (
-          <>
+          <Fragment key={message.msgIdx}>
             {isNewDay && <DateMessage date={message.createdAt} />}
             <UserMessage message={message} userId={userInfo.data.memberId} />
-          </>
+          </Fragment>
         );
       })}
     </div>

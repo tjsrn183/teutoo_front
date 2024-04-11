@@ -82,7 +82,7 @@ export const ProgramManageComponent = () => {
       ))}
       <div className=" flex justify-center sticky bottom-2 right-3 left-3 ">
         <button
-          className="m-2 h-[48px] bg-[#1C743C] rounded-[6px] w-full sticky text-white"
+          className="m-2 h-[48px] bg-[#1C743C] rounded-[6px] w-full sticky text-white active:bg-[#227504]"
           type="submit"
           onClick={onSubmitTrigger}
         >
