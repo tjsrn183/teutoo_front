@@ -18,9 +18,13 @@ export const useLogin = () => {
       setCookie("token", response.token);
 
       router.replace("/");
+
+      /*
       setTimeout(() => {
         location.reload();
-      }, 1000);
+      }, 1000);*/
+
+      router.refresh();
     },
     onError(error) {
       console.log("error", error);
