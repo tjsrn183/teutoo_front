@@ -7,6 +7,7 @@ import { sendRequest } from "@/app/api/rootApi";
 import { redirect } from "next/navigation";
 
 export const fetchUserData = async () => {
+  "use server";
   return await sendRequest("members/me", "get");
 };
 
