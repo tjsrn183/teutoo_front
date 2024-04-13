@@ -15,7 +15,7 @@ export const useKakaoJoin = () => {
     },
     onSuccess(response) {
       queryClient.invalidateQueries({ queryKey: ["userData"] });
-      console.log("response다아아", response);
+
       router.replace("/");
       setTimeout(() => {
         alert("회원가입이 완료되었습니다.");

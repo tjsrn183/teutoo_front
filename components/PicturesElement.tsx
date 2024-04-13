@@ -32,7 +32,6 @@ export const PicturesElement = ({
           (resolve, reject) => {
             const reader = new FileReader();
             reader.onloadend = () => {
-              console.log("file이야우아", file);
               resolve({
                 dataUrl: reader.result as string,
                 file,

@@ -12,7 +12,7 @@ export const useDeleteProgram = () => {
     },
     onSuccess(response) {
       queryClient.invalidateQueries({ queryKey: ["trainerProgram"] });
-      console.log("response다아아", response);
+
       window.location.reload();
     },
     onError(error) {

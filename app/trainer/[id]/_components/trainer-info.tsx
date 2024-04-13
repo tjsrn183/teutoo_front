@@ -75,27 +75,31 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
       : null;
   return (
     <div className="flex flex-col" id="root">
-      <Avatar className="w-20 h-20" square>
-        <Avatar.Image
-          alt="avatar"
-          src={data.imgResDto?.imgUrl || "/blank-profile.webp"}
-        />
-      </Avatar>
-      <p className="font-medium">{data.trainerName}</p>
-      <div className="inline-flex items-center text-neutral-500">
-        <MapPin className="w-4 h-4" />
-        <p className="text-sm text-neutral-500">{data.gymName}</p>
+      <div className="p-4">
+        <Avatar className="w-20 h-20" square>
+          <Avatar.Image
+            alt="avatar"
+            src={data.imgResDto?.imgUrl || "/blank-profile.webp"}
+          />
+        </Avatar>
+        <h1 className="font-medium mt-1">{data.trainerName}</h1>
+        <div className="inline-flex items-center text-neutral-500 mt-2">
+          <MapPin className="w-4 h-4" />
+          <p className="text-sm text-neutral-500">
+            {data.gymName} · {data.trainerAddress}
+          </p>
+        </div>
+        <div className="flex items-start gap-1">
+          <Star className="w-3.5 h-3.5" />
+          <span className="text-sm font-medium leading-4">
+            {data.reviewScore} ({data.reviewCnt})
+          </span>
+        </div>
+        <p className="text-red-500 font-semibold mt-1">
+          {minPrice ? minPrice + "원~" : "프로그램 없음"}
+        </p>
+        <p className="bg-neutral-100 p-4 rounded-lg mt-4">{data.simpleIntro}</p>
       </div>
-      <div className="inline-flex items-start gap-1">
-        <Star className="w-3.5 h-3.5" />
-        <span className="text-sm font-medium leading-4">
-          {data.reviewScore} ({data.reviewCnt})
-        </span>
-      </div>
-      <p className="text-red-500 font-semibold ">
-        {minPrice ? minPrice + "원~" : "없음"}
-      </p>
-      <p className="bg-neutral-100 p-4 rounded-lg">{data.simpleIntro}</p>
       <TabNavigation className="w-full">
         <TabNavigation.List className=" sticky top-14">
           {TAB_ITEMS.map((item) => (
@@ -170,6 +174,14 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
               </Link>
             ))}
           </ul>
+        </TabNavigation.Content>
+        <TabNavigation.Content
+          value={TAB_ITEMS[3].value}
+          className="m-4 py-8 border-b border-neutral-200"
+        >
+          <h2 className="text-xl font-semibold my-3" id={TAB_ITEMS[2].value}>
+            {TAB_ITEMS[3].label}
+          </h2>
         </TabNavigation.Content>
       </TabNavigation>
     </div>

@@ -1,3 +1,4 @@
+"use client";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { sendRequest } from "@/app/api/rootApi";
@@ -14,7 +15,6 @@ export const useLogin = () => {
       return response;
     },
     onSuccess(response: { token: string }) {
-      console.log("웅답", response);
       setCookie("token", response.token);
 
       router.replace("/");
@@ -27,6 +27,9 @@ export const useLogin = () => {
       router.refresh();
     },
     onError(error) {
+      if (error.message) {
+        alert("아이디 또는 비밀번호가 틀렸습니다.");
+      }
       console.log("error", error);
     },
   });
