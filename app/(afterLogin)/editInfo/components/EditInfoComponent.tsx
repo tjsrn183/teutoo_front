@@ -6,7 +6,9 @@ import { FormEventHandler, useState } from "react";
 import ButtonBundle from "./ButtonBuntle";
 import EditTextField from "./EditTextField";
 import ProfileImg from "../../kakaoJoin/components/ProfileImg";
-
+import { useQuery } from "@tanstack/react-query";
+import { getUserData } from "@/app/(afterLogin)/myPage/api/getUserData";
+import { UserDataType } from "@/app/(afterLogin)/myPage/@trainerMyPage/components/MyInfoChunk";
 export interface EditFormData {
   address: string;
   profileImage: File | null | undefined;
@@ -14,6 +16,10 @@ export interface EditFormData {
 
 export default function EditInfoPage() {
   const mutation = useEditInfo();
+  const { data }: { data: UserDataType | undefined } = useQuery({
+    queryKey: ["userData"],
+    queryFn: getUserData,
+  });
 
   const [imgTarget, setImageTarget] = useState<File | null>();
   const [selectedImage, setSelectedImage] = useState<string>();
@@ -48,6 +54,7 @@ export default function EditInfoPage() {
           selectedImage={selectedImage}
           setImageTarget={setImageTarget}
           setSelectedImage={setSelectedImage}
+          imageFromServer={data?.data.profileImagePath}
         />
         <EditTextField
           title="새로운 비밀번호"

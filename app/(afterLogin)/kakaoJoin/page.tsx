@@ -41,6 +41,7 @@ export default function KakaoJoinPage() {
           setImageTarget={setImageTarget}
           setSelectedImage={setSelectedImage}
         />
+
         <EditTextField
           title="주소"
           placeholder="주소를 입력하세요"

@@ -7,11 +7,13 @@ interface ImageProps {
   selectedImage: string | undefined; //미리보기 이미지가 저장된 useState
   setSelectedImage: React.Dispatch<React.SetStateAction<string | undefined>>; //이미지 미리보기를 위해 이미지를 저장하는 useState함수
   setImageTarget: React.Dispatch<React.SetStateAction<File | null | undefined>>;
+  imageFromServer?: string;
 }
 export default function ProfileImg({
   selectedImage,
   setSelectedImage,
   setImageTarget,
+  imageFromServer,
 }: ImageProps) {
   const imageRef = useRef<HTMLInputElement>(null);
   const onClickPictureButton = () => {
@@ -27,17 +29,29 @@ export default function ProfileImg({
       setImageTarget(e.target.files[0]);
     }
   };
+
   return (
     <div className="flex flex-row justify-center">
       {selectedImage ? (
         <img
           src={selectedImage}
-          alt="profile_image"
-          className="rounded-full w-24 h-24"
+          alt="profile_image_real"
+          className="rounded-full w-[81px] h-[73px]"
         />
+      ) : imageFromServer ? (
+        <div className=" w-[81px] h-[73px]">
+          <Image
+            src={imageFromServer}
+            alt="userThumb"
+            width={81}
+            height={73}
+            className="rounded-full"
+          />
+        </div>
       ) : (
         <Image src={userThumb} alt="userThumb" />
       )}
+
       <div className="flex items-end">
         <input
           type="file"
