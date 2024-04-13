@@ -18,7 +18,7 @@ export const useEditInfo = () => {
         queryKey: ["userData"],
         refetchType: "all",
       });
-      console.log("response다아아", response);
+
       router.replace("/");
       setTimeout(() => {
         alert("회원정보가 변경되었습니다.");

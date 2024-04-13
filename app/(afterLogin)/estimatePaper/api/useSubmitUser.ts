@@ -17,7 +17,7 @@ export const useSubmitUser = () => {
         queryKey: ["myEstimateU"],
         refetchType: "all",
       });
-      console.log("response다아아", response);
+
       router.replace("/");
       location.reload();
     },

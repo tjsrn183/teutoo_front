@@ -24,7 +24,7 @@ export const useEditProgram = () => {
         queryKey: ["trainerProgram"],
         refetchType: "all",
       });
-      console.log("response다아아", response);
+
       router.replace("/");
     },
     onError(error) {

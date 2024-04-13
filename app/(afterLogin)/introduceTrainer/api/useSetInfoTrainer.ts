@@ -18,7 +18,7 @@ export const useSetInfoTrainer = () => {
         queryKey: ["trainerIntro"],
         refetchType: "all",
       });
-      console.log("response다아아", response);
+
       router.replace("/");
       setTimeout(() => {
         location.reload();

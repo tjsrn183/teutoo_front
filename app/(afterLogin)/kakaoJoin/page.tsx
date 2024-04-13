@@ -18,7 +18,7 @@ export default function KakaoJoinPage() {
       const formdata = new FormData();
       formdata.append("address", location);
       formdata.append("role", trainer.toString());
-      formdata.append("password", "");
+
       if (imgTarget) {
         formdata.append("profileImage", imgTarget);
       }
@@ -41,6 +41,7 @@ export default function KakaoJoinPage() {
           setImageTarget={setImageTarget}
           setSelectedImage={setSelectedImage}
         />
+
         <EditTextField
           title="주소"
           placeholder="주소를 입력하세요"

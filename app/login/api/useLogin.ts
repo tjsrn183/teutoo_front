@@ -15,7 +15,6 @@ export const useLogin = () => {
       return response;
     },
     onSuccess(response: { token: string }) {
-      console.log("웅답", response);
       setCookie("token", response.token);
 
       router.replace("/");
