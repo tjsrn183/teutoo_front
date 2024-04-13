@@ -18,7 +18,6 @@ export const useImmePassword = () => {
       return response;
     },
     onSuccess(response) {
-      console.log("response다아아", response);
       router.replace("/");
       setTimeout(() => {
         alert("이메일로 임시 비밀번호를 보내드렸습니다.");

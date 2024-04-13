@@ -12,8 +12,6 @@ export const useSubmitTrainer = () => {
       return response;
     },
     onSuccess(response) {
-      console.log("response다아아", response);
-
       router.push("/");
       setTimeout(() => {
         location.reload();

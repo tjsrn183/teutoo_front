@@ -28,7 +28,7 @@ export const useEditTrainer = () => {
         queryKey: ["myEstimateT"],
         refetchType: "all",
       });
-      console.log("response다아아", response);
+
       router.replace("/");
     },
     onError(error) {
