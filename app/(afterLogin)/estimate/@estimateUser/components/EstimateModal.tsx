@@ -46,13 +46,13 @@ export const EstimateModal = forwardRef<ModalDialogHandle, EstimateModalProps>(
 
     return (
       <dialog
-        className="text-black w-full h-[50%] rounded-[12px] "
+        className="text-black w-full h-[60%] rounded-[12px] "
         ref={dialogRef}
       >
         <div className=" flex flex-col ">
           <button
             onClick={handleCloseClick}
-            className="flex mt-3 mr-3 justify-end"
+            className="flex mt-3 mr-3 justify-end active:border-none"
           >
             <Image src={close} alt="close" />
           </button>
@@ -62,7 +62,7 @@ export const EstimateModal = forwardRef<ModalDialogHandle, EstimateModalProps>(
             {isLoading ? (
               <Looading height={386} />
             ) : (
-              <>
+              <div className=" ">
                 <ModalElement title="이름" value={data?.data.name} />
                 <ModalElement
                   title="가격"
@@ -73,12 +73,12 @@ export const EstimateModal = forwardRef<ModalDialogHandle, EstimateModalProps>(
                   value={data?.data.ptProgram?.ptProgramName}
                 />
                 <ModalElement title="위치" value={data?.data.ptAddress} />
-                <div className=" sticky bottom-4 flex justify-center">
-                  <LightButton width="w-[200px]">
-                    <Link href={`/chat/${props.memberId}`}>낙찰하기</Link>
+                <div className="flex justify-center">
+                  <LightButton width="w-[90%]">
+                    <Link href={`/chat/${props.memberId}`}>채팅하기</Link>
                   </LightButton>
                 </div>
-              </>
+              </div>
             )}
           </div>
         </div>
