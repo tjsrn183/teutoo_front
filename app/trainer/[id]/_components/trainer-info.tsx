@@ -29,37 +29,6 @@ const TAB_ITEMS = [
   },
 ];
 
-const CERTIFICATION_IMAGES = [
-  "https://placehold.co/200",
-  "https://placehold.co/200",
-  "https://placehold.co/200",
-  "https://placehold.co/200",
-];
-
-const PROGRAMS = [
-  {
-    title: "다이어트",
-    description:
-      "다이어트 프로그램 설명입니다. 다이어트 프로그램 설명입니다. 다이어트 프로그램 설명입니다. ",
-    startPrice: 20000,
-    image: "https://placehold.co/80",
-  },
-  {
-    title: "근력강화",
-    description:
-      "근력강화 프로그램 설명입니다. 근력강화 프로그램 설명입니다. 근력강화 프로그램 설명입니다.",
-    startPrice: 20000,
-    image: "https://placehold.co/80",
-  },
-  {
-    title: "체형교정",
-    description:
-      "체형교정 프로그램 설명입니다. 체형교정 프로그램 설명입니다. 체형교정 프로그램 설명입니다.",
-    startPrice: 20000,
-    image: "https://placehold.co/80",
-  },
-];
-
 interface TrainerInfoProps {
   id: number;
 }
@@ -167,7 +136,7 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
                   height={80}
                   src={
                     program?.ptProgramImgList[0]?.imgUrl ||
-                    "https://placehold.co/80"
+                    "/blank-profile.webp"
                   }
                   alt={program.title}
                   className="rounded-md"
