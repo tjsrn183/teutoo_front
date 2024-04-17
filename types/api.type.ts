@@ -184,6 +184,7 @@ export interface ChatRoomRes {
   receiverIdx: number;
   messages: SendMessage[];
   receiverImg: ImgResDto | null;
+  receiverName: string;
 }
 
 export interface RequestReservationRes {

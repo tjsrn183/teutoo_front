@@ -8,6 +8,7 @@ import ImagePreview from "../../../../components/ImagePreview";
 import Link from "next/link";
 import { useTrainerInfoQuery } from "@/api/getTrainerInfo";
 import Image from "next/image";
+import { formatWon } from "@/lib/utils";
 
 const TAB_ITEMS = [
   {
@@ -76,22 +77,22 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
   return (
     <div className="flex flex-col" id="root">
       <div className="p-4">
-        <Avatar className="w-20 h-20" square>
+        <Avatar className="w-24 h-24" square>
           <Avatar.Image
             alt="avatar"
             src={data.imgResDto?.imgUrl || "/blank-profile.webp"}
           />
         </Avatar>
-        <h1 className="font-medium mt-1">{data.trainerName}</h1>
-        <div className="inline-flex items-center text-neutral-500 mt-2">
-          <MapPin className="w-4 h-4" />
-          <p className="text-sm text-neutral-500">
+        <h1 className="font-medium mt-1 text-xl">{data.trainerName}</h1>
+        <div className="inline-flex items-center text-neutral-500 ">
+          <MapPin className="w-5 h-5" />
+          <p className="text-neutral-500 text-lg">
             {data.gymName} · {data.trainerAddress}
           </p>
         </div>
         <div className="flex items-start gap-1">
-          <Star className="w-3.5 h-3.5" />
-          <span className="text-sm font-medium leading-4">
+          <Star className="w-4 h-4" />
+          <span className="text-sm font-medium">
             {data.reviewScore} ({data.reviewCnt})
           </span>
         </div>
@@ -110,7 +111,7 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
         </TabNavigation.List>
         <TabNavigation.Content
           value="info"
-          className="m-4 py-8 border-b border-neutral-200"
+          className="m-4 py-8 border-b border-neutral-200 min-h-64"
         >
           <h2 className="text-xl font-semibold my-3" id="info">
             트레이너 소개
@@ -119,7 +120,7 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
         </TabNavigation.Content>
         <TabNavigation.Content
           value={TAB_ITEMS[1].value}
-          className="m-4 py-8 border-b border-neutral-200"
+          className="m-4 py-8 border-b border-neutral-200 min-h-64"
         >
           <h2 className="text-xl font-semibold my-3" id={TAB_ITEMS[1].value}>
             {TAB_ITEMS[1].label}
@@ -140,7 +141,7 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
         </TabNavigation.Content>
         <TabNavigation.Content
           value={TAB_ITEMS[2].value}
-          className="m-4 py-8 border-b border-neutral-200"
+          className="m-4 py-8 border-b border-neutral-200 min-h-64"
         >
           <h2 className="text-xl font-semibold my-3" id={TAB_ITEMS[2].value}>
             {TAB_ITEMS[2].label}
@@ -158,7 +159,7 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
                     {program.content}
                   </p>
                   <p className="text-red-500 font-semibold">
-                    {program.price}원
+                    {formatWon(program.price)}
                   </p>
                 </div>
                 <Image
@@ -177,7 +178,7 @@ export default function TrainerInfo({ id }: TrainerInfoProps): JSX.Element {
         </TabNavigation.Content>
         <TabNavigation.Content
           value={TAB_ITEMS[3].value}
-          className="m-4 py-8 border-b border-neutral-200"
+          className="m-4 py-8 border-b border-neutral-200 min-h-64"
         >
           <h2 className="text-xl font-semibold my-3" id={TAB_ITEMS[2].value}>
             {TAB_ITEMS[3].label}

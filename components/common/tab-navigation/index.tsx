@@ -149,8 +149,7 @@ const TabNavigationTrigger = forwardRef<
   return (
     <button
       className={cn(
-        "relative whitespace-nowrap px-5 text-lg font-semibold ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-neutral-900 group",
-        isActive && "text-neutral-900",
+        "relative whitespace-nowrap px-5 text-lg font-semibold ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-neutral-900 data-[state=active]:text-neutral-900 group",
         className,
       )}
       onClick={handleClick}

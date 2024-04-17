@@ -3,6 +3,7 @@ import { useProgramInfoQuery } from "@/api/getProgramInfo";
 import ImagePreviewCarousel from "@/components/ImagePreviewCarousel";
 import Button from "@/components/common/button";
 import FixedBottom from "@/components/layout/fixed-bottom";
+import { formatWon } from "@/lib/utils";
 import React from "react";
 
 interface ProgramInfoProps {
@@ -14,7 +15,7 @@ export default function ProgramInfo({
 }: ProgramInfoProps): JSX.Element {
   const { data } = useProgramInfoQuery({ programId });
 
-  const price = data.price.toLocaleString() + "원";
+  const price = formatWon(data.price);
 
   return (
     <div>

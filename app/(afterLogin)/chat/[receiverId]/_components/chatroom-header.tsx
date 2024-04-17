@@ -17,13 +17,13 @@ export default function ChatRoomHeader(): JSX.Element {
         <Avatar className="w-10 h-10">
           <Avatar.Image
             alt="avatar"
-            src={receiver?.imgUrl || "/blank-profile.webp"}
+            src={receiver?.img?.imgUrl || "/blank-profile.webp"}
           />
         </Avatar>
       </div>
       <div className="flex-auto">
-        <p className="font-medium">이름입니다</p>
-        <p className="text-neutral-500 text-sm">온라인</p>
+        <p className="font-medium">{receiver?.name}</p>
+        {/* <p className="text-neutral-500 text-sm">온라인</p> */}
       </div>
       <Button size="icon" variant="ghost">
         <MoreVertical />
