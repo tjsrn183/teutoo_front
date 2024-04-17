@@ -15,7 +15,6 @@ export default function ChatImageButton({}: ChatImageButtonProps): JSX.Element {
     input.addEventListener("change", () => {
       const file = input.files?.[0];
       if (file) {
-        console.log(file);
         sendImageMessage([file]);
       }
     });

@@ -12,10 +12,28 @@ import {
 import getTrainerInfo from "@/api/getTrainerInfo";
 import RequestChatButton from "@/components/RequestChatButton";
 import BackButton from "@/components/BackButton";
+import { Metadata } from "next";
+import { SITE_NAME } from "@/lib/constants/site";
 
 interface TrainerDetailPageProps {
   params: {
     id: string;
+  };
+}
+
+export async function generateMetadata({
+  params,
+}: TrainerDetailPageProps): Promise<Metadata> {
+  const id = parseInt(params.id);
+
+  const trainerInfo = await getTrainerInfo({ trainerId: id });
+  const images = trainerInfo.imgResDto?.imgUrl;
+  return {
+    title: `${trainerInfo.trainerName} 트레이너 - ${SITE_NAME}`,
+    description: `${trainerInfo.trainerName} 트레이너 상세 페이지입니다.`,
+    openGraph: {
+      images: images ? [{ url: images }] : undefined,
+    },
   };
 }
 
@@ -35,9 +53,6 @@ export default async function TrainerDetailPage({
         <AppBar sticky>
           <BackButton />
           <AppBar.Title>트레이너 상세</AppBar.Title>
-          <Button size="icon" variant="ghost">
-            <MoreVertical />
-          </Button>
         </AppBar>
         <Suspense fallback={<div>로딩중...</div>}>
           <TrainerInfo id={id} />
