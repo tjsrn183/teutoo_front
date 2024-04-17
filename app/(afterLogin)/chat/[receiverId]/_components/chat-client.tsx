@@ -2,7 +2,7 @@
 import ChatContainer from "@/app/(afterLogin)/chat/[receiverId]/_components/chat-container";
 import ChatForm from "@/app/(afterLogin)/chat/[receiverId]/_components/chat-form";
 import ChatRoomHeader from "@/app/(afterLogin)/chat/[receiverId]/_components/chatroom-header";
-import useChatRoom from "@/lib/hooks/useChatRoom";
+import useChatRoom from "@/lib/chat/useChatRoom";
 import { createContext, useContext } from "react";
 
 interface ChatClientProps {

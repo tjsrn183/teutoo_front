@@ -1,6 +1,11 @@
 import { ImgResDto, SendMessage } from "@/types/api.type";
 import { create } from "zustand";
 
+interface Receiver {
+  img: ImgResDto | null;
+  name: string;
+}
+
 interface ChatStore {
   roomId: string | null;
   users: {
@@ -12,7 +17,7 @@ interface ChatStore {
     sender: number;
     receiver: number;
   };
-  receiver: ImgResDto | null;
+  receiver: Receiver | null;
   addMessage: (message: SendMessage) => void;
   updateMessageIndex: ({
     sender,
@@ -25,7 +30,7 @@ interface ChatStore {
   setUsers: (users: { sender: number; receiver: number }) => void;
   clearChat: () => void;
   changeMessageByMsgIndex: (msgIndex: number, message: SendMessage) => void;
-  setReceiver: (receiver: ImgResDto) => void;
+  setReceiver: (receiver: Receiver) => void;
 }
 
 const INIT_VALUES = {
