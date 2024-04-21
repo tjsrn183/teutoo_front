@@ -13,12 +13,13 @@ export const useSubmitUser = () => {
       return response;
     },
     onSuccess(response) {
-      queryClient.invalidateQueries({ queryKey: ["myEstimateU"] });
-      console.log("response다아아", response);
+      queryClient.invalidateQueries({
+        queryKey: ["myEstimateU"],
+        refetchType: "all",
+      });
+
       router.replace("/");
-      setTimeout(() => {
-        alert("견적서 작성이 완료되었습니다.");
-      }, 1000);
+      location.reload();
     },
     onError(error) {
       console.log("error", error);

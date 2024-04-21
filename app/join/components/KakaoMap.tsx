@@ -26,6 +26,7 @@ export default function Map() {
 
       const map = new window.kakao.maps.Map(mapRef.current, options);
       setMap(map);
+      map.relayout();
     });
   }, []);
 
@@ -54,9 +55,9 @@ export default function Map() {
   };
   return (
     <div className="w-full h-full flex flex-col">
-      <div ref={mapRef} className="w-full flex-1 rounded-[6px]"></div>
-      <div className="w-full flex-1 flex flex-col h-full justify-evenly">
-        <div className="z-10">
+      <div ref={mapRef} className="w-full flex-1 rounded-[6px] pb-10"></div>
+      <div className="w-full flex-1 flex flex-col h-full  justify-end">
+        <div className="z-10 mb-2">
           <LocationInputField
             setAddress={setAddress}
             searchAddress={searchAddress}

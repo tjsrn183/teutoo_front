@@ -14,11 +14,14 @@ export const useSetInfoTrainer = () => {
       return response;
     },
     onSuccess(response) {
-      queryClient.invalidateQueries({ queryKey: ["trainerIntro"] });
-      console.log("response다아아", response);
+      queryClient.invalidateQueries({
+        queryKey: ["trainerIntro"],
+        refetchType: "all",
+      });
+
       router.replace("/");
       setTimeout(() => {
-        alert("트레이너 정보수정이 완료되었습니다.");
+        location.reload();
       }, 1000);
     },
     onError(error) {

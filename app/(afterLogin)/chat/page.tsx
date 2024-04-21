@@ -10,6 +10,13 @@ import {
 import getChatList from "@/api/getChatList";
 import FixedBottom from "@/components/layout/fixed-bottom";
 import BottomNavigationBar from "@/components/BottomNavigationBar";
+import { Metadata } from "next";
+import { SITE_NAME } from "@/lib/constants/site";
+
+export const metadata: Metadata = {
+  title: `채팅 - ${SITE_NAME}`,
+  description: `${SITE_NAME} 채팅 페이지입니다.`,
+};
 
 export default async function ChatPage(): Promise<JSX.Element> {
   const queryClient = new QueryClient();

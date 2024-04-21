@@ -14,7 +14,7 @@ export default function MyPageButton({
   return (
     <Link
       href={move}
-      className=" flex-1 m-1 text-[14px] flex flex-col items-center font-semibold bg-gray-200 py-2 rounded-lg "
+      className=" flex-1 m-1 text-[14px] flex flex-col items-center font-semibold bg-gray-200 py-2 rounded-lg  active:bg-gray-100"
     >
       <Image src={src} alt={alt} />
       {content}

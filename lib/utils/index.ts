@@ -63,3 +63,7 @@ export function formatSchedule(startDateTime: string, endDateTime: string) {
 
   return `${year}.${month}.${day} ${startHours}:${startMinutes} ~${endHours}:${endMinutes}`;
 }
+
+export function formatWon(price: number) {
+  return price.toLocaleString() + "원";
+}

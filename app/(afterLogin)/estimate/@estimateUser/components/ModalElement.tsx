@@ -4,7 +4,7 @@ interface ModalElementProps {
 }
 export default function ModalElement({ title, value }: ModalElementProps) {
   return (
-    <div className=" flex flex-col my-5">
+    <div className=" flex flex-col my-3">
       <span className=" text-gray-400">{title}</span>
       <span className=" text-xl">{value}</span>
     </div>

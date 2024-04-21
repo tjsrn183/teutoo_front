@@ -183,6 +183,8 @@ export interface ChatRoomRes {
   senderIdx: number;
   receiverIdx: number;
   messages: SendMessage[];
+  receiverImg: ImgResDto | null;
+  receiverName: string;
 }
 
 export interface RequestReservationRes {

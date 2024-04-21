@@ -45,13 +45,6 @@ export default function ChatReservationView({
   };
 
   const isComplete = Boolean(selectedDate) && Boolean(selectedTime);
-  console.log(isComplete);
-  console.log(
-    "SelectedProgram",
-    ptProgramResDtoList.find(
-      (program) => program.ptProgramId.toString() === selectedProgram,
-    ),
-  );
 
   const startTime =
     ptProgramResDtoList.find(
@@ -63,8 +56,6 @@ export default function ChatReservationView({
       (program) => program.ptProgramId.toString() === selectedProgram,
     )?.availableEndTime ?? undefined;
 
-  console.log("Time", startTime, endTime);
-  console.log(selectedProgram, selectedDate, selectedTime);
   return (
     <>
       <div className="overflow-y-auto flex-auto p-4">

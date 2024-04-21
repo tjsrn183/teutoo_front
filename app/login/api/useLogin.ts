@@ -1,7 +1,9 @@
+"use client";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { sendRequest } from "@/app/api/rootApi";
 import { setCookie } from "cookies-next";
+
 export const useLogin = () => {
   const router = useRouter();
 
@@ -14,12 +16,20 @@ export const useLogin = () => {
     },
     onSuccess(response: { token: string }) {
       setCookie("token", response.token);
+
       router.replace("/");
+
+      /*
       setTimeout(() => {
-        alert("로그인이 완료되었습니다.");
-      }, 1000);
+        location.reload();
+      }, 1000);*/
+
+      router.refresh();
     },
     onError(error) {
+      if (error.message) {
+        alert("아이디 또는 비밀번호가 틀렸습니다.");
+      }
       console.log("error", error);
     },
   });

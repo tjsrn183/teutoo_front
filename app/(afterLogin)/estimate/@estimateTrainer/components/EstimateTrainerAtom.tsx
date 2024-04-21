@@ -30,7 +30,7 @@ export default function EstimateTrainerAtom({
 
         <span className=" mx-2 w-[20%] truncate">{formatKRW(data.price)}</span>
         <LightButton width="w-[25%]" className=" rounded-xl mr-3">
-          <Link href={`/chat/${data.memberId}`}>입찰</Link>
+          <Link href={`/chat/${data.memberId}`}>채팅</Link>
         </LightButton>
       </div>
     </div>

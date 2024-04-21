@@ -53,7 +53,7 @@ export default function MyInfoChunk() {
 
           <button
             onClick={onClickLogout}
-            className=" bg-[#22C55E] rounded-[12px] w-[40px] h-[40px] flex justify-center items-center"
+            className=" bg-[#22C55E] rounded-[12px] w-[40px] h-[40px] flex justify-center items-center active:bg-[#90dfad]"
           >
             <Image src={logout} alt="logout" />
           </button>

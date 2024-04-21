@@ -12,6 +12,7 @@ import postReservation, { PostReservationRequest } from "@/api/postReservation";
 import postChatImage from "@/api/postChatImage";
 import useChatStore from "@/store/useChatStore";
 import postReservationAccept from "@/api/postReservationAccept";
+import { GSP_NO_RETURNED_VALUE } from "next/dist/lib/constants";
 
 interface useChatRoomProps {
   receiverId: number;
@@ -28,6 +29,8 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
     clearChat,
     changeMessageByMsgIndex,
     messageIndex,
+    receiver,
+    setReceiver,
   } = useChatStore();
   const clientRef = useRef<Client | null>(null);
   const {
@@ -36,9 +39,9 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
 
   const sendTextMessage = useCallback(
     (content: string) => {
-      if (!clientRef.current) return console.error("client is null");
-      if (!roomId) return console.error("roomId is null");
-      console.log("sendTextMessage", content, roomId);
+      if (!clientRef.current) return;
+      if (!roomId) return;
+
       clientRef.current.publish({
         destination: `/app/chat/${roomId}/text`,
         body: JSON.stringify({ content }),
@@ -49,9 +52,8 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
 
   const sendImageMessage = useCallback(
     async (imgList: File[]) => {
-      if (!roomId) return console.error("roomId is null");
+      if (!roomId) return;
       try {
-        console.log("sendImageMessage", imgList, roomId);
         await postChatImage({
           roomId: roomId,
           chatImgMsgList: imgList,
@@ -65,7 +67,7 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
 
   const sendReadMessage = useCallback((roomId: string, readIdx: number) => {
     if (!clientRef.current) return console.error("client is null");
-    console.log("sendReadMessage", readIdx, roomId);
+
     clientRef.current.publish({
       destination: `/app/chat/${roomId}/read`,
       body: JSON.stringify({ readIdx }),
@@ -74,8 +76,8 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
 
   const sendRequestReservationMessage = useCallback(
     async (request: PostReservationRequest) => {
-      if (!clientRef.current) return console.error("client is null");
-      if (!roomId) return console.error("roomId is null");
+      if (!clientRef.current) return;
+      if (!roomId) return;
       try {
         const res = await postReservation(request);
         clientRef.current.publish({
@@ -91,8 +93,8 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
 
   const sendAcceptReservationMessage = useCallback(
     async (message: SendReservationMessage) => {
-      if (!clientRef.current) return console.error("client is null");
-      if (!roomId) return console.error("roomId is null");
+      if (!clientRef.current) return;
+      if (!roomId) return;
       const reservationContent = JSON.parse(
         message.content,
       ) as SendReservationMessageContent;
@@ -122,8 +124,8 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
 
   const sendMemberRequestReservationMessage = useCallback(
     async (dto: { price: number; ptProgramId: number; address: string }) => {
-      if (!clientRef.current) return console.error("client is null");
-      if (!roomId) return console.error("roomId is null");
+      if (!clientRef.current) return;
+      if (!roomId) GSP_NO_RETURNED_VALUE;
 
       try {
         clientRef.current.publish({
@@ -140,8 +142,8 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
 
   const sendTrainerRequestReservationMessage = useCallback(
     async (dto: { price: number; address: string }) => {
-      if (!clientRef.current) return console.error("client is null");
-      if (!roomId) return console.error("roomId is null");
+      if (!clientRef.current) return;
+      if (!roomId) return;
 
       try {
         clientRef.current.publish({
@@ -159,11 +161,9 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
   useEffect(() => {
     function receiveMessage(roomId: string, msg: Message) {
       if (msg.msgAction === "SEND") {
-        console.log("pushMessage", msg);
         addMessage(msg);
         sendReadMessage(roomId, msg.msgIdx);
       } else {
-        console.log("setReadIdx", msg);
         updateMessageIndex({
           sender:
             userInfo.memberId === msg.senderId
@@ -180,9 +180,9 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
     function connect() {
       try {
         clearChat();
-        console.log("connecting");
+
         const client = new Client({
-          brokerURL: "ws://43.201.184.37/chat-connection",
+          brokerURL: "wss://api.teutoo.site/chat-connection",
           connectHeaders: {
             Authorization: `Bearer ${getCookie("token")}`,
           },
@@ -190,13 +190,16 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
             console.log(str);
           },
           onConnect: async () => {
-            console.log("connected");
             const roomInfo = await getChatRoom({
               receiverId,
               activationType: "INFO",
             });
-            console.log(roomInfo);
+
             if (!roomInfo) return;
+            setReceiver({
+              name: roomInfo.receiverName,
+              img: roomInfo.receiverImg,
+            });
             setRoomId(roomInfo.roomId);
             setUsers({
               sender: userInfo.memberId,
@@ -220,7 +223,7 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
               `/topic/message/${roomInfo.roomId}`,
               (message) => {
                 const msg = JSON.parse(message.body);
-                console.log("Received Message", msg);
+
                 if (Array.isArray(msg)) {
                   msg.forEach((m) => {
                     receiveMessage(roomInfo.roomId, m);
@@ -237,7 +240,7 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
           heartbeatOutgoing: 4000,
         });
         client.activate();
-        console.log(client);
+
         clientRef.current = client;
       } catch (error) {
         console.log(error);
@@ -263,6 +266,7 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
     updateMessageIndex,
     userInfo.memberId,
     clearChat,
+    setReceiver,
   ]);
 
   return {
@@ -276,5 +280,6 @@ export default function useChatRoom({ receiverId }: useChatRoomProps) {
     messageIndex,
     sendMemberRequestReservationMessage,
     sendTrainerRequestReservationMessage,
+    receiver,
   };
 }

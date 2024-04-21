@@ -1,10 +1,11 @@
 import { sendRequest } from "@/app/api/rootApi";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
+import Looading from "@/components/Loading";
 
 export const fetchInfiniteEstimateT = async ({
   pageParam,
@@ -32,7 +33,7 @@ export default async function EstimateUserLayout({
   return (
     <HydrationBoundary state={dehydratedState}>
       <div className=" min-h-screen bg-gray-200">
-        <div>{children}</div>
+        <Suspense fallback={<Looading />}>{children}</Suspense>
       </div>
     </HydrationBoundary>
   );
